@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://canteroroque-lgtm.github.io/WEB-MAESTR-A/sitemap.xml
