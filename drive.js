@@ -210,19 +210,6 @@ const MCF_DRIVE = {
     ]
   },
 
-  // ─── 7. PERFILACIÓN FORENSE Y SERIALIDAD CRIMINAL ───────────────────────
-  "Perfilación Forense y Serialidad Criminal": {
-    folder: F("1DaxcufBnkR0ZdpcPHHOeSm72cdlvzWQg"),
-    files: [
-      { t: "📋 Sesiones · Perfilación Forense y Serialidad Criminal (PDF)", u: FL("19eq4KsD_QMK7_cyfuwzrUKsXZTUhol4V"), k: "pdf" },
-      { t: "📁 Clase 1 — Carpeta completa", u: F("1fKJzBgT3O97XU6P4J-AJQLZshid8yxQo"), k: "folder" },
-      { t: "📁 Clase 2 — Carpeta completa", u: F("11542MlxyZqGQt2kRAeoDhcRdL-TVTZqu"), k: "folder" },
-      { t: "📁 Clase 3 — Carpeta completa", u: F("1dlXcK1cB2-xhjSwF3rjx2qOpkgwGqWTH"), k: "folder" },
-      { t: "📁 Clase 4 — Carpeta completa", u: F("1QA2QwU3sggkTNsqWzqGJkHDiHXNSLM5A"), k: "folder" },
-      { t: "📚 Bibliografía — Carpeta completa", u: F("1aQIobgm8SR4q-N-5CGVx5AWw10BlAZ4W"), k: "folder" }
-    ]
-  },
-
   // ─── 8. DOCUMENTOLOGÍA ──────────────────────────────────────────────────
   "Documentología (Caligráficos e Informáticos)": {
     folder: F("1YK4bfaGi7f7E6dJVP29DQrFApR8A3a6G"),
@@ -311,6 +298,11 @@ const MCF_DRIVE = {
     files: [
       { t: "📋 Programa MF1609", u: FL("1PX7Rc9pVKumfSh91DLecuXju0Xo_M8RY"), k: "pdf" },
       { t: "📋 Sesiones · Cronograma", u: FL("19eq4KsD_QMK7_cyfuwzrUKsXZTUhol4V"), k: "pdf" },
+      { t: "📁 Clase 1 — Carpeta completa", u: F("1fKJzBgT3O97XU6P4J-AJQLZshid8yxQo"), k: "folder" },
+      { t: "📁 Clase 2 — Carpeta completa", u: F("11542MlxyZqGQt2kRAeoDhcRdL-TVTZqu"), k: "folder" },
+      { t: "📁 Clase 3 — Carpeta completa", u: F("1dlXcK1cB2-xhjSwF3rjx2qOpkgwGqWTH"), k: "folder" },
+      { t: "📁 Clase 4 — Carpeta completa", u: F("1QA2QwU3sggkTNsqWzqGJkHDiHXNSLM5A"), k: "folder" },
+      { t: "📚 Bibliografía (adicional) — Carpeta completa", u: F("1aQIobgm8SR4q-N-5CGVx5AWw10BlAZ4W"), k: "folder" },
       { t: "📄 Clase 1 · Resumen", u: FL("1maWK-8WP4FbLBxPaLFthG5MJzQ8NnVur"), k: "pdf" },
       { t: "📄 Clase 1 · Sesión 2 Julio", u: FL("1DovQ2W0brkzM4BCy5Ma4qDpXm5MQRqEA"), k: "pdf" },
       { t: "📄 Clase 2 · Resumen", u: FL("1WGpJWBr3gJ-4NB8hVw7sMJxm2MMKs_kF"), k: "pdf" },
