@@ -72,9 +72,10 @@
     const isEsp = kind==='esp';
     const paq = isEsp ? PAQ(s.paq) : null;
     const mi = matInfo(s.title);
-    const el = document.createElement('button');
+    const el = document.createElement('div');
     el.className='scard'+(mi?' has-mat':'')+(isEsp?' esp':'');
-    el.type='button';
+    el.setAttribute('role','button');
+    el.tabIndex=0;
     el.dataset.subj=s.title;
     if(isEsp && paq) el.style.setProperty('--bc', paq.color);
 
@@ -98,11 +99,14 @@
         examRow+recupRow+
       '</div>';
 
+    const driveBtn = mi ? '<a class="card-drive" href="'+esc(mi.folder)+'" target="_blank" rel="noopener" aria-label="Abrir carpeta de Drive de '+esc(s.title)+'">'+ICON.folder+'Ver en Drive</a>' : '';
     el.innerHTML =
       '<div class="top">'+left+'<span class="area">'+esc(s.area)+'</span></div>'+
       '<h3>'+esc(s.title)+'</h3>'+ meta +
-      '<div class="foot"><span class="jorn"><b>'+dates.length+'</b> jornadas</span>'+flag+'</div>';
-    el.addEventListener('click',()=>openModal(s,kind));
+      '<div class="foot"><span class="jorn"><b>'+dates.length+'</b> jornadas</span>'+flag+'</div>'+
+      driveBtn;
+    el.addEventListener('click',e=>{ if(e.target.closest('.card-drive')) return; openModal(s,kind); });
+    el.addEventListener('keydown',e=>{ if(e.target.closest('.card-drive')) return; if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(s,kind); } });
     return el;
   }
 
