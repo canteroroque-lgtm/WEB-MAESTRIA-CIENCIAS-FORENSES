@@ -8,6 +8,13 @@ const DC = id => "https://docs.google.com/document/d/" + id + "/edit";
 
 const MCF_DRIVE = {
 
+  // ─── DERECHO PENAL Y PROCESAL PENAL ─────────────────────────────────────
+  "Derecho Penal y Procesal Penal": {
+    folder: F("1vzqFo59AY0zSxue8i3gZ9a21bP4K9GCn"),
+    files: []
+  },
+
+
   // ─── 1. INTRODUCCIÓN A LAS CIENCIAS FORENSES ────────────────────────────
   "Introducción a las Ciencias Forenses": {
     folder: F("1NtXMPb-6XBdGkL6cxeM45qNRiqgZcFLq"),
