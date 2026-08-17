@@ -7,6 +7,9 @@
 <meta name="description" content="Maestría Interdisciplinaria en Ciencias Forenses de la UBA: programa completo, cronograma 2026–2027, materias obligatorias y específicas, docentes y materiales de cursada." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="https://canteroroque-lgtm.github.io/WEB-MAESTR-A/" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Maestría en Ciencias Forenses · UBA" />
 <meta property="og:description" content="Programa, cronograma 2026–2027, materias y materiales de la Maestría Interdisciplinaria en Ciencias Forenses de la UBA." />
@@ -444,6 +447,11 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);margin-top:4
 @media(max-width:860px){.unofficial{grid-template-columns:auto 1fr;gap:12px}.unofficial .uo-links{grid-column:1/-1}}
 .hero{padding-top:44px}
 
+/* ── hero banner ── */
+.herobanner{position:relative;width:100%;max-width:940px;margin:0 auto;border-radius:18px;overflow:hidden;border:1px solid rgba(244,247,251,.10);box-shadow:0 24px 60px -30px rgba(0,0,0,.9),0 0 0 1px rgba(140,26,50,.18),inset 0 1px 0 rgba(255,255,255,.05)}
+.herobanner img{display:block;width:100%;height:auto}
+.herobanner::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(8,12,22,.55) 100%)}
+
 /* ── logos lockup ── */
 .lockup{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
 .lockup-cap{width:100%;margin-top:14px;font-family:'Space Mono';font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--ink-faint);text-align:center}
@@ -750,10 +758,7 @@ body.compact .wk{padding:10px 13px}
 <div class="wrap">
   <section class="hero" id="main" aria-labelledby="hero-title">
     <div class="hero-logos">
-      <div class="lockup">
-        <div class="lwrap main"><svg class="emblem" aria-label="Emblema forense — huella dactilar" role="img"><use href="#em-fp"></use></svg></div>
-        <div class="lwrap"><svg class="emblem" aria-label="Emblema científico — ADN" role="img"><use href="#em-dna"></use></svg></div>
-      </div>
+      <div class="herobanner"><img src="assets/hero-forense.png" alt="Instrumental forense: tubos de ensayo, balanza de la justicia, lupa, ficha dactilar y microscopio" width="1400" height="600" /></div>
       <p class="lockup-cap">Evidencia · Método · Justicia</p>
     </div>
     <span class="eyebrow"><i></i>Facultad de Psicología · Universidad de Buenos Aires</span>
