@@ -1,5 +1,19 @@
 // Dashboard · vista semanal · modo compacto · progreso (MCF UBA)
 (function(){
+  // hélice de ADN 3D decorativa
+  const helix = document.querySelector('.dna3d .helix');
+  if(helix && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+    for(let i=0;i<20;i++){
+      const r=document.createElement('div');
+      r.className='rung';
+      r.style.top=(i*21)+'px';
+      r.style.transform='rotateY('+(i*32)+'deg)';
+      r.style.opacity=String(0.35+0.5*Math.abs(Math.cos(i*32*Math.PI/180)));
+      helix.appendChild(r);
+    }
+  }
+})();
+(function(){
   const M = window.MCF || {};
   const { DIAS, PAQUETES = [], OBLIGATORIAS = [], TESIS = {}, ESPECIFICAS = [] } = M;
   const DRIVE = window.MCF_DRIVE || {};

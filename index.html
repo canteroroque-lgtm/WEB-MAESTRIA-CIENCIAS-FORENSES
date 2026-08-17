@@ -40,7 +40,28 @@ body{background:var(--bg);color:var(--ink);font-family:'Sora',system-ui,sans-ser
 .skip-link{position:fixed;top:-60px;left:12px;z-index:200;background:var(--cyan);color:#06070e;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;padding:12px 18px;border-radius:8px;text-decoration:none;transition:top .2s}
 .skip-link:focus{top:12px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
-@supports not (backdrop-filter:blur(1px)){header.nav,.nav-links,.modal-bg,.backtop{background:#0b0f1a}.hero-logos .lwrap{background:#10182a}.hstat{background:#0d1420}}
+@supports not (backdrop-filter:blur(1px)){header.nav,.nav-links,.modal-bg,.backtop{background:#0b0f1a}.hero-logos .lwrap{background:#10182a}.hstat{background:#0d1420}.scard{background:#0e1421}}
+
+/* page-wide ambient gradient + granate blooms */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 90% 55% at 15% 0%,rgba(139,124,246,.09),transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% 12%,rgba(140,26,50,.13),transparent 62%),
+    radial-gradient(ellipse 80% 45% at 50% 42%,rgba(71,215,232,.045),transparent 65%),
+    radial-gradient(ellipse 65% 45% at 8% 72%,rgba(122,20,42,.10),transparent 62%),
+    radial-gradient(ellipse 85% 50% at 92% 96%,rgba(139,124,246,.07),transparent 62%),
+    linear-gradient(175deg,#080c16 0%,#0a0e1a 38%,#0b0d18 68%,#080a12 100%)}
+
+/* forensic 3D DNA helix */
+.dna3d{position:absolute;top:8vh;right:5%;width:120px;height:420px;perspective:900px;opacity:.5;pointer-events:none}
+.dna3d .helix{position:absolute;inset:0;transform-style:preserve-3d;animation:dnaSpin 26s linear infinite}
+.dna3d .rung{position:absolute;left:50%;width:104px;height:2px;margin-left:-52px;transform-style:preserve-3d;
+  background:linear-gradient(90deg,rgba(71,215,232,.30),rgba(140,26,50,.22) 50%,rgba(139,124,246,.30))}
+.dna3d .rung::before,.dna3d .rung::after{content:"";position:absolute;top:-3.5px;width:9px;height:9px;border-radius:50%}
+.dna3d .rung::before{left:-4px;background:radial-gradient(circle at 32% 30%,#8fe9f5,rgba(71,215,232,.35));box-shadow:0 0 9px rgba(71,215,232,.45)}
+.dna3d .rung::after{right:-4px;background:radial-gradient(circle at 32% 30%,#e39ab4,rgba(150,28,54,.4));box-shadow:0 0 9px rgba(150,28,54,.5)}
+@keyframes dnaSpin{to{transform:rotateY(360deg)}}
+@media(max-width:1100px){.dna3d{display:none}}
 
 /* ambient bg */
 .bg-fx{position:absolute;top:0;left:0;right:0;height:100vh;z-index:0;pointer-events:none;overflow:hidden}
@@ -226,9 +247,9 @@ h2.sec em{font-style:normal;background:var(--grad-hot);-webkit-background-clip:t
 /* subject grid + cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(310px,100%),1fr));gap:22px}
 @media(max-width:420px){.grid{gap:12px}.scard{padding:18px 16px 16px}}
-.scard{position:relative;text-align:left;border:1px solid var(--line);border-radius:18px;background:var(--card);padding:28px 26px 26px;cursor:pointer;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;display:flex;flex-direction:column;min-height:188px}
+.scard{position:relative;text-align:left;border:1px solid rgba(244,247,251,.085);border-radius:18px;background:linear-gradient(152deg,rgba(244,247,251,.062),rgba(244,247,251,.018) 55%,rgba(140,26,50,.035));backdrop-filter:blur(16px) saturate(125%);-webkit-backdrop-filter:blur(16px) saturate(125%);box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 10px 34px -22px rgba(0,0,0,.85);padding:28px 26px 26px;cursor:pointer;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;display:flex;flex-direction:column;min-height:188px}
+.scard:hover{transform:translateY(-2px);border-color:rgba(244,247,251,.19);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 40px -20px rgba(0,0,0,.85),0 0 30px -18px rgba(140,26,50,.5)}
 .scard::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad-hot);opacity:0;transition:.2s}
-.scard:hover{transform:translateY(-2px);border-color:var(--line-2);box-shadow:0 12px 30px -18px rgba(0,0,0,.7)}
 .scard:hover::after{opacity:1}
 .scard .num{font-family:'Space Mono';font-size:11px;letter-spacing:2px;color:var(--ink-faint)}
 .scard .area{font-family:'Space Mono';font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);border:1px solid var(--line-2);border-radius:999px;padding:4px 10px}
@@ -596,6 +617,7 @@ body.compact .wk{padding:10px 13px}
   <div class="ev" style="top:22vh;left:7%">01</div>
   <div class="ev" style="top:48vh;right:11%;transform:rotate(8deg)">07</div>
   <div class="ev" style="top:78vh;left:22%;transform:rotate(-6deg)">13</div>
+  <div class="dna3d" aria-hidden="true"><div class="helix"></div></div>
   <div class="scan"></div>
 </div>
 
