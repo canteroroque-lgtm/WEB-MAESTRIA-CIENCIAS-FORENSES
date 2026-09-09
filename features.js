@@ -114,16 +114,29 @@
   }
   function refresh(){ renderDash(); decorate(); renderWeeks(); injectModalProgress(true); }
 
-  const gridObs=new MutationObserver(()=>decorate());
+  let decoBusy=false;
+  const gridObs=new MutationObserver(()=>{
+    if(decoBusy) return;
+    decoBusy=true; gridObs.disconnect();
+    try{ decorate(); } finally {
+      decoBusy=false;
+      ['gridOblig','gridEsp'].forEach(id=>{ const n=document.getElementById(id); if(n) gridObs.observe(n,{childList:true,subtree:true}); });
+    }
+  });
   ['gridOblig','gridEsp'].forEach(id=>{ const n=document.getElementById(id); if(n) gridObs.observe(n,{childList:true,subtree:true}); });
 
   // ───────── control de progreso en el modal ─────────
+  let progBusy=false, modalObs=null;
   function injectModalProgress(onlyUpdate){
+    if(progBusy) return;
     const titleEl=document.getElementById('mTitle');
     const docEl=document.getElementById('mDoc');
     if(!titleEl||!docEl) return;
     const t=titleEl.textContent.trim();
     if(!t) return;
+    progBusy=true;
+    if(modalObs) modalObs.disconnect();
+    try{
     let box=document.getElementById('mProg');
     if(!box){
       if(onlyUpdate) return;
@@ -138,9 +151,16 @@
       setEstado(box.dataset.t,btn.dataset.st);
       injectModalProgress();
     }));
+    } finally {
+      progBusy=false;
+      if(modalObs && modalNode) modalObs.observe(modalNode,{childList:true,subtree:true});
+    }
   }
   const modalNode=document.getElementById('modal');
-  if(modalNode) new MutationObserver(()=>injectModalProgress()).observe(modalNode,{childList:true,subtree:true});
+  if(modalNode){
+    modalObs=new MutationObserver(()=>injectModalProgress());
+    modalObs.observe(modalNode,{childList:true,subtree:true});
+  }
 
   // ───────── vista semanal ─────────
   function weekKey(d){ const x=new Date(d); const dow=(x.getDay()+6)%7; x.setDate(x.getDate()-dow); return x; }

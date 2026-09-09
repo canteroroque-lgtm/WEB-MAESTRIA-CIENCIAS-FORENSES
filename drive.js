@@ -8,6 +8,12 @@ const DC = id => "https://docs.google.com/document/d/" + id + "/edit";
 
 const MCF_DRIVE = {
 
+  // ─── ÉTICA, BIOÉTICA FORENSE ─────────────────────────────────────────
+  "Ética, Bioética Forense": {
+    folder: F("17VF5MeO95sVpm16gjSXQWNOgLxto4gPz"),
+    files: []
+  },
+
   // ─── DERECHO PENAL Y PROCESAL PENAL ─────────────────────────────────────
   "Derecho Penal y Procesal Penal": {
     folder: F("1vzqFo59AY0zSxue8i3gZ9a21bP4K9GCn"),

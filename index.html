@@ -20,7 +20,7 @@
 <meta name="twitter:title" content="Maestría en Ciencias Forenses · UBA" />
 <meta name="twitter:description" content="Programa, cronograma 2026–2027, materias y materiales de la Maestría Interdisciplinaria en Ciencias Forenses de la UBA." />
 <meta name="twitter:image" content="https://canteroroque-lgtm.github.io/WEB-MAESTR-A/assets/og-image.png" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; frame-ancestors 'self'" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; frame-ancestors 'self'" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
@@ -295,7 +295,7 @@ h2.sec em{font-style:normal;background:var(--grad-hot);-webkit-background-clip:t
 @media(max-width:760px){.bnote{margin-left:0}}
 
 /* modal */
-.modal-bg{position:fixed;inset:0;z-index:100;background:rgba(3,4,10,.72);backdrop-filter:blur(8px);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;opacity:0;pointer-events:none;transition:opacity .22s;overflow-y:auto}
+.modal-bg{position:fixed;inset:0;z-index:100;background:rgba(3,4,10,.93);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;opacity:0;pointer-events:none;transition:opacity .22s;overflow-y:auto}
 .modal-bg.open{opacity:1;pointer-events:auto}
 .modal{max-width:760px;width:100%;border:1px solid var(--line-2);border-radius:24px;background:linear-gradient(180deg,#0d1020,#080a14);padding:38px;position:relative;transform:translateY(14px);transition:transform .25s;box-shadow:0 40px 120px -30px #000}
 .modal-bg.open .modal{transform:none}
@@ -535,21 +535,29 @@ body.compact .wk{padding:10px 13px}
 
 /* ── ruta del investigador ── */
 .ruta-toggle-row{display:flex;justify-content:flex-end;margin-bottom:16px}
-.ruta-mapa{position:relative;border:1px solid var(--line);border-radius:20px;background:var(--card);padding:36px 28px 26px;overflow:hidden}
+.ruta-mapa{position:relative;border:1px solid var(--line);border-radius:22px;background:radial-gradient(120% 90% at 50% -10%,rgba(35,240,255,.05),transparent 60%),var(--card);padding:36px 28px 30px;overflow:hidden;box-shadow:0 30px 70px -40px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.05)}
 .ruta-mapa svg{width:100%;height:auto;display:block;overflow:visible}
-.ruta-road{fill:none;stroke:#1b2030;stroke-width:16;stroke-linecap:round;stroke-linejoin:round}
-.ruta-road.edge{fill:none;stroke:var(--line);stroke-width:18;stroke-linecap:round;stroke-linejoin:round}
-.ruta-road.done{fill:none;stroke:rgba(184,224,92,.28);stroke-width:16;stroke-linecap:round;stroke-linejoin:round}
-.ruta-centerline{fill:none;stroke:rgba(244,247,251,.16);stroke-width:1.6;stroke-dasharray:7 9;stroke-linecap:round}
+.ruta-shadow{fill:none;stroke:rgba(0,0,0,.4);stroke-width:26;stroke-linecap:round;stroke-linejoin:round;opacity:.65}
+.ruta-road{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ruta-road.kerb{stroke:url(#rgKerb);stroke-width:23}
+.ruta-road.base{stroke:url(#rgAsphalt);stroke-width:19}
+.ruta-road.done{stroke:url(#rgAsphaltDone);stroke-width:19}
+.ruta-road.sheen{stroke:rgba(255,255,255,.09);stroke-width:5}
+.ruta-centerline{fill:none;stroke:rgba(255,240,170,.42);stroke-width:1.8;stroke-dasharray:9 11;stroke-linecap:round}
 .ruta-node{cursor:default;color:var(--ink-faint)}
+.rn-disc{fill:url(#rgDisc)}
+.rn-rim{fill:none;stroke:currentColor;stroke-width:1.2;opacity:.42}
+.ruta-node.now .rn-rim{opacity:.95;stroke-width:1.7}
+.ruta-node.done .rn-rim{opacity:.6}
 .ruta-node .rn-icon{color:inherit}
 .ruta-node.done{color:var(--lime)}
 .ruta-node.now{color:var(--cyan)}
 .ruta-node .rn-label{font-family:'Space Mono',monospace;font-size:9.5px;fill:currentColor;text-anchor:middle;opacity:.8}
-.ruta-sign{font-size:11px;font-weight:600;color:#fff;text-align:center;padding:3px 6px;background:#2f7d32;border:1px solid #4caf50;border-radius:4px;pointer-events:none;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.ruta-post{stroke:rgba(244,247,251,.35);stroke-width:1.6}
+.ruta-sign{font-size:11px;font-weight:600;color:#fff;text-align:center;padding:4px 8px;background:linear-gradient(180deg,#3f9a44,#256b2a);border:1px solid rgba(255,255,255,.28);border-radius:6px;pointer-events:none;box-shadow:0 6px 14px -6px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.3),.3)}
 .ruta-sign div{display:flex;align-items:center;justify-content:center;width:100%;height:100%;line-height:1.2}
-.ruta-char{animation:rutaBob 2.6s ease-in-out infinite}
-@keyframes rutaBob{50%{transform:translateY(-4px)}}
+.ruta-char{animation:rutaBob 3.4s ease-in-out infinite}
+@keyframes rutaBob{50%{transform:translateY(-3px)}}
 .ruta-tip{position:absolute;pointer-events:none;transform:translate(-50%,-100%);background:var(--bg-2);border:1px solid var(--line-2);border-radius:10px;padding:8px 12px;font-family:'Space Mono',monospace;font-size:10.5px;color:var(--ink);white-space:nowrap;opacity:0;transition:opacity .15s;top:0;left:0}
 .ruta-tip.show{opacity:1}
 .ruta-lista{display:flex;flex-direction:column;gap:2px}
@@ -798,7 +806,6 @@ body.compact .wk{padding:10px 13px}
   </section>
 </div>
 
-<div class="wrap">
 <div class="wrap">
   <section id="obligatorias" aria-labelledby="obligatorias-title">
     <div class="sec-head">
