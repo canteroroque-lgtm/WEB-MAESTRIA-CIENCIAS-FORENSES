@@ -63,7 +63,20 @@
   (function(){
     const track=document.getElementById('tktrack');
     if(!track) return;
-    const one = TICKER.map(t=>'<span class="tkitem"><span class="tkt">'+esc(t.tag)+'</span>'+esc(t.txt)+'</span><span class="tksep">◆</span>').join('');
+    // avisos de exámenes próximos (resaltados en magenta)
+    const hoy=new Date(); hoy.setHours(0,0,0,0);
+    const fmt=iso=>{const p=iso.split('-').map(Number);
+      return new Date(p[0],p[1]-1,p[2]).toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});};
+    const seen=new Set();
+    const exams=[...OBLIGATORIAS,...ESPECIFICAS].filter(s=>s.examen)
+      .filter(s=>{const p=s.examen.split('-').map(Number);return new Date(p[0],p[1]-1,p[2])>=hoy;})
+      .sort((a,b)=>a.examen<b.examen?-1:1)
+      .filter(s=>{const k=s.title+s.examen; if(seen.has(k))return false; seen.add(k); return true;})
+      .slice(0,6)
+      .map(s=>({tag:'EXAMEN', exam:true,
+        txt:s.title+' — '+fmt(s.examen)+(s.recup?' · recuperatorio '+fmt(s.recup):'')}));
+    const ITEMS=[...exams,...TICKER];
+    const one = ITEMS.map(t=>'<span class="tkitem'+(t.exam?' tkexam':'')+'"><span class="tkt">'+esc(t.tag)+'</span>'+esc(t.txt)+'</span><span class="tksep">◆</span>').join('');
     track.innerHTML = one + one; // duplicate for seamless loop
   })();
 

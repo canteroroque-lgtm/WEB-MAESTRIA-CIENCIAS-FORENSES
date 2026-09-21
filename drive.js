@@ -8,6 +8,12 @@ const DC = id => "https://docs.google.com/document/d/" + id + "/edit";
 
 const MCF_DRIVE = {
 
+  // ─── HISTOPATOLOGÍA FORENSE ──────────────────────────────────────────
+  "Histopatología Forense": {
+    folder: F("1WhQ73UAxrKA5tU3GdKOJ8tuIv6L4WUs1"),
+    files: []
+  },
+
   // ─── ÉTICA, BIOÉTICA FORENSE ─────────────────────────────────────────
   "Ética, Bioética Forense": {
     folder: F("17VF5MeO95sVpm16gjSXQWNOgLxto4gPz"),
