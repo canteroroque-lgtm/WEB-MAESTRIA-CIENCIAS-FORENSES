@@ -49,21 +49,6 @@
     '</radialGradient>'+
     '<filter id="rgDrop" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2.2" stdDeviation="2.4" flood-color="#000" flood-opacity=".6"/></filter>'+
     // figura: paleta de sombreado
-    '<linearGradient id="rgCoat" x1=".2" y1="0" x2=".9" y2="1">'+
-      '<stop offset="0" stop-color="#7d6149"/><stop offset=".45" stop-color="#5b4634"/><stop offset="1" stop-color="#33261a"/>'+
-    '</linearGradient>'+
-    '<linearGradient id="rgHat" x1=".15" y1="0" x2=".9" y2="1">'+
-      '<stop offset="0" stop-color="#e0c294"/><stop offset=".5" stop-color="#bd9d6d"/><stop offset="1" stop-color="#7d6440"/>'+
-    '</linearGradient>'+
-    '<radialGradient id="rgSkin" cx=".36" cy=".3" r=".8">'+
-      '<stop offset="0" stop-color="#ffe0c2"/><stop offset=".6" stop-color="#f0bf94"/><stop offset="1" stop-color="#c28b62"/>'+
-    '</radialGradient>'+
-    '<radialGradient id="rgGlass" cx=".34" cy=".28" r=".8">'+
-      '<stop offset="0" stop-color="rgba(215,251,255,.9)"/><stop offset=".55" stop-color="rgba(40,204,255,.35)"/><stop offset="1" stop-color="rgba(23,58,140,.5)"/>'+
-    '</radialGradient>'+
-    '<linearGradient id="rgBrass" x1="0" y1="0" x2="1" y2="1">'+
-      '<stop offset="0" stop-color="#ffe9a8"/><stop offset=".5" stop-color="#c9a24a"/><stop offset="1" stop-color="#7a5c1e"/>'+
-    '</linearGradient>'+
     // huella de pisada con volumen
     '<symbol id="rn-foot" viewBox="0 0 20 24"><g>'+
       '<ellipse cx="10" cy="17.6" rx="5.4" ry="7" fill="currentColor" opacity=".92"/>'+
@@ -83,41 +68,50 @@
         '<circle cx="11" cy="9.6" r="1" fill="currentColor" stroke="none"/>'+
       '</g>'+
     '</symbol>'+
-    // figura del investigador — busto tridimensional
-    '<symbol id="rn-sherlock" viewBox="-16 -26 32 44">'+
-      '<ellipse cx="0" cy="16.4" rx="11" ry="2.8" fill="#000" opacity=".34"/>'+
-      // hombros / capa con volumen
-      '<path d="M-9.6 9 Q-11.6 -1.4 -6.6 -5.6 L6.6 -5.6 Q11.6 -1.4 9.6 9 Q9.6 15.6 0 15.6 Q-9.6 15.6 -9.6 9Z" fill="url(#rgCoat)"/>'+
-      '<path d="M-9.6 -2.2 L-13.4 4.4 L-8.2 2.6 Z" fill="#3b2c1e"/><path d="M9.6 -2.2 L13.4 4.4 L8.2 2.6 Z" fill="#3b2c1e"/>'+
-      '<path d="M-6.6 -5.6 Q-8.6 4 -6 14.4" stroke="rgba(255,255,255,.14)" stroke-width="1.2" fill="none"/>'+
-      '<path d="M6.6 -5.6 Q8.8 4 6.2 14.4" stroke="rgba(0,0,0,.32)" stroke-width="1.4" fill="none"/>'+
-      // cuello
-      '<path d="M-3.4 -6.6 L3.4 -6.6 L2.6 -3.4 L-2.6 -3.4Z" fill="#c98f64"/>'+
-      // rostro
-      '<circle cx="0" cy="-11.4" r="7.6" fill="url(#rgSkin)"/>'+
-      '<path d="M-7.4 -10.4 Q-6 -4.8 0 -3.9 Q6 -4.8 7.4 -10.4 Q4 -6.4 0 -6 Q-4 -6.4 -7.4 -10.4Z" fill="rgba(120,72,40,.22)"/>'+
-      // ojos y boca
-      '<ellipse cx="-2.9" cy="-12" rx="1.05" ry="1.2" fill="#25170e"/><ellipse cx="2.9" cy="-12" rx="1.05" ry="1.2" fill="#25170e"/>'+
-      '<circle cx="-2.55" cy="-12.4" r=".34" fill="#fff" opacity=".85"/><circle cx="3.25" cy="-12.4" r=".34" fill="#fff" opacity=".85"/>'+
-      '<path d="M-4.4 -14.2 Q-2.9 -15 -1.5 -14.3" stroke="#3a2a1f" stroke-width=".9" fill="none" stroke-linecap="round"/>'+
-      '<path d="M1.5 -14.3 Q2.9 -15 4.4 -14.2" stroke="#3a2a1f" stroke-width=".9" fill="none" stroke-linecap="round"/>'+
-      '<path d="M-2.4 -8.4 Q0 -7.1 2.4 -8.4" stroke="#7d4a2c" stroke-width="1.05" fill="none" stroke-linecap="round"/>'+
-      // deerstalker con volumen
-      '<path d="M-8.6 -14.6 Q0 -22.6 8.6 -14.6 Q9.6 -18.6 0 -19.8 Q-9.6 -18.6 -8.6 -14.6Z" fill="url(#rgHat)"/>'+
-      '<path d="M-8.6 -14.6 Q0 -17.4 8.6 -14.6 Q0 -13.2 -8.6 -14.6Z" fill="rgba(0,0,0,.26)"/>'+
-      '<path d="M-4.4 -20.5 Q0 -22.4 4.4 -20.5 Q0 -20 -4.4 -20.5Z" fill="rgba(255,255,255,.24)"/>'+
-      '<path d="M-9 -14.8 Q-12.4 -12 -10.2 -5.4 Q-9.6 -9.2 -7.2 -12.8Z" fill="url(#rgHat)"/>'+
-      '<path d="M9 -14.8 Q12.4 -12 10.2 -5.4 Q9.6 -9.2 7.2 -12.8Z" fill="url(#rgHat)"/>'+
-      '<path d="M9 -14.8 Q11.4 -12.6 10.6 -8 Q9.8 -10.8 7.8 -13Z" fill="rgba(0,0,0,.24)"/>'+
-      // pipa
-      '<path d="M4.8 -8.6 Q7.8 -7.6 8.9 -5.2" stroke="#2f1f14" stroke-width="1.3" fill="none" stroke-linecap="round"/>'+
-      '<ellipse cx="9.6" cy="-4.4" rx="1.7" ry="1.35" fill="#442d1c"/><ellipse cx="9.6" cy="-4.9" rx="1.25" ry=".7" fill="#1b110a"/>'+
-      // lupa de latón con vidrio
-      '<g transform="translate(-11,4.4) rotate(-18)">'+
-        '<line x1="-1.4" y1="6.4" x2="-3.6" y2="10.4" stroke="url(#rgBrass)" stroke-width="2.6" stroke-linecap="round"/>'+
-        '<circle r="4.6" fill="url(#rgGlass)"/>'+
-        '<circle r="4.6" fill="none" stroke="url(#rgBrass)" stroke-width="1.9"/>'+
-        '<path d="M-2.6 -2.4 Q-.2 -3.9 2 -2.6" stroke="rgba(255,255,255,.75)" stroke-width="1" fill="none" stroke-linecap="round"/>'+
+    // lupa 3D realista: aro de latón, vidrio con refracción y mango de madera torneada
+    '<linearGradient id="lpRim" x1="0" y1="0" x2="1" y2="1">'+
+      '<stop offset="0" stop-color="#fff4c9"/><stop offset=".22" stop-color="#e6c166"/><stop offset=".5" stop-color="#9c7424"/><stop offset=".78" stop-color="#d9b04f"/><stop offset="1" stop-color="#5e4212"/>'+
+    '</linearGradient>'+
+    '<linearGradient id="lpRimIn" x1="1" y1="1" x2="0" y2="0">'+
+      '<stop offset="0" stop-color="#fff0b8"/><stop offset=".5" stop-color="#8a6420"/><stop offset="1" stop-color="#3f2c0b"/>'+
+    '</linearGradient>'+
+    '<radialGradient id="lpLens" cx=".38" cy=".32" r=".78">'+
+      '<stop offset="0" stop-color="rgba(236,252,255,.72)"/><stop offset=".35" stop-color="rgba(150,220,245,.34)"/><stop offset=".78" stop-color="rgba(40,110,160,.30)"/><stop offset="1" stop-color="rgba(10,30,60,.55)"/>'+
+    '</radialGradient>'+
+    '<linearGradient id="lpWood" x1="0" y1="0" x2="1" y2="0">'+
+      '<stop offset="0" stop-color="#2a1509"/><stop offset=".3" stop-color="#7a4323"/><stop offset=".48" stop-color="#b06a3a"/><stop offset=".7" stop-color="#6b3a1d"/><stop offset="1" stop-color="#231107"/>'+
+    '</linearGradient>'+
+    '<linearGradient id="lpFerr" x1="0" y1="0" x2="1" y2="0">'+
+      '<stop offset="0" stop-color="#5e4212"/><stop offset=".45" stop-color="#f3d78a"/><stop offset="1" stop-color="#6d4c14"/>'+
+    '</linearGradient>'+
+    '<filter id="lpBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>'+
+    '<symbol id="rn-lupa" viewBox="-30 -30 60 76">'+
+      // sombra proyectada en el asfalto
+      '<ellipse cx="4" cy="41" rx="17" ry="3.6" fill="#000" opacity=".5" filter="url(#lpBlur)"/>'+
+      '<g transform="rotate(-28)">'+
+        // mango
+        '<rect x="-4.6" y="21" width="9.2" height="23" rx="4.4" fill="url(#lpWood)"/>'+
+        '<rect x="-4.6" y="27" width="9.2" height="1.4" fill="rgba(0,0,0,.35)"/><rect x="-4.6" y="36" width="9.2" height="1.4" fill="rgba(0,0,0,.35)"/>'+
+        '<rect x="-2.6" y="22.5" width="1.6" height="20" rx=".8" fill="rgba(255,220,180,.28)"/>'+
+        // virola
+        '<rect x="-5.4" y="16.4" width="10.8" height="6" rx="1.6" fill="url(#lpFerr)"/>'+
+        '<rect x="-5.4" y="18.6" width="10.8" height="1" fill="rgba(0,0,0,.3)"/>'+
+        '<rect x="-2.2" y="12.6" width="4.4" height="5" fill="url(#lpFerr)"/>'+
+        // aro (grosor exterior + bisel interior)
+        '<circle r="15.8" fill="url(#lpRim)"/>'+
+        '<circle r="13" fill="url(#lpRimIn)"/>'+
+        // vidrio
+        '<circle r="12" fill="url(#lpLens)"/>'+
+        '<circle r="12" fill="none" stroke="rgba(255,255,255,.35)" stroke-width=".6"/>'+
+        // aumento: una huella vista a través del vidrio
+        '<g fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1" stroke-linecap="round">'+
+          '<path d="M-6 5 Q-7 -4 0 -6 Q7 -4 6 5"/><path d="M-3.4 5 Q-4 -1.6 0 -3 Q4 -1.6 3.4 5"/><path d="M-1 4.6 Q-1 1 0 .2 Q1 1 1 4.6"/>'+
+        '</g>'+
+        // reflejos especulares
+        '<path d="M-8.6 -3.6 Q-7.6 -9.2 -2.4 -10.2" stroke="rgba(255,255,255,.92)" stroke-width="2.2" fill="none" stroke-linecap="round"/>'+
+        '<circle cx="-4.6" cy="-8.6" r="1.1" fill="#fff"/>'+
+        '<path d="M6.4 7.6 Q8.6 5 9.2 1.6" stroke="rgba(255,255,255,.35)" stroke-width="1.2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M-13.6 -6 Q-11 -13 -4 -14.8" stroke="rgba(255,250,220,.85)" stroke-width="1.1" fill="none" stroke-linecap="round"/>'+
       '</g>'+
     '</symbol>'+
   '</defs>';
@@ -157,7 +151,7 @@
         '<text class="rn-label" y="'+(size/2+18)+'">'+(i+1)+'</text>'+
         '</g>';
     });
-    svg += '<use class="ruta-char" href="#rn-sherlock" x="'+(charPt.x-32)+'" y="'+(charPt.y-84)+'" width="64" height="88"/>';
+    svg += '<g class="ruta-char" aria-hidden="true"><use href="#rn-lupa" x="'+(charPt.x-30)+'" y="'+(charPt.y-86)+'" width="60" height="76"/></g>';
     // cartel de la materia actual: en una banda libre bajo la carretera
     if(curIdx>=0){
       const cs = stations[curIdx], cp = pts[curIdx];
@@ -172,17 +166,25 @@
     if(reduced){ const ch=mapaEl.querySelector('.ruta-char'); if(ch) ch.style.animation='none'; }
 
     const tip = document.getElementById('rutaTip');
+    const show = node=>{
+      const box = mapaEl.getBoundingClientRect(), nb = node.getBoundingClientRect();
+      tip.textContent = node.dataset.tip;
+      tip.style.left = (nb.left - box.left + nb.width/2)+'px';
+      tip.style.top = (nb.top - box.top - 10)+'px';
+      tip.classList.add('show');
+    };
+    const hide = ()=>tip.classList.remove('show');
     mapaEl.querySelectorAll('.ruta-node').forEach(node=>{
-      node.addEventListener('mouseenter', ()=>{
-        const box = mapaEl.getBoundingClientRect();
-        const nb = node.getBoundingClientRect();
-        tip.textContent = node.dataset.tip;
-        tip.style.left = (nb.left - box.left + nb.width/2)+'px';
-        tip.style.top = (nb.top - box.top - 10)+'px';
-        tip.classList.add('show');
-      });
-      node.addEventListener('mouseleave', ()=>tip.classList.remove('show'));
+      node.setAttribute('tabindex','0');
+      node.setAttribute('role','img');
+      node.setAttribute('aria-label', node.dataset.tip);
+      node.addEventListener('pointerenter', ()=>show(node));
+      node.addEventListener('pointerleave', hide);
+      node.addEventListener('focus', ()=>show(node));
+      node.addEventListener('blur', hide);
+      node.addEventListener('click', ()=>show(node));
     });
+    mapaEl.addEventListener('pointerleave', hide);
   }
 
   renderMapa();
@@ -198,7 +200,7 @@
   }
   apply();
   const mq = window.matchMedia('(max-width:760px)');
-  function syncMobile(){ if(mq.matches) listaEl.hidden = false; }
+  function syncMobile(){ if(mq.matches) listaEl.hidden = false; else apply(); }
   syncMobile();
   mq.addEventListener ? mq.addEventListener('change', syncMobile) : mq.addListener(syncMobile);
   if(toggleBtn) toggleBtn.addEventListener('click', ()=>{

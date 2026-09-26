@@ -1,5 +1,5 @@
 // Materiales de Drive · Maestría Interdisciplinaria en Ciencias Forenses UBA
-// Actualizado: 14/06/2026 — Fuente: Drive roquecantero26@gmail.com
+// Actualizado: 26/09/2026 — Fuente: Drive roquecantero26@gmail.com
 // kind: pdf | doc | folder | zip
 
 const F  = id => "https://drive.google.com/drive/folders/" + id;
@@ -11,7 +11,13 @@ const MCF_DRIVE = {
   // ─── HISTOPATOLOGÍA FORENSE ──────────────────────────────────────────
   "Histopatología Forense": {
     folder: F("1WhQ73UAxrKA5tU3GdKOJ8tuIv6L4WUs1"),
-    files: []
+    files: [
+      { t: "📁 Clase 1 — Carpeta completa", u: F("1M9zwZV6JdEFT5P7MeANkjwK_VYHf8Yor"), k: "folder" },
+      { t: "📁 Clase 2 — Carpeta completa", u: F("1BNZISdRySI7PAgYj9_VHsTj29eQlhr7P"), k: "folder" },
+      { t: "📁 Clase 3 — Carpeta completa", u: F("1FBLvdPB103xRSiFaZK9rUAzl3Uh3TUSh"), k: "folder" },
+      { t: "📁 Clase 4 — Carpeta completa", u: F("1UvC4IIwbo3uD3g7cvMa4O0RYL1qigy5Z"), k: "folder" },
+      { t: "📚 Bibliografía — Carpeta completa", u: F("19Sv6w68G8YcTNI3O6uF0JV710skq4F8p"), k: "folder" }
+    ]
   },
 
   // ─── ÉTICA, BIOÉTICA FORENSE ─────────────────────────────────────────
@@ -335,6 +341,8 @@ const MCF_DRIVE = {
   "Antropología Forense": {
     folder: F("1CmA8LVPWNkWuv_gvGDZ3agem6wM_2zIz"),
     files: [
+      { t: "📁 Clase 1 — Carpeta completa", u: F("1lPrqMWojKjZ3s6BTnf-Wn_FziGJ1LwWX"), k: "folder" },
+      { t: "📚 Bibliografía — Carpeta completa", u: F("1XB-TsPFoIMNv8Nhs1r51yvObFrw64Iun"), k: "folder" },
       { t: "📄 Clase 1 · Introducción e Historia de la AF", u: FL("1x0scYiGNnjWyveUMVyEfRzEyDXjfdJg1"), k: "pdf" },
       { t: "📄 Clase 1 · Guía de Estudio", u: FL("1lYqmcrHfDY674NUyIc_RyLiaMuUKjrHy"), k: "pdf" },
       { t: "📚 Manual de Antropología Forense (EPAF 2015)", u: FL("1YIzryMzQf5WpC28NofeRa8jnDqoUi-V6"), k: "pdf" },
