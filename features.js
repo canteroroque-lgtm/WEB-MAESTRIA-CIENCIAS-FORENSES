@@ -57,7 +57,8 @@
   const EV = eventos();
   function proxCursada(){ return EV.find(e=>e.d>=TODAY); }
   function proxExamen(){
-    const all=[...OBLIGATORIAS,...ESPECIFICAS].filter(s=>s.examen).map(s=>({d:P(s.examen),s}));
+    const all=[...OBLIGATORIAS,...ESPECIFICAS].filter(s=>s.examen).map(s=>({d:P(s.examen),s}))
+      .concat(ESPECIFICAS.filter(s=>s.examen2).map(s=>({d:P(s.examen2),s:Object.assign({},s,{title:s.title+' (2ª oferta)',examen:s.examen2,recup:s.recup2})})));
     all.sort((a,b)=>a.d-b.d);
     return all.find(x=>x.d>=TODAY);
   }

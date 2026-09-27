@@ -68,7 +68,7 @@
     const fmt=iso=>{const p=iso.split('-').map(Number);
       return new Date(p[0],p[1]-1,p[2]).toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});};
     const seen=new Set();
-    const exams=[...OBLIGATORIAS,...ESPECIFICAS].filter(s=>s.examen)
+    const exams=[...OBLIGATORIAS,...ESPECIFICAS,...ESPECIFICAS.filter(s=>s.examen2).map(s=>({title:s.title+' (2ª oferta)',examen:s.examen2,recup:s.recup2}))].filter(s=>s.examen)
       .filter(s=>{const p=s.examen.split('-').map(Number);return new Date(p[0],p[1]-1,p[2])>=hoy;})
       .sort((a,b)=>a.examen<b.examen?-1:1)
       .filter(s=>{const k=s.title+s.examen; if(seen.has(k))return false; seen.add(k); return true;})
@@ -81,9 +81,15 @@
   })();
 
   // ---------- subject card ----------
-  function card(s, kind){ // kind: 'oblig' | 'esp'
+  // examen/recuperatorio según el paquete en que se cursa (2ª oferta → examen2)
+  function exFor(s, paqId){
+    if(paqId && s.paq2===paqId) return { examen:s.examen2||null, recup:s.recup2||null };
+    return { examen:s.examen||null, recup:s.recup||null };
+  }
+  function card(s, kind, paqId){ // kind: 'oblig' | 'esp'
     const isEsp = kind==='esp';
-    const paq = isEsp ? PAQ(s.paq) : null;
+    const paq = isEsp ? PAQ(paqId||s.paq) : null;
+    const ex = exFor(s, paqId);
     const mi = matInfo(s.title);
     const el = document.createElement('div');
     el.className='scard'+(mi?' has-mat':'')+(isEsp?' esp':'');
@@ -102,8 +108,8 @@
       : '<span class="num">N°'+String(s.n).padStart(2,'0')+'</span>';
 
     const dates = isEsp ? paq.dates : s.dates;
-    const examRow = s.examen ? '<div class="cmrow exam-row"><span class="cml">📝 Examen</span><span class="cmv exam-cmv">'+examShort(s.examen)+'</span></div>' : '';
-    const recupRow = s.recup ? '<div class="cmrow recup-row"><span class="cml">🔁 Recuperatorio</span><span class="cmv recup-cmv">'+examShort(s.recup)+'</span></div>' : '';
+    const examRow = ex.examen ? '<div class="cmrow exam-row"><span class="cml">📝 Examen</span><span class="cmv exam-cmv">'+examShort(ex.examen)+'</span></div>' : '';
+    const recupRow = ex.recup ? '<div class="cmrow recup-row"><span class="cml">🔁 Recuperatorio</span><span class="cmv recup-cmv">'+examShort(ex.recup)+'</span></div>' : '';
     const meta =
       '<div class="cmeta">'+
         '<div class="cmrow"><span class="cml">Fechas</span><span class="cmv">'+fechasTxt(dates)+'</span></div>'+
@@ -118,8 +124,8 @@
       '<h3>'+esc(s.title)+'</h3>'+ meta +
       '<div class="foot"><span class="jorn"><b>'+dates.length+'</b> jornadas</span>'+flag+'</div>'+
       driveBtn;
-    el.addEventListener('click',e=>{ if(e.target.closest('.card-drive')) return; openModal(s,kind); });
-    el.addEventListener('keydown',e=>{ if(e.target.closest('.card-drive')) return; if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(s,kind); } });
+    el.addEventListener('click',e=>{ if(e.target.closest('.card-drive')) return; openModal(s,kind,paqId); });
+    el.addEventListener('keydown',e=>{ if(e.target.closest('.card-drive')) return; if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(s,kind,paqId); } });
     return el;
   }
 
@@ -151,7 +157,7 @@
         '<span class="bnote">Elegí UNA materia</span>'+
       '</div>';
       const g=document.createElement('div'); g.className='grid';
-      subs.forEach(s=>g.appendChild(card(s,'esp')));
+      subs.forEach(s=>g.appendChild(card(s,'esp',b.id)));
       sec.appendChild(g); gE.appendChild(sec);
     });
   }
@@ -274,7 +280,7 @@
           div.querySelectorAll('.tl-sub').forEach(btn=>{
             btn.addEventListener('click',()=>{
               const s=ESP_BY_TITLE[decodeURIComponent(btn.dataset.esp)];
-              if(s) openModal(s,'esp');
+              if(s) openModal(s,'esp',b.id);
             });
           });
           host.appendChild(div);
@@ -300,10 +306,11 @@
     h+='</div>';
     return h;
   }
-  function openModal(s, kind){
+  function openModal(s, kind, paqId){
     lastFocus = document.activeElement;
     const isEsp = kind==='esp';
-    const paq = isEsp ? PAQ(s.paq) : null;
+    const paq = isEsp ? PAQ(paqId||s.paq) : null;
+    const ex = exFor(s, paqId);
     const dates = isEsp ? paq.dates : s.dates;
 
     document.getElementById('mArea').textContent = s.area || 'Materia';
@@ -338,15 +345,15 @@
     // examen + recuperatorio
     const oldExamEl = document.getElementById('mExamen');
     if(oldExamEl) oldExamEl.remove();
-    if(s.examen){
-      const ed = new Date(s.examen+'T00:00:00');
+    if(ex.examen){
+      const ed = new Date(ex.examen+'T00:00:00');
       const edTxt = ed.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
       const box = document.createElement('div');
       box.id='mExamen';
       box.className='exam-box';
       let inner = '<div class="m-label">📝 Examen</div><div class="exam-date">'+edTxt.charAt(0).toUpperCase()+edTxt.slice(1)+'</div>';
-      if(s.recup){
-        const rd = new Date(s.recup+'T00:00:00');
+      if(ex.recup){
+        const rd = new Date(ex.recup+'T00:00:00');
         const rdTxt = rd.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
         inner += '<div class="m-label recup-label">🔁 Recuperatorio</div><div class="exam-date recup-date">'+rdTxt.charAt(0).toUpperCase()+rdTxt.slice(1)+'</div>';
       }
