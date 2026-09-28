@@ -589,7 +589,15 @@ body.compact .wk{padding:10px 13px}
 .cap-sidebar h4,.cap-sidebar label.cap-lbl{display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px;margin-top:18px}
 .cap-sidebar h4:first-child{margin-top:0}
 .cap-sidebar select{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line-2);border-radius:8px;padding:9px 12px;color:var(--ink);font-size:13px;outline:none;margin-bottom:4px;cursor:pointer;transition:.16s;-webkit-appearance:none}
-.cap-sidebar select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(35,240,255,.1)}
+.cap-sidebar select:focus,.cap-search:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(35,240,255,.1)}
+.cap-search{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line-2);border-radius:8px;padding:9px 12px;color:var(--ink);font-size:13px;outline:none;margin-bottom:4px;font-family:inherit}
+.cap-search::placeholder{color:var(--ink-dim)}
+.cap-reset{margin-top:6px;width:100%;background:transparent;border:1px solid var(--line-2);border-radius:8px;padding:8px 12px;color:var(--ink-dim);font-size:12px;cursor:pointer;font-family:inherit;transition:.15s}
+.cap-reset:hover{color:var(--ink);border-color:var(--cyan)}
+.cap-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.cap-tags .cap-area{margin-top:0}
+.cap-eje{display:inline-block;padding:3px 10px;font-size:11px;border-radius:999px;background:rgba(35,240,255,.08);border:1px solid rgba(35,240,255,.22);color:var(--cyan);font-weight:600}
+.cap-when{margin:10px 0 8px;font-size:13px;font-weight:600;color:#ffd23d}
+.cap-det{margin:10px 0 0;font-size:12px;line-height:1.5;color:var(--ink-dim);text-wrap:pretty}
 .cap-stats{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
 .cap-stat{flex:1;min-width:70px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:center}
 .cap-stat b{display:block;font-family:'Space Mono',monospace;font-size:20px;color:var(--cyan)}
@@ -878,21 +886,24 @@ body.compact .wk{padding:10px 13px}
   <section id="capacitaciones" aria-labelledby="capacitaciones-title">
     <div class="sec-head">
       <div class="kicker">Ecosistema Forense Iberoamérica</div>
-      <h2 class="sec" id="capacitaciones-title">Capacitaciones <em>2026</em></h2>
-      <p class="sec-sub">Repositorio verificado de jornadas, talleres, cursos y congresos forenses en toda Iberoamérica. <span id="capSumN" aria-live="polite">Cargando…</span> · Última actualización: 30/06/2026.</p>
+      <h2 class="sec" id="capacitaciones-title">Capacitaciones <em>2026–2027</em></h2>
+      <p class="sec-sub">Jornadas, cursos y congresos forenses vigentes en Argentina e Iberoamérica: médico-legales, psicológicos, criminalísticos y socio-jurídicos. Las actividades ya realizadas se ocultan solas. <span id="capSumN" aria-live="polite">Cargando…</span> · Última actualización: 28/09/2026.</p>
     </div>
     <div class="cap-stats" id="capStats"></div>
     <div class="cap-wrap">
       <aside class="cap-sidebar">
+        <label class="cap-lbl" for="capBuscar">Buscar</label>
+        <input type="search" id="capBuscar" class="cap-search" placeholder="Tema, institución, ciudad…" autocomplete="off">
+        <label class="cap-lbl" for="capFiltEje">Enfoque</label>
+        <select id="capFiltEje"><option value="">Todos los enfoques</option></select>
         <label class="cap-lbl" for="capFiltPais">País</label>
         <select id="capFiltPais"><option value="">Todos los países</option></select>
         <label class="cap-lbl" for="capFiltMod">Modalidad</label>
         <select id="capFiltMod"><option value="">Todas las modalidades</option><option>Presencial</option><option>Virtual</option><option>Híbrido</option></select>
         <label class="cap-lbl" for="capFiltPrecio">Precio</label>
         <select id="capFiltPrecio"><option value="">Todos</option><option value="free">Gratuito</option><option value="paid">Con arancel</option></select>
-        <label class="cap-lbl" for="capFiltArea">Área</label>
-        <select id="capFiltArea"><option value="">Todas las áreas</option></select>
         <p class="cap-count" id="capCount" aria-live="polite"></p>
+        <button type="button" class="cap-reset" id="capReset">Limpiar filtros</button>
         <div class="cap-chart-wrap">
           <p>Distribución por país</p>
           <canvas id="capChart" style="max-height:200px"></canvas>
@@ -1003,30 +1014,39 @@ body.compact .wk{padding:10px 13px}
     return d.toLocaleDateString('es-AR',{day:'2-digit',month:'short',year:'numeric'});
   }
 
-  // Populate filter selects
-  const paises = [...new Set(CAP.map(e=>e.pais).filter(Boolean))].sort();
-  const areas  = [...new Set(CAP.map(e=>e.area).filter(Boolean))].sort();
-  const selP = document.getElementById('capFiltPais');
-  const selA = document.getElementById('capFiltArea');
-  if(selP) paises.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; selP.appendChild(o); });
-  if(selA) areas.forEach(a=>{ const o=document.createElement('option'); o.value=a; o.textContent=a; selA.appendChild(o); });
+  // Solo actividades vigentes (fin o inicio >= hoy) + inscripción permanente; orden cronológico
+  const HOY = new Date(); HOY.setHours(0,0,0,0);
+  const dOf = f => f ? new Date(f+'T00:00:00') : null;
+  const VIG = CAP.filter(e=>{ if(e.permanente) return true; const d=dOf(e.hasta||e.fecha); return !d || isNaN(d) || d>=HOY; })
+    .sort((a,b)=>{ if(!!a.permanente!==!!b.permanente) return a.permanente?1:-1; return String(a.fecha||'').localeCompare(String(b.fecha||'')); });
+
+  const paises = [...new Set(VIG.map(e=>e.pais).filter(Boolean))].sort();
+  const ejes = [...new Set(VIG.map(e=>e.eje).filter(Boolean))].sort();
+  const addOpts=(id,list)=>{ const sel=document.getElementById(id); if(sel) list.forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); }); };
+  addOpts('capFiltPais',paises); addOpts('capFiltEje',ejes);
 
   const capSumEl = document.getElementById('capSumN');
-  if(capSumEl) capSumEl.textContent = CAP.length+' actividades \u00b7 '+paises.length+' pa\u00edses';
+  if(capSumEl) capSumEl.textContent = VIG.length+' actividades vigentes \u00b7 '+paises.length+' pa\u00edses';
 
-  // Stats bar
   const statsEl = document.getElementById('capStats');
   if(statsEl){
-    const gratuitas = CAP.filter(e=>e.precio==='Gratuito').length;
-    const pubs = CAP.filter(e=>e.tipo==='P\u00fablica').length;
+    const n30 = VIG.filter(e=>{ if(e.permanente) return false; const d=dOf(e.fecha); return d && (d-HOY)/864e5<=30; }).length;
+    const perm = VIG.filter(e=>e.permanente).length;
+    const arg = VIG.filter(e=>/Argentina/.test(e.pais)).length;
     statsEl.innerHTML = [
-      [CAP.length,'Actividades'],[paises.length,'Pa\u00edses'],[pubs,'Inst. P\u00fablicas'],[gratuitas,'Gratuitas']
+      [VIG.length,'Vigentes'],[arg,'En Argentina'],[n30,'Pr\u00f3ximos 30 d\u00edas'],[perm,'Inscripci\u00f3n permanente']
     ].map(([v,l])=>`<div class="cap-stat"><b>${esc(String(v))}</b><span>${esc(l)}</span></div>`).join('');
   }
+  function fechaTxt(e){
+    if(e.permanente) return 'Inscripci\u00f3n permanente';
+    if(e.hasta && e.hasta!==e.fecha) return fmtFecha(e.fecha)+' \u2192 '+fmtFecha(e.hasta);
+    return fmtFecha(e.fecha);
+  }
+  const norm = t => String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 
   function renderChart(data){
     const ctx = document.getElementById('capChart');
-    if(!ctx) return;
+    if(!ctx || typeof Chart==='undefined') return;
     const counts = {};
     data.forEach(e=>{ counts[e.pais]=(counts[e.pais]||0)+1; });
     const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8);
@@ -1043,18 +1063,20 @@ body.compact .wk{padding:10px 13px}
     const fp = document.getElementById('capFiltPais')?.value || '';
     const fm = document.getElementById('capFiltMod')?.value || '';
     const fpr= document.getElementById('capFiltPrecio')?.value || '';
-    const fa = document.getElementById('capFiltArea')?.value || '';
-    const filtered = CAP.filter(e=>{
+    const fe = document.getElementById('capFiltEje')?.value || '';
+    const q  = norm(document.getElementById('capBuscar')?.value || '').trim();
+    const filtered = VIG.filter(e=>{
       if(fp && e.pais!==fp) return false;
-      if(fm && e.modalidad!==fm) return false;
-      if(fa && e.area!==fa) return false;
+      if(fm && modClass(e.modalidad)!==modClass(fm)) return false;
+      if(fe && e.eje!==fe) return false;
+      if(q && !norm([e.nombre,e.institucion,e.area,e.eje,e.pais,e.duracion,e.detalle].join(' ')).includes(q)) return false;
       if(fpr==='free' && e.precio!=='Gratuito') return false;
       if(fpr==='paid' && (e.precio==='Gratuito'||e.precio==='Consultar')) return false;
       return true;
     });
     const el = document.getElementById('capCards');
     const cnt= document.getElementById('capCount');
-    if(cnt) cnt.innerHTML = `Mostrando <b>${filtered.length}</b> de ${CAP.length} actividades`;
+    if(cnt) cnt.innerHTML = `Mostrando <b>${filtered.length}</b> de ${VIG.length} actividades`;
     if(!el) return;
     if(!filtered.length){ el.innerHTML='<div class="cap-empty">Sin resultados para los filtros seleccionados.</div>'; return; }
     el.innerHTML = filtered.map(e=>{
@@ -1071,20 +1093,23 @@ body.compact .wk{padding:10px 13px}
   </div>
   <div class="cap-title">${esc(e.nombre)}</div>
   <div class="cap-inst">Organiza: <b>${esc(e.institucion)}</b></div>
-  <span class="cap-area">${esc(e.area)}</span>
+  <div class="cap-tags">${e.eje?`<span class="cap-eje">${esc(e.eje)}</span>`:''}<span class="cap-area">${esc(e.area)}</span></div>
+  <div class="cap-when">📅 ${esc(fechaTxt(e))}</div>
   <div class="cap-meta">
     <span class="cap-meta-item">📍 <b>${esc(e.pais)}</b></span>
     <span class="cap-meta-item">⏱ ${esc(e.duracion||'—')}</span>
-    <span class="cap-meta-item">📅 ${esc(fmtFecha(e.fecha))}</span>
     ${e.contacto?`<span class="cap-meta-item">✉️ ${esc(e.contacto)}</span>`:''}
   </div>
+  ${e.detalle?`<p class="cap-det">${esc(e.detalle)}</p>`:''}
   ${e.url?`<a class="cap-link" href="${esc(e.url)}" target="_blank" rel="noopener">🔗 Ver información e inscripción ↗</a>`:''}
 </div>`;
     }).join('');
     renderChart(filtered);
   };
 
-  ['capFiltPais','capFiltMod','capFiltPrecio','capFiltArea'].forEach(id=>document.getElementById(id)?.addEventListener('change', capFiltrar));
+  ['capFiltPais','capFiltMod','capFiltPrecio','capFiltEje'].forEach(id=>document.getElementById(id)?.addEventListener('change', capFiltrar));
+  let qT; document.getElementById('capBuscar')?.addEventListener('input',()=>{ clearTimeout(qT); qT=setTimeout(capFiltrar,150); });
+  document.getElementById('capReset')?.addEventListener('click',()=>{ ['capFiltPais','capFiltMod','capFiltPrecio','capFiltEje','capBuscar'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; }); capFiltrar(); });
   // Initial render
   window.capFiltrar();
 })();
