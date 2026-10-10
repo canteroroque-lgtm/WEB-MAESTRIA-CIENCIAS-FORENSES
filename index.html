@@ -114,6 +114,15 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .backtop.show{opacity:1;pointer-events:auto;transform:none}
 .backtop:hover{border-color:var(--cyan);box-shadow:0 10px 30px -8px rgba(35,240,255,.4)}
 .backtop svg{width:20px;height:20px}
+.finder{margin:28px 0 0;padding:16px 18px;border:1px solid var(--line-2);border-radius:16px;background:rgba(255,255,255,.04);backdrop-filter:blur(10px)}
+.finder-lbl{display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#ffe44d;margin-bottom:8px}
+.finder-row{display:flex;gap:10px;flex-wrap:wrap}
+.finder-row input{flex:1 1 220px;min-width:0;background:rgba(255,255,255,.06);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;color:var(--ink);font:inherit;font-size:15px;outline:none}
+.finder-row input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(35,240,255,.12)}
+.finder-go{flex:none;min-height:44px}
+.finder-msg{margin-top:6px;font-size:13px;color:#ff8fb1;min-height:0}
+.finder-msg:empty{display:none}
+.scard.flash{outline:2px solid #ffe44d;outline-offset:3px}
 
 /* nav */
 header.nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(14px);background:linear-gradient(180deg,rgba(6,7,14,.94),rgba(6,7,14,.6));border-bottom:1px solid var(--line)}
@@ -819,6 +828,15 @@ body.compact .wk{padding:10px 13px}
 </div>
 
 <div class="wrap">
+  <form class="finder" id="finder" role="search" aria-label="Buscar una materia">
+    <label for="finderIn" class="finder-lbl">Ir a una materia</label>
+    <div class="finder-row">
+      <input id="finderIn" list="finderList" type="search" placeholder="Escribí el nombre de una materia…" autocomplete="off">
+      <datalist id="finderList"></datalist>
+      <button type="submit" class="btn primary finder-go">Abrir</button>
+    </div>
+    <p class="finder-msg" id="finderMsg" aria-live="polite"></p>
+  </form>
   <section id="obligatorias" aria-labelledby="obligatorias-title">
     <div class="sec-head">
       <div class="kicker">Ciclo Común</div>
@@ -1115,6 +1133,25 @@ body.compact .wk{padding:10px 13px}
 })();
 </script>
 <script>
+// Buscador rápido de materias
+(function(){
+  var f=document.getElementById('finder'), inp=document.getElementById('finderIn'), dl=document.getElementById('finderList'), msg=document.getElementById('finderMsg');
+  var M=window.MCF; if(!f||!M) return;
+  var titles=[].concat(M.OBLIGATORIAS,M.ESPECIFICAS,[M.TESIS]).filter(Boolean).map(function(s){return s.title;});
+  titles.filter(function(t,i){return titles.indexOf(t)===i;}).sort(function(a,b){return a.localeCompare(b,'es');}).forEach(function(t){ var o=document.createElement('option'); o.value=t; dl.appendChild(o); });
+  var norm=function(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();};
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var q=norm(inp.value); if(!q){ msg.textContent=''; return; }
+    var t=titles.find(function(x){return norm(x)===q;})||titles.find(function(x){return norm(x).indexOf(q)>-1;});
+    var card=t && Array.prototype.find.call(document.querySelectorAll('.scard'),function(c){return c.dataset.subj===t;});
+    if(!card){ msg.textContent='No se encontró esa materia.'; return; }
+    msg.textContent='';
+    var y=card.getBoundingClientRect().top+window.scrollY-140; window.scrollTo({top:y,behavior:'smooth'});
+    card.classList.add('flash'); setTimeout(function(){card.classList.remove('flash');},1600);
+    card.click();
+  });
+})();
 // Mobile nav toggle
 (function(){
   var btn = document.getElementById('navToggle');
@@ -1140,8 +1177,8 @@ body.compact .wk{padding:10px 13px}
     var obs = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
         if(en.isIntersecting){
-          links.forEach(function(a){ a.classList.remove('active'); });
-          var l = byId[en.target.id]; if(l) l.classList.add('active');
+          links.forEach(function(a){ a.classList.remove('active'); a.removeAttribute('aria-current'); });
+          var l = byId[en.target.id]; if(l){ l.classList.add('active'); l.setAttribute('aria-current','location'); }
         }
       });
     }, {rootMargin:'-45% 0px -50% 0px', threshold:0});

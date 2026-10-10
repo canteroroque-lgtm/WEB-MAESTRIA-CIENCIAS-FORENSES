@@ -26,6 +26,12 @@ const MCF_DRIVE = {
     files: []
   },
 
+  // ─── 6. LABORATORIOS FORENSES ───────────────────────────────────────────
+  "Laboratorios Forenses. Bioseguridad e Higiene": {
+    folder: F("1MkzAnpDzeDlTXfTHnGuzH4rtuR4rYEDB"),
+    files: []
+  },
+
   // ─── DERECHO PENAL Y PROCESAL PENAL ─────────────────────────────────────
   "Derecho Penal y Procesal Penal": {
     folder: F("1vzqFo59AY0zSxue8i3gZ9a21bP4K9GCn"),

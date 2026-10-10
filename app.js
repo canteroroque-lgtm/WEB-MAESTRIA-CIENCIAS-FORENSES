@@ -399,7 +399,7 @@
     wrap.innerHTML=html;
 
     wrap.querySelectorAll('.simitem').forEach(btn=>{
-      btn.addEventListener('click',()=>{ openModal(ESP_BY_TITLE[decodeURIComponent(btn.dataset.t)],'esp'); document.getElementById('modal').scrollIntoView({block:'start'}); });
+      btn.addEventListener('click',()=>{ openModal(ESP_BY_TITLE[decodeURIComponent(btn.dataset.t)],'esp'); const md=document.getElementById('modal'); if(md){ md.scrollTop=0; const mb=md.querySelector('.modal'); if(mb) mb.scrollTop=0; } });
     });
 
     bg.classList.add('open'); document.body.style.overflow='hidden';
