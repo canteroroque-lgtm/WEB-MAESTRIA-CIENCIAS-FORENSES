@@ -573,7 +573,7 @@ body.compact .wk{padding:10px 13px}
 @media(prefers-reduced-motion:reduce){.ruta-char{animation:none}}
 .ruta-tip{position:absolute;pointer-events:none;transform:translate(-50%,-100%);background:var(--bg-2);border:1px solid var(--line-2);border-radius:10px;padding:8px 12px;font-family:'Space Mono',monospace;font-size:10.5px;color:var(--ink);white-space:nowrap;opacity:0;transition:opacity .15s;top:0;left:0}
 .ruta-tip.show{opacity:1}
-.ruta-lista{display:flex;flex-direction:column;gap:2px}
+.ruta-lista{display:flex;flex-direction:column;gap:2px}.ruta-lista[hidden],.ruta-mapa[hidden]{display:none}
 .rl-item{display:flex;align-items:center;gap:14px;padding:12px 4px;border-left:2px solid var(--line-2);padding-left:20px;position:relative}
 .rl-item::before{content:"";position:absolute;left:-6px;top:50%;transform:translateY(-50%);width:11px;height:11px;border-radius:50%;background:var(--bg-2);border:2px solid var(--line-2)}
 .rl-item.done{border-left-color:var(--lime)}
@@ -590,6 +590,48 @@ body.compact .wk{padding:10px 13px}
   .ruta-toggle-row{display:none}
   .ruta-lista{display:flex!important}
 }
+/* ruta: estética videojuego */
+.ruta-mapa{padding:0;background:#070b12;border:1px solid rgba(35,240,255,.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 20px 50px -20px rgba(0,0,0,.7)}
+.ruta-mapa svg{border-radius:21px}
+.ruta-shadow{stroke-width:40;stroke:rgba(0,0,0,.55)}
+.ruta-road.kerb{stroke-width:36;stroke:#3b4558}
+.ruta-road.base,.ruta-road.done{stroke-width:30}
+.ruta-edge{fill:none;stroke:rgba(244,247,251,.55);stroke-width:26;stroke-dasharray:none;stroke-linecap:round;stroke-linejoin:round;mask:none;opacity:0}
+.ruta-road.sheen{stroke-width:6;stroke:rgba(255,255,255,.07)}
+.ruta-centerline{stroke:#ffd23d;stroke-width:2.4;stroke-dasharray:12 12;opacity:.85}
+.ruta-ft{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;fill:#c9d3e3;text-anchor:middle}
+.rn-pad-sh{fill:rgba(0,0,0,.55)}
+.rn-pad{fill:url(#rgPad)}
+.rn-rim{stroke-width:2;opacity:.75}
+.ruta-node.now .rn-rim{stroke-width:2.6;opacity:1}
+.ruta-node.next{color:#7d8aa3}
+.ruta-node.next .rn-icon{opacity:.55}
+.rn-beacon{animation:rnPulse 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes rnPulse{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
+.rn-ok circle{fill:#1fbf5b;stroke:#062b14;stroke-width:1.2}.rn-ok path{fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.rn-lock circle{fill:#1a2130;stroke:#4a5670;stroke-width:1}.rn-lock rect{fill:#8d9ab3}.rn-lock path{fill:none;stroke:#8d9ab3;stroke-width:1}
+.rn-post{stroke:#8d9ab3;stroke-width:1.6}
+.rn-plate rect{fill:#e9eef6}.rn-plate .rn-plate-in{fill:#1f7a35}
+.ruta-node.next .rn-plate .rn-plate-in{fill:#2b4c36}
+.rn-plate text{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:10px;fill:#fff;text-anchor:middle}
+.ruta-char-glow{fill:rgba(35,240,255,.25);filter:blur(4px)}
+.ruta-sign{font-size:12px;padding:0!important;background:none!important;border:0!important;box-shadow:none!important;overflow:visible}
+.ruta-sign div{box-sizing:border-box;flex-direction:column;justify-content:center;gap:3px;padding:6px 12px;height:auto!important;min-height:100%;background:linear-gradient(180deg,#2f8f3f,#1d6a2b);border:2px solid #e9eef6;border-radius:6px;box-shadow:0 6px 14px rgba(0,0,0,.5);color:#fff;font-weight:600}
+.ruta-sign .rs-t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.25;text-align:center;white-space:normal;word-break:normal;overflow-wrap:anywhere}
+.ruta-sign small{display:block;line-height:1.2;white-space:nowrap;font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:1.5px;color:#d9f5df;font-weight:700}
+.ruta-hud{display:grid;grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr);gap:10px;margin-bottom:12px}
+.hud-box{display:flex;flex-direction:column;justify-content:center;gap:5px;min-width:0;padding:12px 16px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(35,240,255,.2);backdrop-filter:blur(8px)}
+.hud-k{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9fb0c8}
+.hud-v{font-family:'Space Grotesk',sans-serif;font-size:28px;line-height:1;color:#ffe44d}.hud-v small{font-size:14px;color:#9fb0c8;margin-left:2px}
+.hud-bar{height:12px;border-radius:999px;background:#0b111b;border:1px solid rgba(255,255,255,.12);overflow:hidden}
+.hud-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#1fbf5b,#23f0ff);box-shadow:0 0 12px rgba(35,240,255,.5)}
+.hud-s{font-size:12px;color:#c9d3e3}
+.hud-n{font-size:14px;color:#fff;font-weight:600;line-height:1.3;text-wrap:pretty}
+.rl-lv{flex:none;width:34px;height:34px;display:grid;place-items:center;border-radius:8px;background:#1d6a2b;border:2px solid #e9eef6;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px}
+.rl-item.next .rl-lv{background:#2b4c36;opacity:.7}
+.rl-item.now .rl-lv{box-shadow:0 0 0 3px rgba(35,240,255,.35)}
+@media(max-width:760px){.ruta-hud{grid-template-columns:auto minmax(0,1fr)}.hud-next{grid-column:1/-1}.hud-v{font-size:24px}}
+@media(prefers-reduced-motion:reduce){.rn-beacon{animation:none}}
 
 /* ── CAPACITACIONES ─────────────────────────────────────── */
 .cap-wrap{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start}
@@ -817,7 +859,7 @@ body.compact .wk{padding:10px 13px}
     <div class="sec-head">
       <div class="kicker">Tu avance, visualizado</div>
       <h2 class="sec" id="ruta-title">La <em>ruta</em> del investigador</h2>
-      <p class="sec-sub">Un recorrido decorativo por las materias en orden cronológico: la figura avanza sola, a medida que pasan las fechas del cronograma. No reemplaza al panel de progreso, solo lo ilustra.</p>
+      <p class="sec-sub">Un recorrido decorativo por las materias en orden cronológico: la figura avanza sola, a medida que pasan las fechas del cronograma. Cada estación es una materia: las huellas de pisada son obligatorias y las huellas dactilares, paquetes de materias específicas.</p>
     </div>
     <div class="ruta-toggle-row">
       <button type="button" class="dbtn" id="rutaToggle" aria-pressed="false">Ver como lista</button>

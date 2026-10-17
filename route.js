@@ -24,15 +24,32 @@
 
   const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const nDone = Math.max(curIdx,0), N = stations.length;
+  const nextSt = stations[curIdx+1];
+  const daysTo = nextSt ? Math.max(0, Math.round((nextSt.min-TODAY)/864e5)) : 0;
+  function renderHud(){
+    let hud = document.getElementById('rutaHud');
+    if(!hud){ hud=document.createElement('div'); hud.id='rutaHud'; hud.className='ruta-hud'; mapaEl.parentNode.insertBefore(hud, mapaEl); }
+    const pct = Math.round(nDone/N*100);
+    hud.innerHTML =
+      '<div class="hud-box"><span class="hud-k">Nivel</span><b class="hud-v">'+(curIdx+1)+'<small>/'+N+'</small></b></div>'+
+      '<div class="hud-box hud-xp"><span class="hud-k">Progreso del caso</span><div class="hud-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct+'" aria-label="Progreso del recorrido"><i style="width:'+pct+'%"></i></div><span class="hud-s">'+nDone+' de '+N+' estaciones superadas · '+pct+'%</span></div>'+
+      '<div class="hud-box hud-next"><span class="hud-k">Próximo checkpoint</span><b class="hud-n">'+(nextSt?esc(nextSt.short):'Meta alcanzada')+'</b>'+(nextSt?'<span class="hud-s">en '+daysTo+' día'+(daysTo===1?'':'s')+'</span>':'')+'</div>';
+  }
   function renderLista(){
-    listaEl.innerHTML = stations.map(s=>{
-      const tag = s.status==='done' ? '✓ Completada' : s.status==='now' ? '● Actual' : '○ Próxima';
-      return '<div class="rl-item '+s.status+'"><span class="rl-status">'+tag+'</span><span class="rl-name">'+esc(s.short)+'</span></div>';
+    listaEl.innerHTML = stations.map((s,i)=>{
+      const tag = s.status==='done' ? '✓ Superada' : s.status==='now' ? '● En curso' : '○ Bloqueada';
+      return '<div class="rl-item '+s.status+'"><span class="rl-lv">'+String(i+1).padStart(2,'0')+'</span><span class="rl-status">'+tag+'</span><span class="rl-name">'+esc(s.short)+'</span></div>';
     }).join('');
   }
 
   // ── vista mapa: asfalto 3D con relieve y figura sofisticada ──
   const DEFS = '<defs>'+
+    '<pattern id="rgGrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="rgba(35,240,255,.06)" stroke-width="1"/></pattern>'+
+    '<radialGradient id="rgGround" cx=".5" cy=".55" r=".75"><stop offset="0" stop-color="#132a2a"/><stop offset=".6" stop-color="#0c1620"/><stop offset="1" stop-color="#070b12"/></radialGradient>'+
+    '<radialGradient id="rgBeacon" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="rgba(35,240,255,.55)"/><stop offset="1" stop-color="rgba(35,240,255,0)"/></radialGradient>'+
+    '<linearGradient id="rgPad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c3a52"/><stop offset="1" stop-color="#0d121c"/></linearGradient>'+
+    '<pattern id="rgChk" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#fff"/><rect width="3" height="3" fill="#111"/><rect x="3" y="3" width="3" height="3" fill="#111"/></pattern>'+
     // asfalto: gradiente vertical para simular volumen
     '<linearGradient id="rgAsphalt" x1="0" y1="0" x2="0" y2="1">'+
       '<stop offset="0" stop-color="#2b3446"/><stop offset=".42" stop-color="#1d2432"/><stop offset="1" stop-color="#10141d"/>'+
@@ -118,47 +135,59 @@
 
   function renderMapa(){
     const n = stations.length;
-    const w = 1160, stepX = w/(n+1), midY = 128, amp = 34;
+    const w = 1160, stepX = w/(n+1), midY = 150, amp = 38;
     const pts = stations.map((s,i)=>({ x: stepX*(i+1), y: midY + amp*Math.sin(i*0.9) }));
-    const h = midY + amp + 92;
+    const h = midY + amp + 122;
     function build(upTo){
       if(upTo<1) return '';
-      let d = 'M '+pts[0].x+' '+pts[0].y;
+      let d = 'M '+(pts[0].x-stepX*.55)+' '+pts[0].y+' L '+pts[0].x+' '+pts[0].y;
       for(let i=0;i<upTo-1 && i<pts.length-1;i++){ const p0=pts[i], p1=pts[i+1]; const mx=(p0.x+p1.x)/2; d += ' C '+mx+' '+p0.y+', '+mx+' '+p1.y+', '+p1.x+' '+p1.y; }
       return d;
     }
-    const pathAll = build(pts.length);
+    const last = pts[pts.length-1];
+    const pathAll = build(pts.length) + ' L '+(last.x+stepX*.55)+' '+last.y;
     const pathDone = curIdx>0 ? build(curIdx+1) : '';
     const charPt = pts[Math.max(curIdx,0)] || pts[0];
 
-    let svg = '<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Recorrido cronológico de las materias">';
+    let svg = '<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Recorrido cronológico de las materias: nivel '+(curIdx+1)+' de '+n+'">';
     svg += DEFS;
-    // sombra proyectada del asfalto (da la sensación de elevación)
-    svg += '<path class="ruta-shadow" d="'+pathAll+'" transform="translate(0,7)"/>';
+    svg += '<rect width="'+w+'" height="'+h+'" fill="url(#rgGround)"/><rect width="'+w+'" height="'+h+'" fill="url(#rgGrid)"/>';
+    svg += '<path class="ruta-shadow" d="'+pathAll+'" transform="translate(0,9)"/>';
     svg += '<path class="ruta-road kerb" d="'+pathAll+'"/>';
     svg += '<path class="ruta-road base" d="'+pathAll+'"/>';
     if(pathDone) svg += '<path class="ruta-road done" d="'+pathDone+'"/>';
-    svg += '<path class="ruta-road sheen" d="'+pathAll+'" transform="translate(0,-4.6)"/>';
+    svg += '<path class="ruta-edge" d="'+pathAll+'"/>';
+    svg += '<path class="ruta-road sheen" d="'+pathAll+'" transform="translate(0,-5)"/>';
     svg += '<path class="ruta-centerline" d="'+pathAll+'"/>';
+    // salida y meta
+    const s0 = {x:pts[0].x-stepX*.55, y:pts[0].y};
+    svg += '<g class="ruta-flag"><rect x="'+(s0.x-8)+'" y="'+(s0.y-13)+'" width="5" height="26" fill="url(#rgChk)" opacity=".85"/><text x="'+(s0.x-10)+'" y="'+(s0.y+34)+'" class="ruta-ft" text-anchor="start" style="text-anchor:start">INICIO</text></g>';
+    const s1 = {x:last.x+stepX*.55, y:last.y};
+    svg += '<g class="ruta-flag"><line x1="'+s1.x+'" y1="'+(s1.y+12)+'" x2="'+s1.x+'" y2="'+(s1.y-42)+'" stroke="#c9d3e3" stroke-width="2"/><rect x="'+s1.x+'" y="'+(s1.y-42)+'" width="24" height="15" fill="url(#rgChk)"/><text x="'+(s1.x+24)+'" y="'+(s1.y+34)+'" class="ruta-ft" text-anchor="end" style="text-anchor:end">META</text></g>';
     pts.forEach((p,i)=>{
       const s = stations[i];
       const icon = s.kind==='foot' ? 'rn-foot' : 'rn-print';
-      const size = s.kind==='foot' ? 16 : 18;
-      svg += '<g class="ruta-node '+s.status+'" data-tip="'+esc(s.short)+'" transform="translate('+p.x+','+p.y+')">'+
-        '<circle class="rn-disc" r="'+(size/2+5.5)+'"/>'+
-        '<circle class="rn-rim" r="'+(size/2+5.5)+'"/>'+
+      const size = s.kind==='foot' ? 15 : 17;
+      const up = i%2===0, sy = up ? p.y-52 : p.y+30;
+      svg += '<g class="ruta-node '+s.status+'" data-tip="'+esc((i+1)+'. '+s.short)+'" transform="translate('+p.x+','+p.y+')">'+
+        (s.status==='now'?'<circle class="rn-beacon" r="30" fill="url(#rgBeacon)"/>':'')+
+        '<ellipse class="rn-pad-sh" cx="0" cy="4" rx="17" ry="7"/>'+
+        '<circle class="rn-pad" r="14"/>'+
+        '<circle class="rn-rim" r="14"/>'+
         '<use href="#'+icon+'" class="rn-icon" x="-'+(size/2)+'" y="-'+(size/2)+'" width="'+size+'" height="'+size+'"/>'+
-        '<text class="rn-label" y="'+(size/2+18)+'">'+(i+1)+'</text>'+
+        (s.status==='done'?'<g class="rn-ok" transform="translate(10,-10)"><circle r="6"/><path d="M-2.6 0 L-.6 2.2 L2.8 -2"/></g>':'')+
+        (s.status==='next'?'<g class="rn-lock" transform="translate(10,-10)"><circle r="5.6"/><rect x="-2.4" y="-.6" width="4.8" height="3.6" rx=".6"/><path d="M-1.4 -.6 V-2 a1.4 1.4 0 0 1 2.8 0 V-.6"/></g>':'')+
+        '<line class="rn-post" x1="0" y1="'+(up?-14:14)+'" x2="0" y2="'+(up?sy-p.y+16:sy-p.y)+'"/>'+
+        '<g class="rn-plate" transform="translate(0,'+(sy-p.y)+')"><rect x="-13" y="0" width="26" height="16" rx="3"/><rect x="-11" y="2" width="22" height="12" rx="2" class="rn-plate-in"/><text y="11.5">'+(i+1)+'</text></g>'+
         '</g>';
     });
-    svg += '<g class="ruta-char" aria-hidden="true"><use href="#rn-lupa" x="'+(charPt.x-30)+'" y="'+(charPt.y-86)+'" width="60" height="76"/></g>';
-    // cartel de la materia actual: en una banda libre bajo la carretera
+    svg += '<g class="ruta-char" aria-hidden="true"><ellipse cx="'+charPt.x+'" cy="'+(charPt.y+2)+'" rx="22" ry="7" class="ruta-char-glow"/><use href="#rn-lupa" x="'+(charPt.x-32)+'" y="'+(charPt.y-92)+'" width="64" height="81"/></g>';
     if(curIdx>=0){
       const cs = stations[curIdx], cp = pts[curIdx];
-      const txt = cs.short.length>34 ? cs.short.slice(0,32)+'…' : cs.short;
-      const sw = 176, sy = midY + amp + 44, sx = Math.min(Math.max(cp.x - sw/2, 4), w - sw - 4);
+      const txt = cs.short.length>64 ? cs.short.slice(0,62)+'…' : cs.short;
+      const sw = 270, sy = midY + amp + 52, sx = Math.min(Math.max(cp.x - sw/2, 4), w - sw - 4);
       svg += '<g class="ruta-signg"><line x1="'+cp.x+'" y1="'+(cp.y+16)+'" x2="'+cp.x+'" y2="'+sy+'" class="ruta-post"/>'+
-        '<foreignObject x="'+sx+'" y="'+sy+'" width="'+sw+'" height="32" class="ruta-sign"><div>'+esc(txt)+'</div></foreignObject></g>';
+        '<foreignObject x="'+sx+'" y="'+sy+'" width="'+sw+'" height="62" class="ruta-sign"><div><small>NIVEL '+(curIdx+1)+' · EN CURSO</small><span class="rs-t">'+esc(txt)+'</span></div></foreignObject></g>';
     }
     svg += '</svg>';
     mapaEl.innerHTML = svg + '<div class="ruta-tip" id="rutaTip"></div>';
@@ -169,7 +198,7 @@
     const show = node=>{
       const box = mapaEl.getBoundingClientRect(), nb = node.getBoundingClientRect();
       tip.textContent = node.dataset.tip;
-      tip.style.left = (nb.left - box.left + nb.width/2)+'px';
+      tip.style.left = Math.min(Math.max(nb.left - box.left + nb.width/2, 110), box.width-110)+'px';
       tip.style.top = (nb.top - box.top - 10)+'px';
       tip.classList.add('show');
     };
@@ -187,6 +216,7 @@
     mapaEl.addEventListener('pointerleave', hide);
   }
 
+  renderHud();
   renderMapa();
   renderLista();
 
