@@ -26,6 +26,12 @@ const MCF_DRIVE = {
     files: []
   },
 
+  // ─── TÉCNICAS DE EVALUACIÓN PSICOLÓGICAS ────────────────────────────────
+  "Técnicas de Evaluación Psicológicas en el Campo Forense": {
+    folder: F("14v6-9mKwT1IT-9wAM3xT0Y1jBif8fLnC"),
+    files: []
+  },
+
   // ─── 6. LABORATORIOS FORENSES ───────────────────────────────────────────
   "Laboratorios Forenses. Bioseguridad e Higiene": {
     folder: F("1MkzAnpDzeDlTXfTHnGuzH4rtuR4rYEDB"),
