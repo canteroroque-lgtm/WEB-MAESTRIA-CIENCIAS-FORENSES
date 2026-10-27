@@ -18,10 +18,8 @@
   if(TESIS.dates && TESIS.dates.length) stations.push({ label:TESIS.title, short:TESIS.title, min:P(TESIS.dates[0]), kind:'foot' });
   stations.sort((a,b)=>a.min-b.min);
 
-  // la lupa avanza a una estación desde el día anterior a su primera clase (víspera)
-  const EVE = new Date(TODAY); EVE.setDate(EVE.getDate()+1);
   let curIdx = -1;
-  stations.forEach((s,i)=>{ if(s.min<=EVE) curIdx=i; });
+  stations.forEach((s,i)=>{ if(s.min<=TODAY) curIdx=i; });
   stations.forEach((s,i)=>{ s.status = i<curIdx ? 'done' : (i===curIdx ? 'now' : 'next'); });
 
   const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -189,7 +187,7 @@
       const txt = cs.short.length>64 ? cs.short.slice(0,62)+'…' : cs.short;
       const sw = 270, sy = midY + amp + 52, sx = Math.min(Math.max(cp.x - sw/2, 4), w - sw - 4);
       svg += '<g class="ruta-signg"><line x1="'+cp.x+'" y1="'+(cp.y+16)+'" x2="'+cp.x+'" y2="'+sy+'" class="ruta-post"/>'+
-        '<foreignObject x="'+sx+'" y="'+sy+'" width="'+sw+'" height="62" class="ruta-sign"><div><small>NIVEL '+(curIdx+1)+' · '+(stations[curIdx].min>TODAY?'COMIENZA MAÑANA':'EN CURSO')+'</small><span class="rs-t">'+esc(txt)+'</span></div></foreignObject></g>';
+        '<foreignObject x="'+sx+'" y="'+sy+'" width="'+sw+'" height="62" class="ruta-sign"><div><small>NIVEL '+(curIdx+1)+' · EN CURSO</small><span class="rs-t">'+esc(txt)+'</span></div></foreignObject></g>';
     }
     svg += '</svg>';
     mapaEl.innerHTML = svg + '<div class="ruta-tip" id="rutaTip"></div>';

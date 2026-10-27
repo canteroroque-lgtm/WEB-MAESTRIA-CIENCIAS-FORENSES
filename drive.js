@@ -32,12 +32,6 @@ const MCF_DRIVE = {
     files: []
   },
 
-  // ─── TALLER DE TESIS ────────────────────────────────────────────────────
-  "Taller de Tesis": {
-    folder: F("1_QSFIrjqO8QVQPy3-9MxCWBlNwJV3c_6"),
-    files: []
-  },
-
   // ─── 6. LABORATORIOS FORENSES ───────────────────────────────────────────
   "Laboratorios Forenses. Bioseguridad e Higiene": {
     folder: F("1MkzAnpDzeDlTXfTHnGuzH4rtuR4rYEDB"),
