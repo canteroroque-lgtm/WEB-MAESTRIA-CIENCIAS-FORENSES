@@ -23,7 +23,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; frame-ancestors 'self'" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Maestría en Ciencias Forenses · UBA","url":"https://canteroroque-lgtm.github.io/WEB-MAESTRIA-CIENCIAS-FORENSES/","inLanguage":"es-AR","about":{"@type":"EducationalOccupationalProgram","name":"Maestría Interdisciplinaria en Ciencias Forenses","description":"Programa de posgrado interdisciplinario en ciencias forenses de la Universidad de Buenos Aires.","occupationalCategory":"Perito forense","provider":{"@type":"CollegeOrUniversity","name":"Universidad de Buenos Aires","sameAs":"https://www.uba.ar/"}}}</script>
 <style>
@@ -681,6 +681,26 @@ body.compact .wk{padding:10px 13px}
 .cap-link:hover{opacity:1}
 .cap-empty{text-align:center;padding:48px;color:var(--ink-dim);font-size:15px}
 </style>
+<style id="ruta-v3">
+.ruta-mapa{padding:0!important;overflow:hidden;border-radius:22px}
+.ruta-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(35,240,255,.35) transparent;border-radius:21px;outline:none}
+.ruta-scroll:focus-visible{box-shadow:inset 0 0 0 2px var(--cyan)}
+.ruta-scroll svg{display:block;width:100%;min-width:0;height:auto;border-radius:0}
+.ruta-node.done{color:#a6ff5c}.ruta-node.now{color:#23f0ff}.ruta-node.next{color:#8a96ad}
+.ruta-node.next .rn-icon{opacity:.6}
+.ruta-node .rn-rim{fill:none;stroke:currentColor;stroke-width:2.2;opacity:.9}
+.ruta-node.now .rn-rim{stroke-width:2.8;filter:drop-shadow(0 0 4px rgba(35,240,255,.8))}
+.ruta-node:focus-visible .rn-rim{stroke:#fff;stroke-width:3}
+.ruta-node .rn-icon{filter:drop-shadow(0 1px 1px rgba(0,0,0,.7))}
+.ruta-ft{font-size:9px;letter-spacing:2.4px;fill:#e9eef6}
+@media(max-width:760px){
+.ruta-mapa:not([hidden]){display:block!important}
+.ruta-toggle-row{display:flex!important}
+.ruta-lista[hidden]{display:none!important}
+.ruta-scroll svg{min-width:980px}
+}
+@media(prefers-reduced-motion:reduce){.rn-beacon{animation:none}}
+</style>
 </head>
 <body>
 
@@ -1001,7 +1021,8 @@ body.compact .wk{padding:10px 13px}
       <a href="#obligatorias">Obligatorias</a><a href="#especificas">Específicas</a><a href="#calendario">Calendario</a></div>
         <div class="fcol"><h5>Trámites</h5>
           <a href="assets/Como-abonar-un-curso.pdf" target="_blank" rel="noopener">Cómo abonar un curso</a>
-          <a href="assets/Asistencia-a-las-clases.pdf" target="_blank" rel="noopener">Asistencia a las clases</a></div>
+          <a href="assets/Asistencia-a-las-clases.pdf" target="_blank" rel="noopener">Asistencia a las clases</a>
+          <a href="mailto:bajasposgrado@psi.uba.ar" title="Solicitar la baja de un curso: indicar DNI, apellido y nombre, código y nombre del curso y motivo">Bajas de cursos: bajasposgrado@psi.uba.ar</a></div>
         <div class="fcol"><h5>Institucional</h5>
           <a href="https://www.maestriacienciasforensesuba.ar/quienessomos" target="_blank" rel="noopener">¿Quiénes somos?</a>
           <a href="https://www.maestriacienciasforensesuba.ar/admision" target="_blank" rel="noopener">Admisión</a>
@@ -1029,12 +1050,12 @@ body.compact .wk{padding:10px 13px}
   </div>
 </div>
 
-<script src="data.js"></script>
-<script src="drive.js"></script>
-<script src="capacitaciones/capacitaciones.js"></script>
-<script src="app.js"></script>
-<script src="features.js"></script>
-<script src="route.js"></script>
+<script src="data.js?v=20261026b"></script>
+<script src="drive.js?v=20261026b"></script>
+<script src="capacitaciones/capacitaciones.js?v=20261026b"></script>
+<script src="app.js?v=20261026b"></script>
+<script src="features.js?v=20261026b"></script>
+<script src="route.js?v=20261026b"></script>
 <script>
 (function(){
   const CAP = window.MCF_CAPACITACIONES || [];
@@ -1248,5 +1269,6 @@ body.compact .wk{padding:10px 13px}
   <text x="60" y="70" text-anchor="middle" font-family="monospace" font-size="5.5" fill="#9b6bff" letter-spacing="1">MAESTRÍA · UBA</text>
 </svg>
 </template>
+<script id="mcf-chart-ready">window.addEventListener("load",function(){ if(typeof Chart!=="undefined" && typeof window.capFiltrar==="function") window.capFiltrar(); });</script>
 </body>
 </html>

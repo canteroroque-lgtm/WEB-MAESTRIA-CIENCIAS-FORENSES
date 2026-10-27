@@ -134,8 +134,14 @@
   OBLIGATORIAS.forEach(s=>gO.appendChild(card(s,'oblig')));
   document.getElementById('tesisDate').textContent = TESIS.fechas;
   const tesisCardEl=document.getElementById('tesisCard');
-  tesisCardEl.addEventListener('click',()=>openModal(TESIS,'tesis'));
-  tesisCardEl.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(TESIS,'tesis'); } });
+  const tesisMi=matInfo(TESIS.title);
+  if(tesisMi && !tesisCardEl.querySelector('.card-drive')){
+    const a=document.createElement('a'); a.className='card-drive'; a.href=tesisMi.folder; a.target='_blank'; a.rel='noopener';
+    a.setAttribute('aria-label','Abrir carpeta de Drive de '+TESIS.title); a.innerHTML=ICON.folder+'Ver en Drive';
+    tesisCardEl.appendChild(a);
+  }
+  tesisCardEl.addEventListener('click',e=>{ if(e.target.closest('.card-drive')) return; openModal(TESIS,'tesis'); });
+  tesisCardEl.addEventListener('keydown',e=>{ if(e.target.closest('.card-drive')) return; if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(TESIS,'tesis'); } });
 
   (function(){
     const set=(sel,v)=>{ const n=document.querySelector(sel); if(n) n.textContent=v; };
