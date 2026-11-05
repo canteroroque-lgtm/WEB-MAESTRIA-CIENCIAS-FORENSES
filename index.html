@@ -1050,12 +1050,2040 @@ body.compact .wk{padding:10px 13px}
   </div>
 </div>
 
-<script src="data.js?v=20261026b"></script>
-<script src="drive.js?v=20261026b"></script>
-<script src="capacitaciones/capacitaciones.js?v=20261026b"></script>
-<script src="app.js?v=20261026b"></script>
-<script src="features.js?v=20261026b"></script>
-<script src="route.js?v=20261026b"></script>
+<script>/* data.js */
+// ============================================================
+// Maestría Interdisciplinaria en Ciencias Forenses · UBA
+// CRONOGRAMA OFICIAL 2026–2027  (fuente: cronograma_MCF_2026_2027)
+// Todas las clases se dictan JUEVES y VIERNES.
+// ============================================================
+
+const DIAS = "Jueves y Viernes";
+
+// --- Paquetes de materias específicas (se cursa UNA por paquete) ---
+// Las 3 materias de un paquete se dictan en simultáneo, en las MISMAS fechas.
+const PAQUETES = [
+  { id:"1", color:"#ff3df0", mes:"Junio 2026",      fechas:"4, 5, 11 y 12 de junio de 2026",          dates:["2026-06-04","2026-06-05","2026-06-11","2026-06-12"] },
+  { id:"2", color:"#c8ff3d", mes:"Junio 2026",      fechas:"18, 19, 25 y 26 de junio de 2026",        dates:["2026-06-18","2026-06-19","2026-06-25","2026-06-26"] },
+  { id:"7", color:"#ffd23d", mes:"Julio 2026",      fechas:"2, 3, 16 y 17 de julio de 2026",          dates:["2026-07-02","2026-07-03","2026-07-16","2026-07-17"] },
+  { id:"4", color:"#3d9bff", mes:"Septiembre 2026", fechas:"17, 18, 24 y 25 de septiembre de 2026",    dates:["2026-09-17","2026-09-18","2026-09-24","2026-09-25"] },
+  { id:"6", color:"#ff5d8f", mes:"Julio 2027",      fechas:"1, 2, 15 y 16 de julio de 2027",          dates:["2027-07-01","2027-07-02","2027-07-15","2027-07-16"] },
+  { id:"3", color:"#ff9d3d", mes:"Octubre 2027",    fechas:"7, 8, 14 y 15 de octubre de 2027",        dates:["2027-10-07","2027-10-08","2027-10-14","2027-10-15"] },
+  { id:"5", color:"#2ce8c4", mes:"Octubre 2027",    fechas:"21, 22, 28 y 29 de octubre de 2027",      dates:["2027-10-21","2027-10-22","2027-10-28","2027-10-29"] },
+  { id:"8", color:"#b388ff", mes:"Noviembre 2027",  fechas:"4, 5, 11 y 12 de noviembre de 2027",       dates:["2027-11-04","2027-11-05","2027-11-11","2027-11-12"] },
+  { id:"9", color:"#5ad1ff", mes:"Noviembre 2027",  segunda:true, nota:"2ª oferta (Paquetes 1 y 6)",   fechas:"18, 19, 25 y 26 de noviembre de 2027", dates:["2027-11-18","2027-11-19","2027-11-25","2027-11-26"] }
+];
+
+// --- 13 Materias Obligatorias (ciclo común) ---
+const OBLIGATORIAS = [
+  { n:1, title:"Introducción a las Ciencias Forenses", area:"Troncal",
+    dates:["2026-04-09","2026-04-10"],
+    resp:["García, Ariana","Rodríguez, Flabia"],
+    equipo:["Eric García López","Pablo Lamounan","Mario Herrera","Glorio, Roberto"],
+    desc:"Definición y alcance de las Ciencias Forenses. Historia y evolución. Principales áreas de aplicación. Importancia en el sistema de justicia. Métodos y técnicas para la recolección, análisis e interpretación de la evidencia. Interdisciplinariedad. Desafíos y avances recientes. Casos históricos relevantes. Tendencias emergentes e inteligencia artificial. Ética y responsabilidad profesional.", examen:"2026-05-09", oficial:true },
+  { n:2, title:"Introducción al Derecho. Derecho Constitucional. Derechos Humanos", area:"Derecho",
+    dates:["2026-04-16","2026-04-17","2026-04-23","2026-04-24","2026-04-30","2026-05-07"],
+    resp:["Cao, Christian Alberto"], equipo:["Albertus, Viviana","Firpo, Silvia"],
+    desc:"La Constitución Nacional y los tratados de derechos humanos en el ámbito de actuación del perito. Protocolos de Minnesota y Estambul. Derechos constitucionales como reglas de actuación profesional. Garantías de las partes y labor actuarial del perito. Límites de la intervención del experto. Honorarios profesionales. El perito como auxiliar del sistema de justicia.", examen:"2026-07-11", recup:"2026-08-15", oficial:true },
+  { n:3, title:"Criminalística", area:"Criminalística",
+    dates:["2026-05-08","2026-05-14","2026-05-15","2026-05-21","2026-05-22","2026-05-28"],
+    resp:["Torre, Raúl"], equipo:[],
+    desc:"Introducción a la investigación criminal. La escena del crimen. Identidad humana. Balística y Química Forense. Documentología. Huellas indiciarias. El ADN en la investigación. Conservación de escenas. Biometría. Aplicación de medios electrónicos a la investigación criminal.", examen:"2026-08-01", recup:"2026-09-05", oficial:true },
+  { n:4, title:"Derecho Penal y Procesal Penal", area:"Derecho",
+    dates:["2026-08-06","2026-08-07","2026-08-13","2026-08-14","2026-08-20","2026-08-21"],
+    resp:["De la Fuente, Javier"], equipo:["Salduna, Mariana"],
+    desc:"Principios del derecho penal: legalidad, culpabilidad. Teoría jurídica del delito. Dolo y error. Causas de justificación e inculpabilidad. Consecuencias jurídicas del delito. Parte especial: homicidios, lesiones, delitos contra la integridad sexual y la libertad. El proceso penal: garantías, investigación, juicio oral. Intervención de peritos.", examen:"2026-10-24", recup:"2026-11-21", oficial:true },
+  { n:5, title:"Ética, Bioética Forense", area:"Troncal",
+    dates:["2026-09-03","2026-09-04"],
+    resp:["Fariña, Jorge Michel"], equipo:[],
+    desc:"Ética y Bioética en la práctica forense: principios, dilemas y códigos de conducta. Comités de bioética. Responsabilidad profesional y legal. Consentimiento informado y confidencialidad. Temas especiales: manipulación genética, eutanasia, trasplantes. Análisis de casos reales.", examen:"2026-11-07", recup:"2026-12-05", oficial:true },
+  { n:6, title:"Laboratorios Forenses. Bioseguridad e Higiene", area:"Laboratorio",
+    dates:["2026-10-01","2026-10-02","2026-10-08","2026-10-09","2026-10-15","2026-10-16"],
+    resp:["Azcurra, Marcela"], equipo:["Schreier, Laura","Martínez González, María Antonia"],
+    desc:"Organización y funcionamiento de los laboratorios forenses. Genética, Bioquímica, Toxicología y Antropología forense. Histopatología aplicada. Diagnóstico por imágenes. Protocolos y POE. Bioseguridad e higiene frente al riesgo biológico.", examen:"2026-12-19", recup:"2027-02-06", oficial:true },
+  { n:7, title:"Introducción a la Medicina Legal", area:"Medicina Legal",
+    dates:["2026-11-05","2026-11-06","2026-11-12","2026-11-13","2026-11-26","2026-11-27"],
+    resp:["Glorio, Roberto"], equipo:[],
+    desc:"Medicina Legal y Derecho. Ejercicio legal de la medicina (Ley 17.132). Secreto profesional: doctrina Tarasoff y Plenario Frías. Responsabilidad profesional. Certificados e historia clínica. Lesionología médico-legal. Delitos contra la integridad sexual. Ley de trasplantes.", examen:"2027-02-13", recup:"2027-03-06", oficial:true },
+  { n:8, title:"Introducción a la Tanatología General", area:"Medicina Legal",
+    dates:["2026-12-03","2026-12-04","2026-12-10","2026-12-11","2026-12-17","2026-12-18"],
+    resp:["Losetti, Oscar"], equipo:["Vega, Alejandro","Tinto, Gabriela"],
+    desc:"Tanatología, Lesionología y Patología Forense. Morfología y clasificación de lesiones. Evaluación de la muerte: diagnóstico y transformaciones cadavéricas. Autopsia: tipos, metodología e instrumental. Tiempo de muerte. Putrefacción y esqueletización. Patología forense gestacional y perinatal.", examen:"2027-02-20", recup:"2027-03-20", oficial:true },
+  { n:9, title:"Introducción a la Psiquiatría Forense", area:"Psiquiatría",
+    dates:["2027-04-08","2027-04-09","2027-04-15","2027-04-16","2027-04-22","2027-04-23"],
+    resp:["Silva, Daniel"], equipo:["Mazzoglio y Nabar, Martín","Muñiz, Milagros","Brusco, Ignacio"],
+    desc:"Valoración psiquiátrica en ámbitos judicial, policial y de seguridad. Semiología y síndromes psicopatológicos. Capacidad penal e inimputabilidad. Emoción violenta y Trastorno Mental Transitorio. Simulación y disimulación. Perfilación criminal. Autopsia psicológica.", examen:"2027-06-26" },
+  { n:10, title:"Derecho Civil y Procesal Civil. Prueba Pericial", area:"Derecho",
+    dates:["2027-05-06","2027-05-07","2027-05-13","2027-05-14","2027-05-20","2027-05-21"],
+    resp:["Rebaudi Basavilbaso, Ignacio Martín"], equipo:["Mpolás Andreadis, Alejandra"],
+    desc:"Responsabilidad Civil y Responsabilidad Civil Profesional. Funciones preventiva, punitiva y resarcitoria. Mala praxis. Confidencialidad e historia clínica. Prueba Pericial: designación de peritos, función, obligaciones, recusaciones. Valoración e impugnación. Reparación integral del daño.", examen:"2027-07-24" },
+  { n:11, title:"Introducción a la Psicología Jurídica y Forense", area:"Psicología",
+    dates:["2027-06-03","2027-06-04","2027-06-10","2027-06-11","2027-06-17","2027-06-18"],
+    resp:["García, Ariana Gabriela"], equipo:["Muñoz, J.M.","Echauri, Josean","Puente, Olga","Salinas, M.I.","Scaff, Elias","Azcarate, Juana"],
+    desc:"Psicología Jurídica: aspectos legales del ejercicio profesional (Ley 23.277). Entrecruzamiento entre psicología y derecho. Testigo vs. perito. Imputabilidad (Art. 34 CP). Daño moral y psíquico. TEPT. Baremos de incapacidad. Violencia familiar y de género. Ley de Salud Mental.", examen:"2027-08-21" },
+  { n:12, title:"Victimología", area:"Criminología",
+    dates:["2027-08-05","2027-08-06","2027-08-12","2027-08-13","2027-08-19","2027-08-20"],
+    resp:["Rodríguez, Flabia"], equipo:["Taibo, Lorena","Maffioletti, Francisco"],
+    desc:"Definición y evolución de la Victimología. Tipos de víctimas. Teorías de la victimización. Impacto psicológico, social y económico. Ciclo de la victimización. Respuestas institucionales y comunitarias. Victimización en violencia de género, infantil y en contextos de conflicto.", examen:"2027-10-23" },
+  { n:13, title:"Criminología", area:"Criminología",
+    dates:["2027-09-02","2027-09-03","2027-09-09","2027-09-10","2027-09-16","2027-09-17"],
+    resp:["Foyo, Roberto"], equipo:[],
+    desc:"Escuelas y teorías criminológicas. El delito y la Criminología. Estudio y evaluación del delincuente. Modalidades delictivas y organizaciones delincuenciales. Control social. Prevención y tratamiento. Violencia de género y doméstica desde una perspectiva criminológica.", examen:"2027-11-20" }
+];
+
+const TESIS = {
+  title:"Taller de Tesis", area:"Investigación",
+  dates:["2026-10-22","2026-10-23","2027-04-29","2027-04-30","2027-06-24","2027-06-25","2027-08-26","2027-08-27","2027-09-30","2027-10-01"],
+  fechas:"22–23 oct 2026 · 29–30 abr 2027 · 24–25 jun 2027 · 26–27 ago 2027 · 30 sep – 1 oct 2027",
+  resp:["Jaume, Luis","Roca, Marcelo"], equipo:[],
+  desc:"Espacio transversal para la elaboración, seguimiento y orientación del trabajo final: formulación del problema, objetivos, hipótesis, metodología y marco teórico, con tutorías personalizadas a lo largo de toda la maestría hasta el proyecto de tesis avalado por el director." };
+
+// --- 24 Materias Específicas (electivas) ---  paq = paquete; paq2 = 2ª oferta
+const ESPECIFICAS = [
+  // Paquete 1
+  { title:"Evaluación del Daño Psíquico", area:"Psicología", paq:"1", paq2:"9",
+    resp:["Muñoz Vicente, José Manuel"], equipo:["Rodríguez, Flabia","García, Ariana"],
+    desc:"Concepto de daño psíquico y daño moral. Criterios de diagnóstico y cuantificación del daño. Escalas y protocolos de evaluación. Elaboración de informes periciales.", examen:"2026-08-15", examen2:"2028-01-29", recup:"2026-09-12", oficial:true },
+  { title:"Delitos contra la Integridad Sexual", area:"Derecho", paq:"1", paq2:"9",
+    resp:["Kiss, Silvina"], equipo:["Esteban, Bettina","Vidal, Flavia"],
+    desc:"Aspectos psicológicos, médicos y legales. Evaluación de víctimas y victimarios. Consentimiento, vulnerabilidad y trauma. Marco normativo nacional e internacional.", examen:"2026-08-15", examen2:"2028-01-29", recup:"2026-09-12", oficial:true },
+  { title:"Toxicología Forense", area:"Laboratorio", paq:"1",
+    resp:["Bardoni, Natalia"], equipo:["Damin, Carlos"],
+    desc:"Detección de sustancias tóxicas, drogas y venenos en el cuerpo humano. Protocolos de análisis. Interpretación de resultados en casos judiciales.", examen:"2026-08-15", recup:"2026-09-12", oficial:true },
+  // Paquete 2
+  { title:"Autopsia Psicológica", area:"Psicología", paq:"2",
+    resp:["Chilo, Javier Francisco"], equipo:["Musumeci, Sandra","Ceballos Espinoza, Francisco"],
+    desc:"Metodología de reconstrucción del estado mental de una persona fallecida. Fuentes: entrevistas, documentos, pericias previas. Aplicaciones en suicidios, homicidios y muertes dudosas.", examen:"2026-08-29", recup:"2026-09-26", oficial:true },
+  { title:"Genética Forense", area:"Laboratorio", paq:"2",
+    resp:["Colussi, Andrea"], equipo:["Lisandro Laborde"],
+    desc:"Identificación humana mediante ADN. Marcadores genéticos. Análisis de filiación, muestras biológicas y rastros en la escena del crimen.", examen:"2026-08-29", recup:"2026-09-26", oficial:true },
+  { title:"Documentología (Caligráficos e Informáticos)", area:"Criminalística", paq:"2",
+    resp:["González, Domingo Antonio"], equipo:["Bendinelli, Maximiliano"],
+    desc:"Análisis de documentos y escrituras. Detección de falsificaciones y adulteraciones. Firma digital y pericia informática.", examen:"2026-08-29", recup:"2026-09-26", oficial:true },
+  // Paquete 7
+  { title:"Perfilación Forense y Serialidad Criminal", area:"Criminología", paq:"7",
+    resp:["Monros Llistar, Salvador"], equipo:["Garrido, Vicente"],
+    desc:"Análisis de patrones conductuales y modus operandi. Clasificación de delincuentes seriales. Perfilación inductiva y deductiva. Aplicaciones en investigación judicial.", examen:"2026-09-26", recup:"2026-10-24", oficial:true },
+  { title:"Antropología Forense", area:"Medicina Legal", paq:"7",
+    resp:["Selva, Mariana"], equipo:["Segura, Mariana"],
+    desc:"Identificación humana a partir de restos óseos. Determinación de edad, sexo y causa de muerte. Excavaciones y cadena de custodia.", examen:"2026-09-26", recup:"2026-10-24", oficial:true },
+  { title:"Neuropsiquiatría Forense", area:"Psiquiatría", paq:"7",
+    resp:["Mazzoglio y Nabar, Martín"], equipo:["Rubén Daniel Algieri","Agustín Algieri"],
+    desc:"Relación entre alteraciones neuropsiquiátricas y conducta criminal. Evaluación de la imputabilidad. Peritajes complejos e interdisciplinarios.", examen:"2026-09-26", recup:"2026-10-24", oficial:true },
+  // Paquete 4
+  { title:"Técnicas de Evaluación Psicológicas en el Campo Forense", area:"Psicología", paq:"4",
+    resp:["Castro Solano, Alejandro"], equipo:["De la Iglesia, Guadalupe","Guzmán, Leandro","Colaberardino, Valeria"],
+    desc:"Instrumentos psicométricos y proyectivos aplicados al contexto judicial. Adaptación de técnicas a la evaluación pericial. Protocolos y estándares. Validación de resultados. Informes psicológicos para la justicia.", examen:"2026-11-21", recup:"2026-12-19", oficial:true },
+  { title:"Histopatología Forense", area:"Laboratorio", paq:"4",
+    resp:["Matoso, Miriam"], equipo:["María Laura Aon Bertolino"],
+    desc:"Estudio microscópico de tejidos en el contexto judicial. Lesiones, enfermedades y causas de muerte. Técnicas histológicas aplicadas a la medicina legal.", examen:"2026-11-21", recup:"2026-12-19", oficial:true },
+  { title:"Derecho de Ejecución Penal y Justicia Restaurativa", area:"Derecho", paq:"4",
+    resp:["Peluzzi, Marcelo"], equipo:["Fuentes, Gabriela"],
+    desc:"Régimen de ejecución de la pena privativa de libertad. Derechos de los internos. Programas de reinserción y justicia restaurativa. Alternativas a la prisión.", examen:"2026-11-21", recup:"2026-12-19", oficial:true },
+  // Paquete 6
+  { title:"Psicología del Testimonio", area:"Psicología", paq:"6",
+    resp:["Rey Cattani, Romina"], equipo:["Manzanero, Antonio"],
+    desc:"Procesos de memoria, percepción y sugestión en la declaración de testigos y víctimas. Factores que influyen en la credibilidad. Entrevista cognitiva. Reconocimiento de personas.", examen:"2027-09-18" },
+  { title:"Tanatología Forense", area:"Medicina Legal", paq:"6", paq2:"9",
+    resp:["Maffia, Santiago"], equipo:["Vega, Alejandro"],
+    desc:"Estudio médico-legal de la muerte. Autopsia judicial, diagnóstico de muerte violenta y causas de fallecimiento. Determinación del tiempo de muerte.", examen:"2027-09-18", examen2:"2028-01-29" },
+  { title:"Bioquímica Forense", area:"Laboratorio", paq:"6",
+    resp:["Azcurra, Marcela"], equipo:["Caputo, Mariela"],
+    desc:"Análisis químico de muestras en contextos judiciales. Contaminación ambiental, intoxicaciones y residuos peligrosos. Marco legal y protocolos de actuación.", examen:"2027-09-18" },
+  // Paquete 3
+  { title:"Psiquiatría Forense", area:"Psiquiatría", paq:"3",
+    resp:["Ghioldi, Leonardo"], equipo:["Toro Martínez, Esteban","Luna, Maximiliano","Coronel, Pablo"],
+    desc:"Diagnóstico psiquiátrico y responsabilidad penal. Trastornos mentales graves y su impacto en la imputabilidad. Peritaciones psiquiátricas en los distintos fueros.", examen:"2027-12-18" },
+  { title:"Odontología Legal", area:"Medicina Legal", paq:"3",
+    resp:["Maldonado, Marta"], equipo:["Aguirre, Raúl Alejandro"],
+    desc:"Identificación de personas por dentición. Lesiones bucodentales y valoración médico-legal. Documentación odontológica forense.", examen:"2027-12-18" },
+  { title:"Problemáticas de Familia en el Campo Forense", area:"Psicología", paq:"3",
+    resp:["Medina, Mirta"], equipo:["García, Mariela","David Ramírez Acuña"],
+    desc:"Conflictos familiares, abuso, violencia y tutela judicial. Intervención pericial en causas de familia. Aspectos psicológicos y legales.", examen:"2027-12-18" },
+  // Paquete 5
+  { title:"Psicopatología Forense", area:"Psiquiatría", paq:"5",
+    resp:["Rezzoagli, Adrián"], equipo:[],
+    desc:"Clasificación de los trastornos mentales y su relevancia penal. Evaluación de la imputabilidad y la peligrosidad. Relación entre psicopatología y criminalidad. Análisis de casos.", examen:"2028-01-08" },
+  { title:"Biología Forense", area:"Laboratorio", paq:"5",
+    resp:["Povilauskas, Leticia"], equipo:["Peralta, Luciano"],
+    desc:"Uso de insectos y pólenes (entomología y palinología) para determinar tiempo y lugar de muerte. Identificación de restos biológicos. Aplicaciones en investigación criminal.", examen:"2028-01-08" },
+  { title:"Imágenes Forenses", area:"Medicina Legal", paq:"5",
+    resp:["Pereyra, Jorge"], equipo:["Aparici, Inés"],
+    desc:"Aplicación de técnicas de diagnóstico por imágenes (radiografía, TAC, RMN) a la investigación judicial. Identificación de lesiones y restos humanos.", examen:"2028-01-08" },
+  // Paquete 8
+  { title:"Psicología Jurídica y Forense", area:"Psicología", paq:"8",
+    resp:["Puhl, Stella Maris"], equipo:[],
+    desc:"Fundamentos psicológicos del comportamiento delictivo y de la responsabilidad penal. Imputabilidad, daño psíquico, credibilidad del testimonio y peligrosidad. Intervención en los distintos fueros.", examen:"2028-01-15" },
+  { title:"Neuropsicología Forense", area:"Psiquiatría", paq:"8",
+    resp:["Diletto, Graciela","Sánchez Negrete, Gabriela"], equipo:["Pafundi, Víctor","Galicia, Olga","María Sarasa"],
+    desc:"Bases neurológicas del comportamiento criminal. Lesiones cerebrales, funciones ejecutivas y control de impulsos. Evaluación neuropsicológica en el ámbito judicial.", examen:"2028-01-15" },
+  { title:"Gestión de Riesgos en la Práctica Forense", area:"Criminalística", paq:"8",
+    resp:["Miguel, Sergio"], equipo:["Silvana González Capria","Susana Corral"],
+    desc:"Protocolos de seguridad, prevención de riesgos biológicos y químicos. Gestión de crisis, emergencias y catástrofes. Ética profesional.", examen:"2028-01-15" }
+];
+
+// --- Información de trámites (para el letrero móvil) ---
+const TICKER = [
+  { tag:"CURSADA",     txt:"Todas las clases se dictan JUEVES y VIERNES." },
+  { tag:"ESPECÍFICAS", txt:"Se cursa UNA materia por paquete — las tres del paquete se dictan en simultáneo." },
+  { tag:"INSCRIPCIÓN", txt:"Si recibió el correo confirmando su vacante, ingrese al Sistema de Posgrado con su usuario y clave." },
+  { tag:"PAGOS",       txt:"Abonar cursos online: Sistema de Posgrado → «Abonar cursos online» → seleccione el curso → ABONAR (redirige a PayU)." },
+  { tag:"PAGOS",       txt:"Formas de pago vía PayU: tarjeta de crédito, tarjeta de débito o efectivo." },
+  { tag:"HOME BANKING",txt:"Pago Mis Cuentas: «Reimprimir Orden de Cobro» → buscar «UBA-Fac De Psicología» → ingresar el código de la orden." },
+  { tag:"PLAZO",       txt:"Pago Mis Cuentas demora hasta 48 hs hábiles desde la confirmación de la inscripción." },
+  { tag:"ATENCIÓN",    txt:"Si el cupón está vencido no puede abonarse por Pago Mis Cuentas: hágalo por «Abonar cursos online»." },
+  { tag:"CONTACTO",    txt:"Altas: altasposgrado@psi.uba.ar · Tesorería: tesoreriaposgrado@psi.uba.ar · Contable: consultascontable@psi.uba.ar" },
+  { tag:"SEDE",        txt:"Facultad de Psicología · Universidad de Buenos Aires · maestriacienciasforensesuba.ar" }
+];
+
+window.MCF = { DIAS, PAQUETES, OBLIGATORIAS, TESIS, ESPECIFICAS, TICKER };
+
+</script>
+<script>/* drive.js */
+// Materiales de Drive · Maestría Interdisciplinaria en Ciencias Forenses UBA
+// Actualizado: 26/09/2026 — Fuente: Drive roquecantero26@gmail.com
+// kind: pdf | doc | folder | zip
+
+const F  = id => "https://drive.google.com/drive/folders/" + id;
+const FL = id => "https://drive.google.com/file/d/" + id + "/view";
+const DC = id => "https://docs.google.com/document/d/" + id + "/edit";
+
+const MCF_DRIVE = {
+
+  // ─── 7. INTRODUCCIÓN A LA MEDICINA LEGAL ─────────────────────────────
+  "Introducción a la Medicina Legal": {
+    folder: F("1dtT4CxkPbpCRqLIy5c6fluYspkhU0neJ"),
+    files: [
+      { t: "📁 Clase 1 — Carpeta completa", u: F("14ZkKctD8ziKQzqwVRDiDkPl5Nhc_lXhL"), k: "folder" },
+      { t: "📁 Clase 2 — Carpeta completa", u: F("1BZkTVzUNTzgktIA694CHG-FUGvK1gBek"), k: "folder" },
+      { t: "📁 Clase 3 — Carpeta completa", u: F("1iLrGhrJJzytTM6zLenmcN1R6fo2eKXYc"), k: "folder" },
+      { t: "📁 Clase 4 — Carpeta completa", u: F("1tUzREEz5Pd4rmhq21ysI8sZCcnzR4ndX"), k: "folder" },
+      { t: "📚 Bibliografía — Carpeta completa", u: F("149Fef4_IFBunJt0uPPiwMx3v7MMVA3c4"), k: "folder" }
+    ]
+  },
+
+  // ─── HISTOPATOLOGÍA FORENSE ──────────────────────────────────────────
+  "Histopatología Forense": {
+    folder: F("1WhQ73UAxrKA5tU3GdKOJ8tuIv6L4WUs1"),
+    files: [
+      { t: "📁 Clase 1 — Carpeta completa", u: F("1M9zwZV6JdEFT5P7MeANkjwK_VYHf8Yor"), k: "folder" },
+      { t: "📁 Clase 2 — Carpeta completa", u: F("1BNZISdRySI7PAgYj9_VHsTj29eQlhr7P"), k: "folder" },
+      { t: "📁 Clase 3 — Carpeta completa", u: F("1FBLvdPB103xRSiFaZK9rUAzl3Uh3TUSh"), k: "folder" },
+      { t: "📁 Clase 4 — Carpeta completa", u: F("1UvC4IIwbo3uD3g7cvMa4O0RYL1qigy5Z"), k: "folder" },
+      { t: "📚 Bibliografía — Carpeta completa", u: F("19Sv6w68G8YcTNI3O6uF0JV710skq4F8p"), k: "folder" }
+    ]
+  },
+
+  // ─── ÉTICA, BIOÉTICA FORENSE ─────────────────────────────────────────
+  "Ética, Bioética Forense": {
+    folder: F("17VF5MeO95sVpm16gjSXQWNOgLxto4gPz"),
+    files: []
+  },
+
+  // ─── TÉCNICAS DE EVALUACIÓN PSICOLÓGICAS ────────────────────────────────
+  "Técnicas de Evaluación Psicológicas en el Campo Forense": {
+    folder: F("14v6-9mKwT1IT-9wAM3xT0Y1jBif8fLnC"),
+    files: []
+  },
+
+  // ─── TALLER DE TESIS ────────────────────────────────────────────────────
+  "Taller de Tesis": {
+    folder: F("1_QSFIrjqO8QVQPy3-9MxCWBlNwJV3c_6"),
+    files: []
+  },
+
+  // ─── 6. LABORATORIOS FORENSES ───────────────────────────────────────────
+  "Laboratorios Forenses. Bioseguridad e Higiene": {
+    folder: F("1MkzAnpDzeDlTXfTHnGuzH4rtuR4rYEDB"),
+    files: []
+  },
+
+  // ─── DERECHO PENAL Y PROCESAL PENAL ─────────────────────────────────────
+  "Derecho Penal y Procesal Penal": {
+    folder: F("1vzqFo59AY0zSxue8i3gZ9a21bP4K9GCn"),
+    files: []
+  },
+
+
+  // ─── 1. INTRODUCCIÓN A LAS CIENCIAS FORENSES ────────────────────────────
+  "Introducción a las Ciencias Forenses": {
+    folder: F("1NtXMPb-6XBdGkL6cxeM45qNRiqgZcFLq"),
+    files: [
+      { t: "Estrategia de estudio", u: DC("1I-qCUugMFd4BUc1RKGz1Zz9x3GQYd4bG7BessCTKab0"), k: "doc" },
+      { t: "Guía de Estudio · Fases I–II", u: DC("1V7kIOBzD16Gz-VTUQrCxq3MX01VjRb_5B382XV2A4PY"), k: "doc" },
+      { t: "Guía de Estudio · Fases III–IV–V", u: DC("17m9UDIAATJFDh-qqQqev_w0FqOY0jejJL1ipKbVrxCg"), k: "doc" },
+      { t: "Góngora · Introducción a las Ciencias Forenses", u: FL("11gUnvwaQpEgHykLCJ2Dn0rDgr2XcM8KH"), k: "pdf" },
+      { t: "García Rodríguez · Ficha de Cátedra", u: FL("1940J0hE0FxGuctQWz9f21pNnQhQUyPTn"), k: "pdf" },
+      { t: "Eric García López · Psicopatología Forense", u: FL("16L1VP7AjR0VgHJYX3dAjwQADY1pEaxf6"), k: "pdf" },
+      { t: "Dror · Factores cognitivos en la toma de decisiones", u: FL("1Bp9MKen6-apq2OpjDHNYzalw3oOugEhX"), k: "pdf" },
+      { t: "Lombroso · L'Uomo Delinquente", u: FL("1rvlYceYgEqw4YL6O7CgfPe81HFWlXv5N"), k: "pdf" },
+      { t: "Neuroética", u: FL("1lwTMJHd4XYKl4dYVtgRcI1lk34m-djXH"), k: "pdf" },
+      { t: "NAS 2009 · Strengthening Forensic Science", u: FL("1gF5rQ32OSggx4PFtPMBFELw62jwKqLkc"), k: "pdf" },
+      { t: "Manual de razonamiento probatorio", u: FL("1EAT7mzBSSuxpqNQBJgLCCMvW3JClxbEL"), k: "pdf" },
+      { t: "Manual de prueba pericial (digital)", u: FL("1v73Et5VdFBLqQfqrp4msgCRmMc4Ngh_Z"), k: "pdf" },
+      { t: "Manual para juzgar con perspectiva de género", u: FL("1psZ4VKih2Ia0ndpdfSnw6Ai-ikueYljo"), k: "pdf" },
+      { t: "Prueba · violencia por razones de género", u: FL("1VLwnR3ApSB_goqzHEa7OiMNfX9my46mf"), k: "pdf" }
+    ]
+  },
+
+  // ─── 2. INTRO AL DERECHO / DERECHO CONSTITUCIONAL / DDHH ────────────────
+  "Introducción al Derecho. Derecho Constitucional. Derechos Humanos": {
+    folder: F("1xbawNF3aRNZid31rSrslIV3XmyBRF648"),
+    files: [
+      { t: "MF1602 · Documento de Estudio Mejorado", u: DC("19ctn9wcZB81wLc4bz3WPFSWZdaeB1QtE9vVJUIQJQls"), k: "doc" },
+      { t: "MF1602 · Guía de Estudio 15 días", u: FL("1UT3OfLbczT1vFuaa82b-18PSwHcVBnMO"), k: "pdf" },
+      { t: "Grabaciones de las clases", u: F("1IbfGr_7e2Y8u9OC6VCYz8AD7jlq0SRXs"), k: "folder" },
+      { t: "Clase 30/4 · Derechos Colectivos · Pericia Civil", u: DC("1pWptNl_9cv0LIKXwzEYmXk8RuIEX1FahWrEqHEUUB7A"), k: "doc" },
+      { t: "Notas última clase · MF1602", u: DC("1L5MwEoJA3gA40vOdBU7DzMTTJxeORxtVVoezz9b--fU"), k: "doc" },
+      { t: "Resumen · Fuentes del Derecho", u: FL("19__yUFFTa4aAgyqOfp4kDZ2eHEalAClR"), k: "doc" },
+      { t: "Clase 2 · Derechos Civiles y Políticos", u: FL("1p5eqLoyDMYzoCxOg6RZ01U6gTZZ01Lu0"), k: "doc" },
+      { t: "📘 Guía de Estudio para Examen", u: DC("1FEwgCs673yRETteGa6harhmGAe59BSP9"), k: "doc" }
+    ]
+  },
+
+  // ─── 3. CRIMINALÍSTICA ──────────────────────────────────────────────────
+  "Criminalística": {
+    folder: F("1TKFLQvSDwNZWkLyV0PDsrFNmxoBu9MV-"),
+    files: [
+      { t: "Programa MF1603 · Criminalística", u: FL("1wVeaJhPBVnyInGHpuGil1uEYPzGP37Ve"), k: "pdf" },
+      { t: "Clase 1", u: F("1etnhz0kstfEStCEMt8qmMHCLD39DaI6h"), k: "folder" },
+      { t: "Clase 2", u: F("1bZxwdwRpTSZlXLsSrN-qq6-Q-iZCRWeU"), k: "folder" },
+      { t: "Clase 3", u: F("1qjeNta4kXb8Yd2Qr4rBt1CRBMhje_r47"), k: "folder" },
+      { t: "Clase 4", u: F("1VqnRmJOTc5XFEfH1zQJYm24EzuZZ6iSS"), k: "folder" },
+      { t: "Clase 5", u: F("1sGnaNARqoTslpO2cDR3idHUSIxwutQSC"), k: "folder" },
+      { t: "Clase 6", u: F("1SHXQAHVJ4oCv9jjla7i3757Qsw7Y94lp"), k: "folder" },
+      { t: "Manual de Procesamiento de la Escena del Delito", u: FL("1_PmvbRAZqUS7MoDBXynbGQORqWwmui3Y"), k: "pdf" },
+      { t: "Manual de Criminalística de Campo", u: FL("1OUspxjougZX4DqI9xZf_K9JPj3vAIeyn"), k: "pdf" },
+      { t: "Metodología de la investigación criminal", u: FL("1wET0GBRSdXpCt3p6wjwe5NHNYn-flnIQ"), k: "pdf" },
+      { t: "Guía para el levantamiento de la evidencia", u: FL("1oKmep7qH2CdScxEZWuzlld9jn_-Yl7V8"), k: "pdf" },
+      { t: "Interpol · Balística Forense", u: FL("1WsRkP0gsFqdq5RiR2I7b9nNM-VE7SbVy"), k: "pdf" },
+      { t: "Protocolo · Cadena de Custodia (MPF)", u: FL("1DVIipRVmw6GJSUC5_-ORXHl0mn1xem49"), k: "pdf" },
+      { t: "Protocolo Latinoamericano de Investigación", u: FL("1BgNk1lHbMS4obAg0PhPk4E7SN0-jnJWC"), k: "pdf" },
+      { t: "MINSEG–MPFN · Protocolo de evidencia digital", u: FL("1QpTHzppPClF9gbRM95uDNs-MDsbkTsKu"), k: "pdf" },
+      { t: "Protocolo · Informe de Criptoactivos", u: FL("18Mm-cBV4mr5y-aqm1IUjdsaQiHyAGAnC"), k: "pdf" },
+      { t: "Programa Nacional de Criminalística", u: FL("1FQ5v6b2AIqoV2rSIUsAxkqI5p_4rBPl6"), k: "pdf" },
+      { t: "Protocolo · Investigación de femicidios", u: FL("1coR97i7YsRWIQCZVR6dizTe6HyfSVBOJ"), k: "pdf" },
+      { t: "Guía Forense · recuperación y análisis de restos óseos", u: FL("1zWsfbZGMoVGvFlOID7t4sANtuwehB0zt"), k: "pdf" },
+      { t: "La Muerte Violenta", u: FL("1A8jq7sx7nCMx59hTtQavjMTQ_k_4yBYB"), k: "pdf" },
+      { t: "Perspectivas Multidisciplinarias para Investigadores", u: FL("1q332Fhn3JJyJIOYoAlBv5-4WF-VBJAJK"), k: "pdf" },
+      { t: "Ciberdelitos e Inteligencia Artificial", u: FL("1jksw0Lch8-nr3IdVRlhUUlfqvRfInc6M"), k: "pdf" },
+      { t: "Protocolo · consumos problemáticos", u: FL("1HwgoOgkAQp3t9XA9H9NFJAExqXwM2Wom"), k: "pdf" },
+      { t: "Psicología Criminal", u: FL("1YePky8FMSBF2TaZQMhsS5Gg9Ri1F7Mu5"), k: "pdf" },
+      { t: "Cuadernos de Medicina Forense · vol. 67 (2019)", u: FL("197zcFd09xAtwQs6TOaa6SbgOa_YaSWzP"), k: "pdf" },
+      { t: "Torre & Silva · Perfiles criminales", u: FL("1_XB-jWvGTH4_XoqI1LOXwUXx3HiYb0B8"), k: "pdf" },
+      { t: "Silva & Torre · Homicidios seriales", u: FL("1sP_d0gKtKyuzX29ZHtJy1fJz6mIpa0jJ"), k: "pdf" },
+      { t: "Al Filo de la Locura", u: FL("11s5EppLE1k87wnLL5ysa-yBLgOfInjJg"), k: "pdf" },
+      { t: "Cayetano Santos Godino · El Petiso Orejudo", u: FL("1HzQ0seryq5sa73XqMzsXLX7v1jhgb6ig"), k: "pdf" },
+      { t: "Jack el Destripador", u: FL("1IQ9ynxb1r6AbUzKhsp7S0T5NLTdXmhZ-"), k: "pdf" }
+    ]
+  },
+
+  // ─── 4. EVALUACIÓN DEL DAÑO PSÍQUICO ────────────────────────────────────
+  // Carpeta principal actualizada: 1DYU9fz4eMdGF_1kFYFx02XDgy6n6Wtjl
+  "Evaluación del Daño Psíquico": {
+    folder: F("1DYU9fz4eMdGF_1kFYFx02XDgy6n6Wtjl"),
+    files: [
+      // Programa
+      { t: "📋 PROGRAMA MF1604 · Evaluación del Daño Psíquico", u: FL("1ScqAzcVRp3wXSUa59csfALX5OwdT0Y0k"), k: "pdf" },
+
+      // CLASE 1 — Jue 4/6/26
+      { t: "📁 Clase 1 · Jue 4/6 — Carpeta completa", u: F("18I_OtVJBEy_vSZ882mI6grPnI4gba6kP"), k: "folder" },
+      { t: "🎙️ Clase 1 · 1ª parte Muñoz — Audio", u: FL("1YqYw5lr4k311mNxLGFOm3fuDkSFz3DS3"), k: "doc" },
+      { t: "📄 Clase 1 · 1ª parte Muñoz — Transcript", u: FL("1cuZzSxS7BsYIphpjld7dYnLj_6o5kviH"), k: "pdf" },
+      { t: "📝 Clase 1 · 1ª parte Muñoz — Resumen", u: FL("1teg2NX6V3fQ0n9Gc6a1eQjCaIhIpATmk"), k: "pdf" },
+      { t: "🎙️ Clase 1 · 2ª parte Flabia — Audio", u: FL("1dyiZMhKCV4gkqydgk_6x235utf2inEgK"), k: "doc" },
+      { t: "📄 Clase 1 · 2ª parte Flabia — Transcript", u: FL("1lYT-N3BHpTc9rKIrfUbuniTkzlJVf82t"), k: "pdf" },
+      { t: "📝 Clase 1 · 2ª parte Flabia — Resumen", u: FL("1zOOUC0FKqXRdM29aqODB4vW3zT3NiPOS"), k: "pdf" },
+
+      // CLASE 2 — Vie 5/6/26
+      { t: "📁 Clase 2 · Vie 5/6 — Carpeta completa", u: F("1ktCWb718kCPAGIio0ecZ4MVjCS3hegx3"), k: "folder" },
+      { t: "📄 Clase 2 · Apuntes MF1604 (DOCX)", u: FL("1bwu5nGxgUXOKCevgDDsfB4TnUfKc4Up6"), k: "doc" },
+      { t: "📊 Clase 2 · Forensic Psychological Damage Protocol (PPTX)", u: FL("141VkSdmgV8m6z4yDjOg2Iwx42QNqx2u4"), k: "doc" },
+      { t: "🎙️ Clase 2 · 1ª parte Muñoz — Audio", u: FL("12Jc_b7-GH0_8fF-IjNCXTcWM_mlPjxbh"), k: "doc" },
+      { t: "📄 Clase 2 · 1ª parte Muñoz — Transcript", u: FL("1C8ZPUF37lSPAp9gMxMDxVCq-_CTO5oqV"), k: "pdf" },
+      { t: "📝 Clase 2 · 1ª parte Muñoz — Resumen", u: FL("1Oce8WMJSABRw23Pz9DuYdARE0bGXtnwg"), k: "pdf" },
+      { t: "🎙️ Clase 2 · 2ª parte Ariana — Audio", u: FL("1eM0AevFTp3Lzv4Jwn8o8BYogWUYDyAth"), k: "doc" },
+      { t: "📄 Clase 2 · 2ª parte Ariana — Transcript", u: FL("1Sq2fBuR2EE-qR0zeVUfJ0QvOsBAIH1GO"), k: "pdf" },
+      { t: "📝 Clase 2 · 2ª parte Ariana — Resumen", u: FL("10n0v8DnjxmC3bVSEOQFeFg0VSniNmMzo"), k: "pdf" },
+
+      // CLASE 3 — Jue 11/6/26
+      { t: "📁 Clase 3 · Jue 11/6 — Carpeta completa", u: F("1UGcP933NWMF0_ZUNNE69KtmGAPHiDkuu"), k: "folder" },
+      { t: "📄 Clase 3 · Apuntes Claude (DOCX)", u: FL("14smBkY4vKY9HzZSArjXhpfaAuSftfVsE"), k: "doc" },
+      { t: "🎙️ Clase 3 · 1ª parte Muñoz — Audio", u: FL("1DdGkzhdNziSvjQLWdGsqv5veiKhfoKXS"), k: "doc" },
+      { t: "📄 Clase 3 · 1ª parte Muñoz — Transcript", u: FL("147xMHRB6bYqf0-TLO-vAsoWUNa5YHZmt"), k: "pdf" },
+      { t: "📝 Clase 3 · 1ª parte Muñoz — Resumen", u: FL("1QPDIc9L8EmeAcytWODW3Vey0apSbSEMB"), k: "pdf" },
+      { t: "🎙️ Clase 3 · 2ª parte Flabia — Audio", u: FL("1JVBMEui-qCeJoEYxPRsIXXT8ChYPICN3"), k: "doc" },
+      { t: "📄 Clase 3 · 2ª parte Flabia — Transcript", u: FL("1EHZws2pdbMdE8XhGtAlCy7lwR8FQNJVH"), k: "pdf" },
+      { t: "📝 Clase 3 · 2ª parte Flabia — Resumen", u: FL("1M0KAJAbPM8U6BCReoWI8M7cURPFR86WN"), k: "pdf" },
+
+      // CLASE 4 — Vie 12/6/26
+      { t: "📁 Clase 4 · Vie 12/6 — Carpeta completa", u: F("1f-0BFtdDwsok-P7eazj4GC-vpv-p6fFp"), k: "folder" },
+      { t: "📄 Clase 4 · Apuntes Claude (DOCX)", u: FL("1FZrhoROxiNUCz5nvQej-1s5ge2_fYBHj"), k: "doc" },
+      { t: "🎙️ Clase 4 · 1ª parte Muñoz — Audio", u: FL("1s58obZ4h4wIECEVKZqTNUs3hgEAYidW6"), k: "doc" },
+      { t: "📄 Clase 4 · 1ª parte Muñoz — Transcript", u: FL("1Af3leBnP8YCDFC3Aw75835YOhooopdA7"), k: "pdf" },
+      { t: "📝 Clase 4 · 1ª parte Muñoz — Resumen", u: FL("15IY8qpswfC5m2Gr4HwfZW7MsyITWRjip"), k: "pdf" },
+      { t: "🎙️ Clase 4 · 2ª parte Ariana — Audio", u: FL("1O9WLOznyPpmgFrycp65wzeFZwe2VlQaL"), k: "doc" },
+      { t: "📄 Clase 4 · 2ª parte Ariana — Transcript", u: FL("1V9vUwH9znbadfIDdW_HE1xoP_gytOVFb"), k: "pdf" },
+      { t: "📝 Clase 4 · 2ª parte Ariana — Resumen", u: FL("1TPDqZUwuIybmm_gWiBdtOQUelXLlnQSw"), k: "pdf" },
+
+      // DESCARGA COMPLETA
+      { t: "📦 Descarga completa · Daño Psíquico (ZIP — 16/6/26)", u: FL("1trW4jYLRcDo8f5JbVT5m2MxbneaLmhqU"), k: "zip" },
+      // BIBLIOGRAFÍA
+      { t: "📁 Bibliografía — Carpeta completa", u: F("1M2SpXGCpSMeC5_QyWsw0qQ8Ezj6m6xJ4"), k: "folder" },
+      { t: "📖 1 · McLearen, Pietz & Denney", u: FL("1cznrm2VJUyXT9zae9MuJqwCVdI87VfeU"), k: "pdf" },
+      { t: "📖 2 · Brand, Schielke, Brams et al.", u: FL("1HFX5xDgJdO6FcqEDQ3eKV1aHNk-62Ewh"), k: "pdf" },
+      { t: "📖 3 · Bryant (2019)", u: FL("13L9bYJjjpLmNCoh-4ZXQIvIthtri2IaH"), k: "pdf" },
+      { t: "📖 4 · Fairfax-Columbo, Wiltsie, Pursel & Grisamore", u: FL("1HoCgGphJQloKsjq9W_MQarKlzYzfPOCf"), k: "pdf" },
+      { t: "📖 5 · Young, Bailey, Giromini, Soble, Rogers, Levitt", u: FL("1_7FbI-silsFKFHvypCEU3gABdshT_913"), k: "pdf" },
+      { t: "📖 6 · Foote, Goodman-Delahunty & Young", u: FL("1s451KzjVDvDyqXWR5ognwOa4SwBSLg7u"), k: "pdf" },
+      { t: "📖 7 · Goldenson & Josefowitz", u: FL("1UlqHJzaDqqtnWtDLwObtOwFjzKQOQf9q"), k: "pdf" },
+      { t: "📖 8 · Galatzer-Levy, Huang & Bonanno", u: FL("1FRv991CFvaLxq7oSM2hsP0IkLg43yAnL"), k: "pdf" },
+      { t: "📖 9 · Kerig, Mozley & Mendez", u: FL("1yj9TmW51ZbNjifxHg9xAXc6Yghn2emKV"), k: "pdf" },
+      { t: "📖 10 · Milchman (2016)", u: FL("1dgj-doEj0SteVGX3Rw2Kc4vQKnOHUQCL"), k: "pdf" },
+      { t: "📖 11 · Rocchio", u: FL("1YqCBhdKPhEkbOhQeo4FwKaPuIexHlSA2"), k: "pdf" },
+      { t: "📖 12 · Vallano", u: FL("18pUSj8Z1JmvZjS22sG3g70Fv9iAEfcsX"), k: "pdf" },
+      { t: "📖 13 · Weiner, Otto & Piechowski", u: FL("1Iz1TPoCCSNTKN0xqR2qYBSnOegjBLseb"), k: "pdf" },
+      { t: "📖 14 · Young, Giromini, Erdodi et al.", u: FL("1vmFQeHOP6i8rc2oF6aB71__ujFt6qwhx"), k: "pdf" },
+      { t: "📖 15 · Young, Foote, Kerig et al.", u: FL("1l6Cyd5LGtvek6NA2eXKeI8XFBs5C8pha"), k: "pdf" }
+    ]
+  },
+
+  // ─── 5. DELITOS CONTRA LA INTEGRIDAD SEXUAL ─────────────────────────────
+  "Delitos contra la Integridad Sexual": {
+    folder: F("1B6Zska4gbnX2jb-UBllVf9C0Hqc7g-_b"),
+    files: [
+      // Clases
+      { t: "📁 Clase 1 — Carpeta completa", u: F("1mVdRRd-LOcNWOn8-_n_vscL6CWR-Er_7"), k: "folder" },
+      { t: "📁 Clase 2 — Carpeta completa", u: F("1wzgr_gMHLBHPanJX2V749s843IXW0YB7"), k: "folder" },
+      { t: "📁 Clase 3 — Carpeta completa", u: F("1mALPODfCWJSkSVdmdMtLG7PI3cpbNnOA"), k: "folder" },
+      { t: "🎬 Clase 3 · Video de clase (MP4)", u: FL("1I05eiq3nrLhXlpVvHEJkMUyw2BcUa26X"), k: "doc" },
+      { t: "📊 Clase 3 · Presentación (PPTX)", u: FL("1PV8WebEE4yJcc-IQ06bSSQP4GkCS1kG9"), k: "doc" },
+      { t: "📄 Clase 3 · Guía de Estudio (DOCX)", u: FL("13fX0InRjog-Cb-hRQJccYwII3a2oprjl"), k: "doc" },
+      { t: "📝 Clase 3 · Guía de Estudio Claude MF1605 (DOCX)", u: FL("1HVMyFFlgEprS5B2DvbMXxME6Zb4FJb7w"), k: "doc" },
+      { t: "📁 Clase 4 — Carpeta completa", u: F("1MN8JJDS2-BIMa4cV_2zzdIWGbR7J0cfc"), k: "folder" },
+      { t: "🎬 Clase 4 · Video de clase (MP4)", u: FL("13_j7dy4qAGuGfJHH8qRf_YQNdUU55gFG"), k: "doc" },
+      // Bibliografía
+      { t: "📦 Bibliografía · Dra. Silvina Kiss (ZIP)", u: FL("1Io29hSugeNy6-caqmLCUgO1k8V1moZo-"), k: "zip" },
+      { t: "📦 Bibliografía · Lic. Bettina Esteban (ZIP)", u: FL("1QEm4qdgU1PaRoMK9iBbOnZsZYOmvRbEm"), k: "zip" },
+      { t: "📦 Bonus Track (ZIP)", u: FL("1xR_Bh0nUo3thWP_yp7AL54qMV4Njtpmx"), k: "zip" }
+    ]
+  },
+
+  // ─── 6. TOXICOLOGÍA FORENSE ─────────────────────────────────────────────
+  "Toxicología Forense": {
+    folder: F("1Hg17jvurHpMdtUjiSGXfAGIxAvN4_SEH"),
+    files: [
+      // Clase 1
+      { t: "📁 Clase 1 — Carpeta completa", u: F("1ug9WbyJfye-U9sbTq1o3De425xm5D3GD"), k: "folder" },
+      { t: "📊 Clase 1 · Presentación PDF", u: FL("1_aOJ-fTNBuOpsGx2ZFIMuECATsWjjWBL"), k: "pdf" },
+      { t: "📄 Clase 1 · Transcripción PDF", u: FL("1wHDVWzW5AeivQyAd0nv2ElPOqsyqS6Ut"), k: "pdf" },
+      { t: "📝 Clase 1 · Apuntes Claude (DOCX)", u: FL("13jj0dRbrC-ephixYewV4yK9jsaIr-v0Y"), k: "doc" },
+      { t: "🖼️ Clase 1 · Toxicología forense — mecanismos y cinética", u: FL("1A3X3q_skAcoE0KvNvQl3ym7HAE2jreAi"), k: "doc" },
+      // Clase 2
+      { t: "📁 Clase 2 — Carpeta completa", u: F("1bLxRq84L7RoH0rnZstN4QxCAO8zkdyik"), k: "folder" },
+      { t: "📊 Clase 2 · Presentación PDF", u: FL("1F9xF2t4URAjkejCkO1DpOwUcz3eEmImq"), k: "pdf" },
+      { t: "📄 Clase 2 · Apuntes Toxicología (DOCX)", u: FL("11MlljwbgIBtnrhqkHOA5diterJhLqF_e"), k: "doc" },
+      { t: "📝 Clase 2 · Apuntes Claude (DOCX)", u: FL("1s6tPWbYDd99zuOar_RmQ8FiMQf9-a5b0"), k: "doc" },
+      { t: "🖼️ Clase 2 · Proceso de toxicología forense", u: FL("1-11FRxjj-I_mckKMh9UW74EZ8Zep6Wq6"), k: "doc" },
+      // Clase 3
+      { t: "📁 Clase 3 — Carpeta completa", u: F("1qs4CXCMyU_6h4E6oLw_41ndqYofj7pRY"), k: "folder" },
+      { t: "📄 Clase 3 · Apuntes Toxicología Forense (PDF)", u: FL("11_ImaoiiqTWfLgnlgx_SJG00aAuU4h8W"), k: "pdf" },
+      // Clase 4
+      { t: "📁 Clase 4 — Carpeta completa", u: F("1UnSUVWkK_yibzYQ7Dtv8xjm8miQwaye_"), k: "folder" },
+      { t: "📄 Clase 4 · Apuntes Toxicología Forense (PDF)", u: FL("1ABZjgATHoMuNvNCjzsmKbJ9Wb6MWzsHY"), k: "pdf" },
+      // Bibliografía
+      { t: "📁 Bibliografía — Carpeta completa", u: F("1g_IojZ3X3-hf6_me_9Z8J17Yg4tEbUiT"), k: "folder" },
+      { t: "📖 Libros recomendados", u: FL("1vZCuObHlqPLqjoDYZ9XdtEZNgQDe5X8B"), k: "pdf" },
+      { t: "📖 SWGTOX · Standard practices method validation", u: FL("1ItGeQS1Le0R2yyuJg2Lr1qq3aUa4GC6H"), k: "pdf" },
+      { t: "📖 TIAFT · Laboratory guidelines", u: FL("1d5Zrvg1rp8uqV8p8nZeJjb9ac4Hruv-p"), k: "pdf" },
+      { t: "📖 TIAFT · Recommendations on sample collection", u: FL("175t2PMB3AWqu3HOoSiFeeRB-q80qiQZR"), k: "pdf" },
+      { t: "📖 Koski · Interpretation of postmortem toxicology results", u: FL("1MA3xCMf9b3AdsDohNkJ8UiYHU7PMdthM"), k: "pdf" },
+      { t: "📖 Chatterton · Interpretative aspects (2013)", u: FL("1AmzkypF06ZjFXJ_K8fy_LAA7fjU4Sthb"), k: "pdf" },
+      { t: "📖 Dinis-Oliveira · Abuse of licit and illicit psychoactive substances", u: FL("10xn48_3YPCOv7k9aUWw87ccsbPjCHlCc"), k: "pdf" },
+      { t: "📖 CONICET · Propóleos adulterados", u: FL("1RFEYfPPNJGu5jSZ6bJFjrbIc3tYBirt3"), k: "pdf" },
+      { t: "📖 Environmental Health Criteria 237 (WHO)", u: FL("1dVXSEYf7VWF9xkQ4vHlQJUnii8PNjyBr"), k: "pdf" },
+      { t: "📖 ANSV · Observatorio informe alcoholemia", u: FL("1PDMnNw44uj4y17hngRuexFr-nN8PXwB4"), k: "pdf" },
+      { t: "📖 Forensic Examination of Glass and Paint", u: FL("1_3S7FafjfjyLQdoelWZHj_-3l0vx0wzs"), k: "pdf" }
+    ]
+  },
+
+  // ─── 8. DOCUMENTOLOGÍA ──────────────────────────────────────────────────
+  "Documentología (Caligráficos e Informáticos)": {
+    folder: F("1YK4bfaGi7f7E6dJVP29DQrFApR8A3a6G"),
+    files: [
+      { t: "📁 Caligrafía — Carpeta completa", u: F("1Iz_4QvffP-BihGlrZdmyH5oEZVon4IGt"), k: "folder" },
+      { t: "📁 Informática — Carpeta completa", u: F("1X4CsAg0hmSEBK3YhdaBDK-fa2YrolZTZ"), k: "folder" },
+      { t: "📁 Clase 3 — Carpeta completa", u: F("1IOxUdbWdsMaI0UbKdCQzXByHDuKfDMIP"), k: "folder" },
+      { t: "📄 Clase 3 · Apuntes (DOCX)", u: FL("1qprd8PWundSs0Uj9qDrhAARXuThpi4LC"), k: "doc" },
+      { t: "🎬 Clase 3 · Video — Carpeta", u: F("1y6lIybG81m9w-KoUr4CJupYym7s29fIK"), k: "folder" },
+      { t: "📁 Clase 4 — Carpeta completa", u: F("16bxQcOrcMJf0IiXvYIR1bGrfko00gRh_"), k: "folder" },
+      { t: "📄 Clase 4 · Apuntes (DOCX)", u: FL("16RIFs2_0LBVh4oIPEopVU2-a_F6vYaUN"), k: "doc" },
+      { t: "🎬 Clase 4 · Video — Carpeta", u: F("1zwvmXgNuVRxoqphlXLKAQ4Q4bVQaauRe"), k: "folder" }
+    ]
+  },
+
+  // ─── 9. AUTOPSIA PSICOLÓGICA ────────────────────────────────────────────
+  "Autopsia Psicológica": {
+    folder: F("1I6dn5sFKtTttsUQ1jYBYiaLghtTXUcSr"),
+    files: [
+      // CLASE 1
+      { t: "📁 Clase 1 — Carpeta completa", u: F("1Ac3ERhg8x-wHX2fKgAAIxFewOXD7qTlw"), k: "folder" },
+      { t: "📊 Clase 1 · Autopsia Psicológica Forense (PPTX)", u: FL("1_tYKMkzRSfLe_3tUL-mT1Gtxl-hdL661"), k: "doc" },
+      { t: "📄 Clase 1 · Apuntes Claude MF1607 (DOCX)", u: FL("1pbwXa_mdMxnISuKSjb35BLd7kQkfpxfV"), k: "doc" },
+      { t: "📄 Clase 1 · Transcripción (DOCX)", u: FL("1f1zxT9gCbcpiXNOfKZrWeOWL_JjRZKge"), k: "doc" },
+      // CLASE 2
+      { t: "📁 Clase 2 — Carpeta completa", u: F("1gXpMGlY52Zg177IAjeyv5SEjyRUIjVPX"), k: "folder" },
+      { t: "📊 Clase 2 · MAPI Forensic Suicidiology (PPTX)", u: FL("17SW4pw91USD_1kjGMb9M4FqMOtNGaYcE"), k: "doc" },
+      { t: "📄 Clase 2 · Apuntes Claude MF1607 (DOCX)", u: FL("1dJC8br50VG52xg0oV2gR0YzRA0BYrQly"), k: "doc" },
+      { t: "📝 Clase 2 · Guía de Estudio (DOCX)", u: FL("1nBLd5f8vDY39EDFp1VyTdWPooUrwDOEN"), k: "doc" },
+      // CLASE 3
+      { t: "📁 Clase 3 — Carpeta completa", u: F("1yc1poOY442UeOu_VgYcbbPya__rnq8DS"), k: "folder" },
+      { t: "📊 Clase 3 · Digital Behavioral & Femicide Forensics (PPTX)", u: FL("1oKS5lnAdbau_4B2bXtXjye4AmLt3KoZi"), k: "doc" },
+      { t: "📄 Clase 3 · Apuntes Claude MF1607 (DOCX)", u: FL("1Ety5-_RT7ROCxvEfbDuLvx3jCDZZyLKp"), k: "doc" },
+      { t: "📝 Clase 3 · 1ª parte — Aplicaciones Forenses Comportamiento Digital (Resumen)", u: FL("1qcFyWfpYVQBYIHE8dFe5h0QsN0d7JSIo"), k: "pdf" },
+      { t: "📝 Clase 3 · 2ª parte — Femicidio e Identidad Digital (Resumen)", u: FL("1tm2SuuNZSzoJmhqFfrqf2Y-kOfdoixfq"), k: "pdf" },
+      // CLASE 4
+      { t: "📁 Clase 4 — Carpeta completa", u: F("1JqAsOMnu0axBohyI0UE_2eOAkAb5gbBJ"), k: "folder" },
+      { t: "📊 Clase 4 · Objective Psychological Autopsy (PPTX)", u: FL("1jujIPa1adxYProlBms6EHygGoDZjwZix"), k: "doc" },
+      { t: "📄 Clase 4 · Apuntes Claude MF1607 (DOCX)", u: FL("1eVpNks9j5IksVmtLlFDlAg98ZXvf0ZMV"), k: "doc" },
+      { t: "📝 Clase 4 · 1ª parte — Análisis Psicocriminológico Dr. Ceballos Espinosa (Resumen)", u: FL("1IpLhEVSlgNoSkX75V7eLs8Ntm5gjTZ4w"), k: "pdf" },
+      { t: "📄 Clase 4 · 1ª parte — Análisis Psicocriminológico Dr. Ceballos Espinosa (Transcript)", u: FL("1xEcKuN5aHr8O6XMpHjrJYsZlJhd5Ae9M"), k: "pdf" },
+      { t: "📄 Clase 4 · 2ª parte — Notas Suicidas y Funcionamiento Suicida (Transcript)", u: FL("1t70WIh1CH7iPbZu9NsIUGE6JOm-HshFR"), k: "pdf" },
+      // BIBLIOGRAFÍA
+      { t: "📚 Bibliografía — Carpeta completa", u: F("10mOThElTB1o9B8NbxTqBxgsM_ms69ECS"), k: "folder" },
+      { t: "📋 Programa MF1607 · Autopsia Psicológica (PDF)", u: FL("1chPmrob2Sq4w05X20I20Zih0GZkdpNLy"), k: "pdf" },
+      { t: "📖 Manual de Evidencia Científica II", u: FL("1QQN2fkCE4oH09_naxcKygBxov_aPZbiK"), k: "pdf" },
+      { t: "📖 Ceballos Espinoza · La Evaluación Psicológica Reconstructiva (EPR)", u: FL("1oVPZ8QDwc-aYmaNN0MYeWk6cILUQ51XJ"), k: "pdf" },
+      { t: "📖 Ceballos Espinoza · AP en muertes de alta complejidad", u: FL("1km1VBiKjAQElXqhVudvXCv1Z1T-aVI23"), k: "pdf" },
+      { t: "📖 Centro Núñez · Aplicación de la AP", u: FL("1X5wCHcZG4kuFsd6FVMigTxrLQ4W-nvov"), k: "pdf" },
+      { t: "📖 Centro Núñez · Abordaje interdisciplinario cartas suicidas", u: FL("1mH-3Fo-gb1_DL_lrARnlexQhz-qV0gaZ"), k: "pdf" },
+      { t: "📖 Terán Villagra · AP Laboal", u: FL("11NjvfIKADZQzlIGEZSrBPAcy0N2WVyUl"), k: "pdf" },
+      { t: "📖 Musumeci & Chilo · AP Argentina — Manual de Evidencia Científica II", u: FL("1AUAWAnkTwbJH3J20keN7oaPqpf6_lmVv"), k: "pdf" },
+      { t: "📖 Leonor Walker · El ciclo de la violencia", u: FL("10Vumlq5lHNMvvL_0qoUzcpgbkGOJQ-sg"), k: "pdf" },
+      { t: "📖 Montero Gómez · Síndrome de acomodación — violencia de género", u: FL("13z3qSyINxYzNz0Iesxu-BRvombCP-PwR"), k: "pdf" },
+      { t: "📖 Mala Junta · Violentómetro y ciclo de la violencia", u: FL("1APicXK9efvVc-iHsnbzTxyCfGe3K3-X_"), k: "pdf" },
+      { t: "📖 Protocolo ONU · Femicidio", u: FL("1mjcU8QSjt1WVPMFOdItje11-k8YR1vRF"), k: "pdf" }
+    ]
+  },
+
+  // ─── 10. GENÉTICA FORENSE ───────────────────────────────────────────────
+  "Genética Forense": {
+    folder: F("1hIt2ishc7ENro1-4a5Iex0JSa-j9scxv"),
+    files: [
+      { t: "📄 Clase 1 · Apuntes Genética Forense (PDF)", u: FL("1skatL0l58Kz00xL1rmzK5JWJpOGpjfwp"), k: "pdf" },
+      { t: "📄 Clase 2 · Apuntes Genética Forense (PDF)", u: FL("1BAJ6PLfZqSf8LGM5XOLMPjomX7yYDOTi"), k: "pdf" },
+      { t: "📄 Clase 3 · Apuntes Genética Forense (PDF)", u: FL("1zULnO5jnpSJgAbnAh5mANyhircUGQr23"), k: "pdf" },
+      { t: "📄 Clase 4 · Apuntes Genética Forense (PDF)", u: FL("1mDQgNK2MBwWOV1yCr3aDRbwlaWY9gfGn"), k: "pdf" }
+    ]
+  },
+
+  // ─── 11. NEUROPSIQUIATRÍA FORENSE ───────────────────────────────────────
+  "Neuropsiquiatría Forense": {
+    folder: F("1MPJVN1QwIyYj8ARP2GFirrganRHcW7DJ"),
+    files: [
+      { t: "📄 Clase 1 · Introducción Neuropsiquiatría Forense", u: FL("1EZvFr5YXK17hGAjNqqsb_G_RvpxjSqLE"), k: "pdf" },
+      { t: "📄 Clase 1 · Documento de Estudio", u: FL("1-04xKLYLasVNaNXEpdaI3hyBg6P9P_o0"), k: "pdf" },
+      { t: "📄 Clase 1 · Cortes de Encéfalo", u: FL("130EVOvdtvWT10yLBIV-hIMPa6-xmMMGW"), k: "pdf" },
+      { t: "📄 Clase 2 · Guía de Estudio", u: FL("14XngnvZz1dp_JqqIhtiez6qi_ryOl6uD"), k: "pdf" },
+      { t: "📄 Clase 3 · Guía de Estudio", u: FL("1QcEELSIqGKG2Wo6ovX_ff40yLhSYxGfo"), k: "pdf" }
+    ]
+  },
+
+  // ─── 12. PERFILACIÓN FORENSE Y SERIALIDAD CRIMINAL ──────────────────────
+  "Perfilación Forense y Serialidad Criminal": {
+    folder: F("1DaxcufBnkR0ZdpcPHHOeSm72cdlvzWQg"),
+    files: [
+      { t: "📋 Programa MF1609", u: FL("1PX7Rc9pVKumfSh91DLecuXju0Xo_M8RY"), k: "pdf" },
+      { t: "📋 Sesiones · Cronograma", u: FL("19eq4KsD_QMK7_cyfuwzrUKsXZTUhol4V"), k: "pdf" },
+      { t: "📁 Clase 1 — Carpeta completa", u: F("1fKJzBgT3O97XU6P4J-AJQLZshid8yxQo"), k: "folder" },
+      { t: "📁 Clase 2 — Carpeta completa", u: F("11542MlxyZqGQt2kRAeoDhcRdL-TVTZqu"), k: "folder" },
+      { t: "📁 Clase 3 — Carpeta completa", u: F("1dlXcK1cB2-xhjSwF3rjx2qOpkgwGqWTH"), k: "folder" },
+      { t: "📁 Clase 4 — Carpeta completa", u: F("1QA2QwU3sggkTNsqWzqGJkHDiHXNSLM5A"), k: "folder" },
+      { t: "📚 Bibliografía (adicional) — Carpeta completa", u: F("1aQIobgm8SR4q-N-5CGVx5AWw10BlAZ4W"), k: "folder" },
+      { t: "📄 Clase 1 · Resumen", u: FL("1maWK-8WP4FbLBxPaLFthG5MJzQ8NnVur"), k: "pdf" },
+      { t: "📄 Clase 1 · Sesión 2 Julio", u: FL("1DovQ2W0brkzM4BCy5Ma4qDpXm5MQRqEA"), k: "pdf" },
+      { t: "📄 Clase 2 · Resumen", u: FL("1WGpJWBr3gJ-4NB8hVw7sMJxm2MMKs_kF"), k: "pdf" },
+      { t: "📄 Clase 2 · Sesión 3 Julio", u: FL("13dmzBmt5Rp45TbnWFdutKlx0LQopg0N7"), k: "pdf" },
+      { t: "📄 Clase 3 · Sesión 16 Julio", u: FL("1_gGji3rLQoD2Ns39-6zFIvJBRXMM03sl"), k: "pdf" },
+      { t: "📄 Clase 4 · Documento de Estudio", u: DC("1plVN52-EroXoWvoGTHc1ukrGHQ-XEmOp"), k: "doc" }
+    ]
+  },
+
+  // ─── 13. ANTROPOLOGÍA FORENSE ───────────────────────────────────────────
+  "Antropología Forense": {
+    folder: F("1CmA8LVPWNkWuv_gvGDZ3agem6wM_2zIz"),
+    files: [
+      { t: "📁 Clase 1 — Carpeta completa", u: F("1lPrqMWojKjZ3s6BTnf-Wn_FziGJ1LwWX"), k: "folder" },
+      { t: "📚 Bibliografía — Carpeta completa", u: F("1XB-TsPFoIMNv8Nhs1r51yvObFrw64Iun"), k: "folder" },
+      { t: "📄 Clase 1 · Introducción e Historia de la AF", u: FL("1x0scYiGNnjWyveUMVyEfRzEyDXjfdJg1"), k: "pdf" },
+      { t: "📄 Clase 1 · Guía de Estudio", u: FL("1lYqmcrHfDY674NUyIc_RyLiaMuUKjrHy"), k: "pdf" },
+      { t: "📚 Manual de Antropología Forense (EPAF 2015)", u: FL("1YIzryMzQf5WpC28NofeRa8jnDqoUi-V6"), k: "pdf" },
+      { t: "📚 Guía práctica de recuperación y análisis de restos humanos", u: FL("1FSMwz3XNUDmJl_8SKEQaKPc-_T_yPawv"), k: "pdf" },
+      { t: "📚 EAAF · Guía Nuevas Tecnologías en Búsqueda Forense (2021)", u: FL("1-VKehcV76RQDCAFZyhKOL3CxbL-2Ax-T"), k: "pdf" },
+      { t: "📚 Proceso de identificación · CICR", u: FL("1797G-lZAYYBTba_-iVVirp9TAWaLl72n"), k: "pdf" },
+      { t: "📚 Fondebrider (2004) · The Forensic Sciences in Human Rights", u: FL("1OepjKbV_ATDNKPjlMW3epgjbBA3UbzLY"), k: "pdf" },
+      { t: "📚 Salado y Fondebrider (2009)", u: FL("1qzizGyK68Pk_IUcSbVY6mzQ20b5sh4fY"), k: "pdf" },
+      { t: "📚 Menez (2005) · The place of the forensic Archaeology", u: FL("14zWMiA-mJ07MwFcXDPMiLwko0OLxQfi1"), k: "pdf" },
+      { t: "📚 Selva y Turner (2020) · Revista Publicar XVIII/XXIX", u: FL("1qQ07ZGz4RBy1iD-W2KZvv0EZgV9zNmFI"), k: "pdf" }
+    ]
+  }
+
+};
+
+window.MCF_DRIVE = MCF_DRIVE;
+
+</script>
+<script>/* capacitaciones/capacitaciones.js */
+// Repositorio Iberoamericano de Capacitaciones Forenses 2026–2027
+// 18 registros vigentes · Última actualización: 19/10/2026
+// eje: Médico-legal | Psicológico | Criminalístico | Social y jurídico | Interdisciplinario
+// fecha = inicio · hasta = fin (opcional) · permanente = inscripción abierta todo el año
+// Las actividades cuya fecha de fin (o de inicio, si no hay fin) ya pasó se ocultan solas.
+
+const MCF_CAPACITACIONES = [
+  {
+    "id": "FOR-063",
+    "nombre": "Club Forense — Catálogo de Cursos y Webinars On-Demand",
+    "area": "Criminalística / Tanatopraxia / Psicología Jurídica / Balística / Multidisciplinaria",
+    "institucion": "Centro de Especialización Forense (CEF Virtual)",
+    "tipo": "Privada",
+    "modalidad": "Virtual / Asincrónica",
+    "duracion": "Inscripción permanente · +30 cursos y webinars 100% online",
+    "precio": "Desde 25000 (webinar) — membresía mensual disponible",
+    "moneda": "ARS",
+    "fecha": "2026-01-01",
+    "url": "https://institutocef.com.ar/",
+    "contacto": "cefvirtual (Instagram) / info@inscripcionescursoscef.com.ar",
+    "pais": "Argentina",
+    "eje": "Criminalístico",
+    "permanente": true
+  },
+  {
+    "id": "FOR-004",
+    "nombre": "Diplomatura en Pericias Forenses y Evisceración",
+    "area": "Morfología / Práctica de Morgue",
+    "institucion": "ISE Cursos — Educación a Distancia",
+    "tipo": "Privada",
+    "modalidad": "Virtual",
+    "duracion": "Flexible",
+    "precio": "Gratuito",
+    "moneda": "ARS",
+    "fecha": "2026-01-01",
+    "url": "https://www.isecursos.com/detalle-3434",
+    "contacto": "atencion@isecursos.com",
+    "pais": "Argentina",
+    "eje": "Médico-legal",
+    "permanente": true
+  },
+  {
+    "id": "FOR-016",
+    "nombre": "Conversatorio AMFRA — Interpretación de Pericias Forenses",
+    "area": "Actualización / Práctica Pericial",
+    "institucion": "Asoc. de Médicos Forenses de la Rep. Argentina (AMFRA)",
+    "tipo": "Privada",
+    "modalidad": "Virtual",
+    "duracion": "3 Sesiones",
+    "precio": "Consultar",
+    "moneda": "ARS",
+    "fecha": "2026-10-28",
+    "url": "https://amfra.org.ar/noticias/",
+    "contacto": "amfraforenses@gmail.com",
+    "pais": "Argentina",
+    "eje": "Médico-legal"
+  },
+  {
+    "id": "FOR-031",
+    "nombre": "XVIII Reunión Científica AEAOF — Oviedo 2026",
+    "area": "Antropología / Odontología Forense",
+    "institucion": "Asoc. Española de Antropología y Odontología Forense (AEAOF)",
+    "tipo": "Privada",
+    "modalidad": "Presencial",
+    "duracion": "2-3 Días",
+    "precio": "Consultar",
+    "moneda": "EUR",
+    "fecha": "2026-11-01",
+    "url": "https://aeaof.com/",
+    "contacto": "secretaria@aeaof.com",
+    "pais": "España",
+    "eje": "Médico-legal",
+    "hasta": "2026-11-03"
+  },
+  {
+    "id": "FOR-035",
+    "nombre": "Capacitación Online SNMLCF — Medicina Legal y Cs. Forenses",
+    "area": "Medicina Legal / Formación Pericial",
+    "institucion": "Servicio Nac. de Medicina Legal y Cs. Forenses (Ecuador)",
+    "tipo": "Pública",
+    "modalidad": "Virtual",
+    "duracion": "Modular / Flexible",
+    "precio": "Gratuito",
+    "moneda": "USD",
+    "fecha": "2026-01-01",
+    "url": "https://capacitacion.cienciasforenses.gob.ec/",
+    "contacto": "capacitacion@cienciasforenses.gob.ec",
+    "pais": "Ecuador",
+    "eje": "Médico-legal",
+    "permanente": true
+  },
+  {
+    "id": "FOR-048",
+    "nombre": "Diplomado en Medicina Forense — TECH Uruguay",
+    "area": "Medicina Forense / Actualización",
+    "institucion": "TECH Universidad Tecnológica (Uruguay)",
+    "tipo": "Privada",
+    "modalidad": "Virtual",
+    "duracion": "Diplomado",
+    "precio": "Consultar",
+    "moneda": "UYU",
+    "fecha": "2026-01-01",
+    "url": "https://www.techtitute.com/uy/medicina/diplomado/medicina-forense",
+    "contacto": "info@techtitute.com",
+    "pais": "Uruguay",
+    "eje": "Médico-legal",
+    "permanente": true
+  },
+  {
+    "id": "FOR-055",
+    "nombre": "Cursos de Capacitación en Práctica Procesal para Peritos y Martilleros",
+    "area": "Práctica Pericial / Derecho Procesal",
+    "institucion": "Capacitación Procesal — Peritos y Martilleros",
+    "tipo": "Privada",
+    "modalidad": "Virtual",
+    "duracion": "Requisito para inscribirse como perito en la Justicia Nacional y Federal (SUAPM) · inscripción/reinscripción para actuar en 2027: del 01/09 al 30/11/2026",
+    "precio": "Consultar",
+    "moneda": "ARS",
+    "fecha": "2026-09-01",
+    "url": "https://www.pjn.gov.ar/",
+    "contacto": "Consultar programa adjunto",
+    "pais": "Argentina",
+    "detalle": "Curso de la Oficina Pericial (CSJN) cuya aprobación es obligatoria para inscribirse en el SUAPM (Acordada 2/14). La inscripción de peritos para 2027 se hace exclusivamente en www.pjn.gov.ar del 1/9 al 30/11/2026; arancel de inscripción de peritos: $45.000 (Acordada 17/2025).",
+    "eje": "Social y jurídico",
+    "hasta": "2026-11-30"
+  },
+  {
+    "id": "FOR-065",
+    "nombre": "22 Congreso Nacional y 7 Internacional de Medicina Legal y Ciencias Forenses",
+    "area": "Medicina Legal / Congreso",
+    "eje": "Médico-legal",
+    "institucion": "Instituto Nacional de Medicina Legal y Ciencias Forenses (INMLCF)",
+    "tipo": "Pública",
+    "modalidad": "Presencial",
+    "duracion": "28 al 30 de octubre · cursos precongreso 26 y 27 de octubre · Hotel Tequendama, Bogotá",
+    "precio": "Consultar",
+    "moneda": "COP",
+    "fecha": "2026-10-26",
+    "hasta": "2026-10-30",
+    "url": "https://congresomedicinalegal.com/sitio/",
+    "contacto": "INMLCF",
+    "pais": "Colombia"
+  },
+  {
+    "id": "FOR-067",
+    "nombre": "Diplomado en Psicología Forense — Educación Continua FES Iztacala",
+    "area": "Psicología Forense / Peritaje",
+    "eje": "Psicológico",
+    "institucion": "UNAM · FES Iztacala",
+    "tipo": "Pública",
+    "modalidad": "Presencial",
+    "duracion": "240 h · 20/10/2026 al 02/05/2028 · martes 16 a 20 h · grupo completo, con lista de espera",
+    "precio": "Inscripción MXN 3.500 + 12 cuotas de MXN 2.500",
+    "moneda": "MXN",
+    "fecha": "2026-10-20",
+    "url": "https://deunam.iztacala.unam.mx/index.php/psicologia/item/psicologia-forense",
+    "contacto": "Educación Continua FES Iztacala",
+    "pais": "México"
+  },
+  {
+    "id": "FOR-068",
+    "nombre": "XVIII Congreso Internacional de Investigación y Práctica Profesional en Psicología",
+    "area": "Psicología / Investigación y práctica profesional",
+    "eje": "Psicológico",
+    "institucion": "Facultad de Psicología — UBA",
+    "tipo": "Pública",
+    "modalidad": "Presencial",
+    "duracion": "25 al 27 de noviembre",
+    "precio": "Consultar",
+    "moneda": "ARS",
+    "fecha": "2026-11-25",
+    "hasta": "2026-11-27",
+    "url": "https://www.psi.uba.ar/",
+    "contacto": "Facultad de Psicología UBA",
+    "pais": "Argentina"
+  },
+  {
+    "id": "FOR-069",
+    "nombre": "XVII Congreso (Inter)Nacional de Psicología Jurídica y Forense — El Puerto de Santa María, Cádiz",
+    "area": "Psicología Jurídica y Forense / Congreso",
+    "eje": "Psicológico",
+    "institucion": "Sociedad Española de Psicología Jurídica y Forense (SEPJF)",
+    "tipo": "ONG",
+    "modalidad": "Presencial",
+    "duracion": "4 al 6 de marzo de 2027 · Teatro Municipal Pedro Muñoz Seca · pronto pago hasta el 21/12/2026 · envío de sesiones aplicadas hasta el 16/11/2026 · comunicaciones y simposios hasta el 01/12/2026",
+    "precio": "Consultar",
+    "moneda": "EUR",
+    "fecha": "2027-03-04",
+    "url": "https://sepjf.org/",
+    "contacto": "congresosepjf2027@gmail.com",
+    "pais": "España",
+    "hasta": "2027-03-06"
+  },
+  {
+    "id": "FOR-070",
+    "nombre": "XXV Congreso Latinoamericano de Psicología Jurídica y Forense",
+    "area": "Psicología Jurídica y Forense / Congreso",
+    "eje": "Psicológico",
+    "institucion": "Universidad de Santander (UDES) · ALPJF",
+    "tipo": "Privada",
+    "modalidad": "Presencial",
+    "duracion": "21 h · 9, 10 y 11 de noviembre · 8 a 18 h · Campus UDES · certificado de asistencia",
+    "precio": "USD 99 (profesional externo)",
+    "moneda": "USD",
+    "fecha": "2026-11-09",
+    "hasta": "2026-11-11",
+    "url": "https://udes.edu.co/estudia/educacion-continua/xxv-congreso-latinoamericano-de-psicologia-juridica-y-forense",
+    "contacto": "Educación Continua UDES",
+    "pais": "Colombia"
+  },
+  {
+    "id": "FOR-071",
+    "nombre": "21st TIAFT Latin American Regional Meeting of Forensic Toxicology",
+    "area": "Toxicología Forense / Reunión regional",
+    "eje": "Médico-legal",
+    "institucion": "TIAFT · Pontificia Universidad Católica del Perú (PUCP)",
+    "tipo": "ONG",
+    "modalidad": "Presencial",
+    "duracion": "4 al 7 de noviembre · Auditorio de la Facultad de Derecho PUCP, Lima",
+    "precio": "Consultar",
+    "moneda": "USD",
+    "fecha": "2026-11-04",
+    "hasta": "2026-11-07",
+    "url": "https://tiaftperu2026.com/",
+    "contacto": "Comité organizador TIAFT Perú 2026",
+    "pais": "Perú"
+  },
+  {
+    "id": "FOR-072",
+    "nombre": "I Simpósio Internacional de Enfermagem Forense",
+    "area": "Enfermería Forense / Simposio",
+    "eje": "Médico-legal",
+    "institucion": "NUE – Núcleo de Urgência de Elvas",
+    "tipo": "Pública",
+    "modalidad": "Presencial",
+    "duracion": "6 de noviembre · Auditório da Escola Superior de Biociências de Elvas",
+    "precio": "Consultar",
+    "moneda": "EUR",
+    "fecha": "2026-11-06",
+    "url": "https://justnews.pt/agenda/i-simposio-internacional-de-enfermagem-forense",
+    "contacto": "NUE Elvas",
+    "pais": "Portugal"
+  },
+  {
+    "id": "FOR-073",
+    "nombre": "IV Congreso sobre Violencias de Género — Retos y estrategias ante agendas antiderechos en América Latina y El Caribe",
+    "area": "Violencia de género / Victimología",
+    "eje": "Social y jurídico",
+    "institucion": "UNAM · Centro Regional de Investigaciones Multidisciplinarias (CRIM)",
+    "tipo": "Pública",
+    "modalidad": "Presencial",
+    "duracion": "24, 25 y 26 de noviembre · 9 a 18 h · inscripción para acreditar asistencia hasta el 20/11 · límite de pago 13/11",
+    "precio": "Consultar",
+    "moneda": "MXN",
+    "fecha": "2026-11-24",
+    "hasta": "2026-11-26",
+    "url": "https://www.crim.unam.mx/eventos/ivcongresoviolencias/",
+    "contacto": "CRIM UNAM",
+    "pais": "México"
+  },
+  {
+    "id": "FOR-074",
+    "nombre": "Experto Universitario en Criminalística y Ciencia Forense",
+    "area": "Criminalística / Ciencia forense",
+    "eje": "Criminalístico",
+    "institucion": "UTN Buenos Aires · Secretaría de Cultura y Extensión Universitaria",
+    "tipo": "Pública",
+    "modalidad": "Virtual",
+    "duracion": "90 h · 12 semanas · aula abierta desde el 25/09/2026 · consultar disponibilidad de inscripción",
+    "precio": "$277.170",
+    "moneda": "ARS",
+    "fecha": "2026-09-25",
+    "hasta": "2026-12-18",
+    "url": "https://sceu.frba.utn.edu.ar/e-learning/detalle/experto-universitario/1761/experto-universitario-en-criminalistica-y-ciencia-forense",
+    "contacto": "UTN BA e-learning",
+    "pais": "Argentina"
+  },
+  {
+    "id": "FOR-075",
+    "nombre": "Curso de Auxiliar en Criminalística y Criminología",
+    "area": "Criminalística / Criminología",
+    "eje": "Criminalístico",
+    "institucion": "ICLA",
+    "tipo": "Privada",
+    "modalidad": "Virtual",
+    "duracion": "10 meses · online en vivo · inicio 11/11/2026 · homologado por la Cámara Argentina para la Formación Profesional",
+    "precio": "$46.000 por mes ($30.000 con promoción)",
+    "moneda": "ARS",
+    "fecha": "2026-11-11",
+    "url": "https://icla.com.ar/auxiliar-en-criminalistica-y-criminologia",
+    "contacto": "ICLA",
+    "pais": "Argentina"
+  },
+  {
+    "id": "FOR-076",
+    "nombre": "Máster Universitario en Psicología Forense",
+    "area": "Psicología Forense / Peritaje psicológico",
+    "eje": "Psicológico",
+    "institucion": "UNIR",
+    "tipo": "Privada",
+    "modalidad": "Virtual",
+    "duracion": "60 ECTS · 1 curso · clases virtuales en vivo · inicio 19/10/2026 · título oficial",
+    "precio": "Consultar",
+    "moneda": "EUR",
+    "fecha": "2026-10-19",
+    "url": "https://latam.unir.net/salud/maestria-psicologia-forense/",
+    "contacto": "UNIR",
+    "pais": "España"
+  }
+];
+window.MCF_CAPACITACIONES = MCF_CAPACITACIONES;
+
+</script>
+<script>/* app.js */
+(function(){
+  const { DIAS, PAQUETES, OBLIGATORIAS, TESIS, ESPECIFICAS, TICKER } = window.MCF;
+  const DRIVE = window.MCF_DRIVE || {};
+  const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  // ---------- date helpers ----------
+  const MESAB = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const MESF  = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const MESMC = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+  const P = iso => { const a = iso.split('-').map(Number); return {y:a[0], m:a[1]-1, d:a[2], t:new Date(a[0],a[1]-1,a[2]).getTime()}; };
+  const PAQ = id => PAQUETES.find(x=>x.id===id);
+
+  // "9, 10 abr · 2026"  /  "16, 17, 23, 24, 30 abr · 7 may · 2026"
+  function fechasTxt(arr){
+    const g=[]; arr.forEach(iso=>{const p=P(iso);let x=g.find(o=>o.y===p.y&&o.m===p.m);if(!x){x={y:p.y,m:p.m,days:[]};g.push(x);}x.days.push(p.d);});
+    const ys=new Set(g.map(o=>o.y)); const multi=ys.size>1;
+    return g.map(o=>o.days.join(', ')+' '+MESAB[o.m]+(multi?' '+o.y:'')).join(' · ') + (multi?'':' · '+[...ys][0]);
+  }
+  // "sáb. 19 sep 2026"
+  function examShort(iso){
+    const p=P(iso);
+    const dow=new Date(p.y,p.m,p.d).toLocaleDateString('es-AR',{weekday:'short'});
+    return dow.charAt(0).toUpperCase()+dow.slice(1).replace('.','')+'. '+p.d+' '+MESAB[p.m]+' '+p.y;
+  }
+  // "9–10 ABR" or "16 ABR–7 MAY"
+  function shortRange(arr){
+    const a=P(arr[0]), b=P(arr[arr.length-1]);
+    if(a.m===b.m) return a.d+'–'+b.d+' '+MESMC[a.m];
+    return a.d+' '+MESMC[a.m]+'–'+b.d+' '+MESMC[b.m];
+  }
+  function mesLabel(arr){ const a=P(arr[0]); return MESF[a.m]+' '+a.y; }
+  const inicioTxt = arr => { const a=P(arr[0]); return a.d+' '+MESAB[a.m]+' '+a.y; };
+  const docResp = s => (s.resp||[]).join(' / ');
+
+  // ---------- icons ----------
+  const ICON = {
+    pdf:'<svg viewBox="0 0 24 24"><path d="M6 2h7l6 6v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" fill="#fff"/><path d="M13 2v6h6" fill="rgba(0,0,0,.18)"/><path d="M8 13.4h8M8 16.4h8M8 10.4h4" stroke="rgba(0,0,0,.4)" stroke-width="1.4" stroke-linecap="round"/></svg>',
+    doc:'<svg viewBox="0 0 24 24"><path d="M6 2h7l6 6v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" fill="#fff"/><path d="M13 2v6h6" fill="rgba(0,0,0,.18)"/><path d="M8 13.4h8M8 16.4h8M8 10.4h4" stroke="rgba(0,0,0,.4)" stroke-width="1.4" stroke-linecap="round"/></svg>',
+    folder:'<svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4.2l2 2H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#fff"/><path d="M3 9.6h18" stroke="rgba(0,0,0,.16)" stroke-width="1"/></svg>',
+    zip:'<svg viewBox="0 0 24 24"><path d="M6 2h7l6 6v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" fill="#fff"/><path d="M13 2v6h6" fill="rgba(0,0,0,.18)"/><path d="M11 6h2M11 9h2M11 12h2M11 15h2M11 18h2" stroke="rgba(0,0,0,.4)" stroke-width="1.4" stroke-linecap="round"/></svg>'
+  };
+  const KLABEL = {pdf:'PDF',doc:'DOC',folder:'CARPETA',zip:'ZIP'};
+  const linkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function matInfo(title){ const d=DRIVE[title]; if(!d) return null; return {folder:d.folder, files:d.files||[], count:(d.files||[]).length}; }
+
+  // GPT links por materia
+  const GPT_LINKS = {
+    "Introducci\u00f3n al Derecho. Derecho Constitucional. Derechos Humanos": {
+      url: "https://chatgpt.com/g/g-6a1cd1102bbc819186ea288a2c2282b2-introduccion-al-derecho",
+      name: "GPT \u00b7 Introducci\u00f3n al Derecho",
+      desc: "Asistente IA especializado en esta materia"
+    },
+    "Criminalística": {
+      url: "https://chatgpt.com/g/g-6a1ae8ea8fa08191a8730c6e4679d1e7-el-perfilador-criminal",
+      name: "GPT \u00b7 El Perfilador Criminal",
+      desc: "Asistente IA especializado en Criminalística"
+    }
+  };
+  const ESP_BY_TITLE = {}; ESPECIFICAS.forEach(s=>ESP_BY_TITLE[s.title]=s);
+
+  // ---------- ticker ----------
+  (function(){
+    const track=document.getElementById('tktrack');
+    if(!track) return;
+    // avisos de exámenes próximos (resaltados en magenta)
+    const hoy=new Date(); hoy.setHours(0,0,0,0);
+    const fmt=iso=>{const p=iso.split('-').map(Number);
+      return new Date(p[0],p[1]-1,p[2]).toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});};
+    const seen=new Set();
+    const exams=[...OBLIGATORIAS,...ESPECIFICAS,...ESPECIFICAS.filter(s=>s.examen2).map(s=>({title:s.title+' (2ª oferta)',examen:s.examen2,recup:s.recup2}))].filter(s=>s.examen)
+      .filter(s=>{const p=s.examen.split('-').map(Number);return new Date(p[0],p[1]-1,p[2])>=hoy;})
+      .sort((a,b)=>a.examen<b.examen?-1:1)
+      .filter(s=>{const k=s.title+s.examen; if(seen.has(k))return false; seen.add(k); return true;})
+      .slice(0,6)
+      .map(s=>({tag:'EXAMEN', exam:true,
+        txt:s.title+' — '+fmt(s.examen)+(s.recup?' · recuperatorio '+fmt(s.recup):'')}));
+    const ITEMS=[...exams,...TICKER];
+    const one = ITEMS.map(t=>'<span class="tkitem'+(t.exam?' tkexam':'')+'"><span class="tkt">'+esc(t.tag)+'</span>'+esc(t.txt)+'</span><span class="tksep">◆</span>').join('');
+    track.innerHTML = one + one; // duplicate for seamless loop
+  })();
+
+  // ---------- subject card ----------
+  // examen/recuperatorio según el paquete en que se cursa (2ª oferta → examen2)
+  function exFor(s, paqId){
+    if(paqId && s.paq2===paqId) return { examen:s.examen2||null, recup:s.recup2||null };
+    return { examen:s.examen||null, recup:s.recup||null };
+  }
+  function card(s, kind, paqId){ // kind: 'oblig' | 'esp'
+    const isEsp = kind==='esp';
+    const paq = isEsp ? PAQ(paqId||s.paq) : null;
+    const ex = exFor(s, paqId);
+    const mi = matInfo(s.title);
+    const el = document.createElement('div');
+    el.className='scard'+(mi?' has-mat':'')+(isEsp?' esp':'');
+    el.setAttribute('role','button');
+    el.tabIndex=0;
+    el.dataset.subj=s.title;
+    if(isEsp && paq) el.style.setProperty('--bc', paq.color);
+
+    let flag;
+    if(mi && mi.count>0) flag='<span class="matflag">'+ICON.folder+mi.count+' materiales</span>';
+    else if(mi)          flag='<span class="matflag">'+ICON.folder+'Carpeta Drive</span>';
+    else                 flag='<span class="matflag dim">Programa</span>';
+
+    const left = isEsp
+      ? '<span class="bchip" style="color:'+paq.color+'">Paquete '+paq.id+'</span>'
+      : '<span class="num">N°'+String(s.n).padStart(2,'0')+'</span>';
+
+    const dates = isEsp ? paq.dates : s.dates;
+    const examRow = ex.examen ? '<div class="cmrow exam-row"><span class="cml">📝 Examen</span><span class="cmv exam-cmv">'+examShort(ex.examen)+'</span></div>' : '';
+    const recupRow = ex.recup ? '<div class="cmrow recup-row"><span class="cml">🔁 Recuperatorio</span><span class="cmv recup-cmv">'+examShort(ex.recup)+'</span></div>' : '';
+    const meta =
+      '<div class="cmeta">'+
+        '<div class="cmrow"><span class="cml">Fechas</span><span class="cmv">'+fechasTxt(dates)+'</span></div>'+
+        '<div class="cmrow"><span class="cml">Días</span><span class="cmv">'+DIAS+'</span></div>'+
+        '<div class="cmrow"><span class="cml">Docente</span><span class="cmv doc">'+esc(docResp(s))+'</span></div>'+
+        examRow+recupRow+
+      '</div>';
+
+    const driveBtn = mi ? '<a class="card-drive" href="'+esc(mi.folder)+'" target="_blank" rel="noopener" aria-label="Abrir carpeta de Drive de '+esc(s.title)+'">'+ICON.folder+'Ver en Drive</a>' : '';
+    el.innerHTML =
+      '<div class="top">'+left+'<span class="area">'+esc(s.area)+'</span></div>'+
+      '<h3>'+esc(s.title)+'</h3>'+ meta +
+      '<div class="foot"><span class="jorn"><b>'+dates.length+'</b> jornadas</span>'+flag+'</div>'+
+      driveBtn;
+    el.addEventListener('click',e=>{ if(e.target.closest('.card-drive')) return; openModal(s,kind,paqId); });
+    el.addEventListener('keydown',e=>{ if(e.target.closest('.card-drive')) return; if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(s,kind,paqId); } });
+    return el;
+  }
+
+  // ---------- render obligatorias ----------
+  const gO=document.getElementById('gridOblig');
+  OBLIGATORIAS.forEach(s=>gO.appendChild(card(s,'oblig')));
+  document.getElementById('tesisDate').textContent = TESIS.fechas;
+  const tesisCardEl=document.getElementById('tesisCard');
+  const tesisMi=matInfo(TESIS.title);
+  if(tesisMi && !tesisCardEl.querySelector('.card-drive')){
+    const a=document.createElement('a'); a.className='card-drive'; a.href=tesisMi.folder; a.target='_blank'; a.rel='noopener';
+    a.setAttribute('aria-label','Abrir carpeta de Drive de '+TESIS.title); a.innerHTML=ICON.folder+'Ver en Drive';
+    tesisCardEl.appendChild(a);
+  }
+  tesisCardEl.addEventListener('click',e=>{ if(e.target.closest('.card-drive')) return; openModal(TESIS,'tesis'); });
+  tesisCardEl.addEventListener('keydown',e=>{ if(e.target.closest('.card-drive')) return; if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(TESIS,'tesis'); } });
+
+  (function(){
+    const set=(sel,v)=>{ const n=document.querySelector(sel); if(n) n.textContent=v; };
+    set('#hsOblig',OBLIGATORIAS.length); set('#hsEsp',ESPECIFICAS.length); set('#hsPaq',PAQUETES.length);
+  })();
+
+  // ---------- render específicas ----------
+  const gE=document.getElementById('gridEsp');
+  function renderPaquetes(){
+    gE.innerHTML='';
+    PAQUETES.forEach(b=>{
+      const subs=ESPECIFICAS.filter(s=>s.paq===b.id || s.paq2===b.id);
+      if(!subs.length) return;
+      const sec=document.createElement('div'); sec.className='blockSec'; sec.style.setProperty('--bc',b.color);
+      sec.innerHTML='<div class="blockHead">'+
+        '<span class="bbadge">Paquete '+b.id+'</span>'+
+        '<span class="bwhen">'+DIAS+'</span>'+
+        '<span class="bdates">'+b.fechas+(b.nota?' · '+b.nota:'')+'</span>'+
+        '<span class="bnote">Elegí UNA materia</span>'+
+      '</div>';
+      const g=document.createElement('div'); g.className='grid';
+      subs.forEach(s=>g.appendChild(card(s,'esp',b.id)));
+      sec.appendChild(g); gE.appendChild(sec);
+    });
+  }
+  let curArea='Todas';
+  function renderArea(area){
+    gE.innerHTML='';
+    const g=document.createElement('div'); g.className='grid';
+    ESPECIFICAS.filter(s=>area==='Todas'||s.area===area).forEach(s=>g.appendChild(card(s,'esp')));
+    gE.appendChild(g);
+  }
+  // area filter chips
+  const areas=['Todas',...Array.from(new Set(ESPECIFICAS.map(s=>s.area)))];
+  const fbar=document.getElementById('filters');
+  areas.forEach((a,i)=>{
+    const c=document.createElement('button'); c.className='chip'+(i===0?' on':''); c.textContent=a;
+    c.addEventListener('click',()=>{fbar.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');curArea=a;renderArea(a);});
+    fbar.appendChild(c);
+  });
+  // view toggle
+  const vtabs=document.getElementById('viewtabs');
+  vtabs.querySelectorAll('.vtab').forEach(t=>{
+    t.addEventListener('click',()=>{
+      vtabs.querySelectorAll('.vtab').forEach(x=>x.classList.remove('on')); t.classList.add('on');
+      if(t.dataset.v==='area'){fbar.style.display='';renderArea(curArea);}
+      else{fbar.style.display='none';renderPaquetes();}
+    });
+  });
+  renderPaquetes();
+
+  // ---------- trámites cards ----------
+  (function(){
+    const g=document.getElementById('gridTram');
+    const cards=[
+      {ic:ICON.pdf, k:'pdf', t:'Cómo abonar un curso', p:'Paso a paso para pagar tu cursada: Sistema de Posgrado, PayU, tarjeta, efectivo y Pago Mis Cuentas.', u:'assets/Como-abonar-un-curso.pdf', go:'Abrir guía'},
+      {ic:ICON.pdf, k:'pdf', t:'Asistencia a las clases', p:'Instructivo oficial de registro y control de asistencia a las clases de la maestría.', u:'assets/Asistencia-a-las-clases.pdf', go:'Abrir instructivo'},
+      {ic:ICON.doc, k:'doc', t:'Programa completo', p:'Descargá el programa académico completo de la Maestría Interdisciplinaria en Ciencias Forenses.', u:'https://cdn.prod.website-files.com/68e44e1936db51b3d12a5be4/68e7e85d172a7054393d35b2_Maestr%C3%ADa%20Interdisciplinaria%20en%20%20Ciencias%20Forenses.pdf', go:'Descargar PDF'}
+    ];
+    cards.forEach(c=>{
+      const a=document.createElement('a'); a.className='tcard'; a.href=c.u; a.target='_blank'; a.rel='noopener';
+      a.innerHTML='<span class="tic '+c.k+'">'+c.ic+'</span><h4>'+esc(c.t)+'</h4><p>'+esc(c.p)+'</p><span class="tgo">'+esc(c.go)+' '+linkIcon+'</span>';
+      g.appendChild(a);
+    });
+  })();
+
+  // ---------- calendar (vertical timeline) ----------
+  (function(){
+    // build sorted event list
+    const events=[];
+    OBLIGATORIAS.forEach(s=>events.push({type:'oblig',subj:s,start:s.dates[0]}));
+    events.push({type:'tesis',subj:TESIS,start:TESIS.dates[0]});
+    PAQUETES.forEach(b=>{
+      const subs=ESPECIFICAS.filter(s=>s.paq===b.id||s.paq2===b.id);
+      if(subs.length) events.push({type:'paq',paq:b,subs,start:b.dates[0]});
+    });
+    events.sort((a,b)=>a.start.localeCompare(b.start));
+    // group by year-month
+    const byMonth=new Map();
+    events.forEach(ev=>{
+      const key=ev.start.slice(0,7);
+      if(!byMonth.has(key)) byMonth.set(key,[]);
+      byMonth.get(key).push(ev);
+    });
+    const host=document.getElementById('calTimeline');
+    [...byMonth.entries()].forEach(([ym,evs])=>{
+      const [y,m]=ym.split('-');
+      const mDiv=document.createElement('div'); mDiv.className='tl-month';
+      mDiv.innerHTML='<span class="tl-mh">'+MESF[+m-1].toUpperCase()+' '+y+'</span>';
+      host.appendChild(mDiv);
+      evs.forEach(ev=>{
+        if(ev.type==='oblig'){
+          const btn=document.createElement('button'); btn.type='button'; btn.className='tl-obl';
+          btn.innerHTML=
+            '<span class="tl-num">N°'+String(ev.subj.n).padStart(2,'0')+'</span>'+
+            '<div class="tl-body">'+
+              '<div class="tl-name">'+esc(ev.subj.title)+'</div>'+
+              '<div class="tl-meta">'+
+                '<span class="tl-area">'+esc(ev.subj.area)+'</span>'+
+                '<span class="tl-dates">'+fechasTxt(ev.subj.dates)+'</span>'+
+              '</div>'+
+              '<div class="tl-meta" style="margin-top:5px"><span class="tl-doc">'+esc(docResp(ev.subj))+'</span></div>'+
+            '</div>';
+          btn.addEventListener('click',()=>openModal(ev.subj,'oblig'));
+          host.appendChild(btn);
+        } else if(ev.type==='tesis'){
+          const btn=document.createElement('button'); btn.type='button'; btn.className='tl-tesis-row';
+          btn.innerHTML=
+            '<span class="tl-tesis-ico">★</span>'+
+            '<div class="tl-body">'+
+              '<div class="tl-name">Taller de Tesis</div>'+
+              '<div class="tl-meta">'+
+                '<span class="tl-area">Investigación</span>'+
+                '<span class="tl-dates">'+TESIS.fechas+'</span>'+
+              '</div>'+
+              '<div class="tl-meta" style="margin-top:5px"><span class="tl-doc">'+esc(docResp(TESIS))+'</span></div>'+
+            '</div>';
+          btn.addEventListener('click',()=>openModal(TESIS,'tesis'));
+          host.appendChild(btn);
+        } else if(ev.type==='paq'){
+          const b=ev.paq;
+          const div=document.createElement('div'); div.className='tl-paq'; div.style.setProperty('--bc',b.color);
+          let inner='<div class="tl-paq-hd">'+
+            '<span class="tl-pbadge">Paquete '+b.id+'</span>'+
+            '<span class="tl-pdates">'+DIAS+' · '+b.fechas+(b.nota?' · '+b.nota:'')+'</span>'+
+            '<span class="tl-pnote">Elegí una</span>'+
+          '</div><div class="tl-subs">';
+          ev.subs.forEach(s=>{
+            inner+='<button type="button" class="tl-sub" data-esp="'+encodeURIComponent(s.title)+'">'+
+              '<span class="tl-sub-dot"></span>'+
+              '<div class="tl-body">'+
+                '<div class="tl-name">'+esc(s.title)+'</div>'+
+                '<div class="tl-meta">'+
+                  '<span class="tl-area">'+esc(s.area)+'</span>'+
+                  '<span class="tl-doc">'+esc(docResp(s))+'</span>'+
+                '</div>'+
+              '</div>'+
+            '</button>';
+          });
+          inner+='</div>';
+          div.innerHTML=inner;
+          div.querySelectorAll('.tl-sub').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+              const s=ESP_BY_TITLE[decodeURIComponent(btn.dataset.esp)];
+              if(s) openModal(s,'esp',b.id);
+            });
+          });
+          host.appendChild(div);
+        }
+      });
+    });
+    // legend
+    let lh='<span class="lg"><i style="background:#23f0ff"></i>Obligatorias</span>'+
+            '<span class="lg"><i style="background:#9b6bff"></i>Taller de Tesis</span>';
+    PAQUETES.forEach(b=>lh+='<span class="lg"><i style="background:'+b.color+'"></i>Paquete '+b.id+'</span>');
+    document.getElementById('callegend').innerHTML=lh;
+  })();
+
+  // ---------- modal ----------
+  const bg=document.getElementById('modalBg');
+  const modalEl=document.getElementById('modal');
+  let lastFocus=null;
+  function docHtml(s){
+    const resp=(s.resp||[]), eq=(s.equipo||[]);
+    let h='<div class="m-label">Plantel docente</div><div class="docrow">';
+    if(resp.length) h+='<div class="docline"><span class="dr">Responsable</span><span class="dn resp">'+esc(resp.join(' · '))+'</span></div>';
+    if(eq.length)   h+='<div class="docline"><span class="dr">Equipo</span><span class="dn">'+esc(eq.join(' · '))+'</span></div>';
+    h+='</div>';
+    return h;
+  }
+  function openModal(s, kind, paqId){
+    lastFocus = document.activeElement;
+    const isEsp = kind==='esp';
+    const paq = isEsp ? PAQ(paqId||s.paq) : null;
+    const ex = exFor(s, paqId);
+    const dates = isEsp ? paq.dates : s.dates;
+
+    document.getElementById('mArea').textContent = s.area || 'Materia';
+    document.getElementById('mTitle').textContent = s.title;
+
+    const meta=document.getElementById('mMeta');
+    let tags='';
+    if(kind==='oblig') tags+='<span class="tag">Obligatoria · N°'+String(s.n).padStart(2,'0')+'</span>';
+    else if(kind==='esp') tags+='<span class="tag paq" style="background:'+paq.color+'">Paquete '+paq.id+'</span>';
+    else tags+='<span class="tag">Taller transversal</span>';
+    tags+='<span class="tag hot">'+dates.length+' jornadas</span><span class="tag">'+DIAS+'</span>';
+    meta.innerHTML=tags;
+
+    // schedule grid
+    const sd=document.getElementById('mSched');
+    sd.style.setProperty('--bc', isEsp?paq.color:'#23f0ff');
+    let sg='<div class="m-label">Cursada · cronograma oficial 2026–2027</div><div class="cgrid">';
+    if(isEsp) sg+='<div class="cg bloque"><span>Paquete</span><b>'+paq.id+'</b></div>';
+    sg+='<div class="cg"><span>Inicio</span><b>'+inicioTxt(dates)+'</b></div>'+
+        '<div class="cg"><span>Jornadas</span><b>'+dates.length+'</b></div>'+
+        '<div class="cg"><span>Días</span><b>'+DIAS+'</b></div>'+
+        '<div class="cg wide"><span>Fechas de cursada</span><b>'+(kind==='tesis'?s.fechas:fechasTxt(dates))+'</b></div>'+
+      '</div>';
+    sd.innerHTML=sg;
+
+    // docentes
+    document.getElementById('mDoc').innerHTML = docHtml(s);
+
+    // contenidos
+    document.getElementById('mDesc').textContent = s.desc;
+
+    // examen + recuperatorio
+    const oldExamEl = document.getElementById('mExamen');
+    if(oldExamEl) oldExamEl.remove();
+    if(ex.examen){
+      const ed = new Date(ex.examen+'T00:00:00');
+      const edTxt = ed.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+      const box = document.createElement('div');
+      box.id='mExamen';
+      box.className='exam-box';
+      let inner = '<div class="m-label">📝 Examen</div><div class="exam-date">'+edTxt.charAt(0).toUpperCase()+edTxt.slice(1)+'</div>';
+      if(ex.recup){
+        const rd = new Date(ex.recup+'T00:00:00');
+        const rdTxt = rd.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+        inner += '<div class="m-label recup-label">🔁 Recuperatorio</div><div class="exam-date recup-date">'+rdTxt.charAt(0).toUpperCase()+rdTxt.slice(1)+'</div>';
+      }
+      inner += s.oficial
+        ? '<p class="exam-note">Fechas oficiales — cronograma de exámenes de la Facultad. Sujetas a confirmación.</p>'
+        : '<p class="exam-note">Fecha estimada · 60 días desde la última clase cursada. Sujeto a confirmación oficial.</p>';
+      box.innerHTML = inner;
+      document.getElementById('mDesc').insertAdjacentElement('afterend', box);
+    }
+
+    // simultaneous + materials
+    const wrap=document.getElementById('mMatWrap');
+    let html='';
+    if(isEsp){
+      const others=ESPECIFICAS.filter(o=>o!==s && (o.paq===paq.id || o.paq2===paq.id));
+      if(others.length){
+        html+='<div class="m-label">Se dicta en simultáneo</div>'+
+          '<p class="simnote">Pertenece al <b style="color:'+paq.color+'">Paquete '+paq.id+'</b> ('+paq.fechas+'). Comparte fechas con estas materias — solo podés cursar una del paquete:</p>'+
+          '<div class="simlist">'+others.map(o=>'<button type="button" class="simitem" data-t="'+encodeURIComponent(o.title)+'">'+o.title+'</button>').join('')+'</div>';
+      }
+    }
+    const mi=matInfo(s.title);
+    if(mi){
+      html+='<div class="m-label">Materiales de cursada · Drive</div>';
+      if(mi.files.length){
+        html+='<div class="mats">'+mi.files.map(f=>
+          '<a class="mat" href="'+esc(f.u)+'" target="_blank" rel="noopener"><span class="ic '+f.k+'">'+ICON[f.k]+'</span><span class="mt">'+esc(f.t)+'</span><span class="mk">'+KLABEL[f.k]+'</span><span class="arr">'+linkIcon+'</span></a>'
+        ).join('')+'</div>';
+      } else html+='<p class="no-mat">Carpeta creada — los materiales se irán cargando durante la cursada.</p>';
+      html+='<a class="folder-link" href="'+esc(mi.folder)+'" target="_blank" rel="noopener">'+ICON.folder+' Abrir carpeta completa en Drive</a>';
+    }
+    // GPT link si existe
+    const gptData = GPT_LINKS[s.title];
+    if(gptData){
+      html+='<div class="m-label" style="margin-top:28px">Asistente IA · ChatGPT</div>';
+      html+='<a class="gpt-btn" href="'+esc(gptData.url)+'" target="_blank" rel="noopener">'+
+        '<span class="gpt-icon"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z" fill="#fff"/></svg></span>'+
+        '<span class="gpt-text"><strong>'+esc(gptData.name)+'</strong><span class="gpt-sub">'+esc(gptData.desc)+'</span></span>'+
+        '<span class="gpt-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'+
+        '</a>';
+    }
+    html+='<div class="note" style="margin-top:20px"><i></i>Fechas y plantel docente según cronograma oficial 2026–2027 · sujeto a confirmación.</div>';
+    wrap.innerHTML=html;
+
+    wrap.querySelectorAll('.simitem').forEach(btn=>{
+      btn.addEventListener('click',()=>{ openModal(ESP_BY_TITLE[decodeURIComponent(btn.dataset.t)],'esp'); const md=document.getElementById('modal'); if(md){ md.scrollTop=0; const mb=md.querySelector('.modal'); if(mb) mb.scrollTop=0; } });
+    });
+
+    bg.classList.add('open'); document.body.style.overflow='hidden';
+    requestAnimationFrame(()=>{ const c=document.getElementById('modalClose'); if(c) c.focus(); });
+  }
+  function close(){ bg.classList.remove('open'); document.body.style.overflow=''; if(lastFocus && typeof lastFocus.focus==='function') lastFocus.focus(); }
+  document.getElementById('modalClose').addEventListener('click',close);
+  bg.addEventListener('click',e=>{ if(e.target===bg) close(); });
+  window.MCF_APP={
+    openByTitle(t){
+      const s=ESP_BY_TITLE[t]||OBLIGATORIAS.find(o=>o.title===t)||(TESIS.title===t?TESIS:null);
+      if(!s) return;
+      openModal(s, s===TESIS ? 'tesis' : (ESP_BY_TITLE[t] ? 'esp' : 'oblig'));
+    }
+  };
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){ close(); return; }
+    if(e.key==='Tab' && bg.classList.contains('open')){
+      const f=modalEl.querySelectorAll('button,a[href],select,[tabindex]:not([tabindex="-1"])');
+      if(!f.length) return;
+      const first=f[0], last=f[f.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+  });
+})();
+
+</script>
+<script>/* features.js */
+// Dashboard · vista semanal · modo compacto · progreso (MCF UBA)
+(function(){
+  // hélice de ADN 3D decorativa
+  const helix = document.querySelector('.dna3d .helix');
+  if(helix && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+    for(let i=0;i<20;i++){
+      const r=document.createElement('div');
+      r.className='rung';
+      r.style.top=(i*21)+'px';
+      r.style.transform='rotateY('+(i*32)+'deg)';
+      r.style.opacity=String(0.35+0.5*Math.abs(Math.cos(i*32*Math.PI/180)));
+      helix.appendChild(r);
+    }
+  }
+})();
+(function(){
+  const M = window.MCF || {};
+  const { DIAS, PAQUETES = [], OBLIGATORIAS = [], TESIS = {}, ESPECIFICAS = [] } = M;
+  const DRIVE = window.MCF_DRIVE || {};
+  const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const MESAB = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const P = iso => { const a=iso.split('-').map(Number); return new Date(a[0],a[1]-1,a[2]); };
+  const fmt = d => d.getDate()+' '+MESAB[d.getMonth()]+' '+d.getFullYear();
+  const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+  const PAQ = id => PAQUETES.find(p=>p.id===id);
+
+  // ───────── progreso ─────────
+  const KEY='mcf.progress.v1';
+  const ESTADOS={pendiente:'Pendiente',cursada:'Cursada',aprobada:'Aprobada'};
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ return {}; } }
+  function save(o){ try{ localStorage.setItem(KEY,JSON.stringify(o)); }catch(e){} }
+  let prog = load();
+  function estado(t){ return prog[t]||'pendiente'; }
+  function setEstado(t,v){ if(v==='pendiente') delete prog[t]; else prog[t]=v; save(prog); refresh(); }
+
+  // materias que cuentan para el avance: 13 obligatorias + 1 electiva por paquete + tesis
+  const PAQUETES_REQUERIDOS = PAQUETES.filter(paquete=>!paquete.segunda);
+  const TOTAL = OBLIGATORIAS.length + PAQUETES_REQUERIDOS.length + 1;
+  function done(){
+    const okOblig = OBLIGATORIAS.filter(s=>estado(s.title)==='aprobada').length;
+    const paqOk = PAQUETES_REQUERIDOS.filter(b=>ESPECIFICAS.some(s=>s.paq===b.id&&estado(s.title)==='aprobada')).length;
+    const tesisOk = estado(TESIS.title)==='aprobada' ? 1 : 0;
+    return okOblig+paqOk+tesisOk;
+  }
+
+  // ───────── próximos hitos ─────────
+  function eventos(){
+    const ev=[];
+    OBLIGATORIAS.forEach(s=>s.dates.forEach(d=>ev.push({d:P(d),t:s.title,kind:'oblig',color:'#23f0ff',subj:s})));
+    (TESIS.dates||[]).forEach(d=>ev.push({d:P(d),t:TESIS.title,kind:'tesis',color:'#9b6bff',subj:TESIS}));
+    PAQUETES.forEach(b=>{
+      const subs=ESPECIFICAS.filter(s=>s.paq===b.id||s.paq2===b.id);
+      b.dates.forEach(d=>ev.push({d:P(d),t:'Paquete '+b.id,kind:'paq',color:b.color,paq:b,subs}));
+    });
+    return ev.sort((a,b)=>a.d-b.d);
+  }
+  const EV = eventos();
+  function proxCursada(){ return EV.find(e=>e.d>=TODAY); }
+  function proxExamen(){
+    const all=[...OBLIGATORIAS,...ESPECIFICAS].filter(s=>s.examen).map(s=>({d:P(s.examen),s}))
+      .concat(ESPECIFICAS.filter(s=>s.examen2).map(s=>({d:P(s.examen2),s:Object.assign({},s,{title:s.title+' (2ª oferta)',examen:s.examen2,recup:s.recup2})})));
+    all.sort((a,b)=>a.d-b.d);
+    return all.find(x=>x.d>=TODAY);
+  }
+  const diasHasta = d => Math.round((d-TODAY)/86400000);
+  const materialesTotal = Object.values(DRIVE).reduce((n,v)=>n+((v.files||[]).length),0);
+
+  // ───────── dashboard ─────────
+  const dashHost=document.getElementById('dashBody');
+  function renderDash(){
+    if(!dashHost) return;
+    const cursadas = Object.values(prog).filter(v=>v==='cursada').length;
+    const pc = done(), pct = Math.round(pc/TOTAL*100);
+    const pcur = proxCursada(), pex = proxExamen();
+    dashHost.innerHTML =
+      '<div class="dash-grid" aria-live="polite">'+
+        '<div class="dash-card hero-progress">'+
+          '<span class="dl">Avance del plan</span>'+
+          '<div class="prog-top"><b>'+pc+'<i>/'+TOTAL+'</i></b><span class="prog-pct">'+pct+'%</span></div>'+
+          '<div class="prog-bar"><span style="width:'+pct+'%"></span></div>'+
+          '<p class="dash-note">'+pc+' materias aprobadas de '+TOTAL+' del plan · '+cursadas+' cursadas sin aprobar todavía</p>'+
+        '</div>'+
+        '<div class="dash-card">'+
+          '<span class="dl">Próxima cursada</span>'+
+          (pcur
+            ? '<b class="dv">'+esc(pcur.t)+'</b><p class="dash-note">'+fmt(pcur.d)+' · '+(diasHasta(pcur.d)===0?'hoy':'en '+diasHasta(pcur.d)+' días')+'</p>'
+            : '<b class="dv">—</b><p class="dash-note">Sin fechas futuras en el cronograma</p>')+
+        '</div>'+
+        '<div class="dash-card">'+
+          '<span class="dl">Próximo examen</span>'+
+          (pex
+            ? '<b class="dv exam">'+esc(pex.s.title)+'</b><p class="dash-note">'+fmt(pex.d)+' · en '+diasHasta(pex.d)+' días</p>'
+            : '<b class="dv">—</b><p class="dash-note">Sin exámenes futuros</p>')+
+        '</div>'+
+        '<div class="dash-card">'+
+          '<span class="dl">Materiales</span>'+
+          '<b class="dv">'+materialesTotal+'</b>'+
+          '<p class="dash-note">documentos vinculados en Drive</p>'+
+        '</div>'+
+      '</div>';
+  }
+
+  // ───────── badges de estado en tarjetas ─────────
+  function decorate(){
+    document.querySelectorAll('.scard[data-subj]').forEach(el=>{
+      const st=estado(el.dataset.subj);
+      let b=el.querySelector('.st-badge');
+      if(st==='pendiente'){ if(b) b.remove(); el.classList.remove('is-cursada','is-aprobada'); return; }
+      if(!b){ b=document.createElement('span'); b.className='st-badge'; el.appendChild(b); }
+      b.textContent = st==='aprobada'?'✓ Aprobada':'● Cursada';
+      b.dataset.st = st;
+      el.classList.toggle('is-aprobada',st==='aprobada');
+      el.classList.toggle('is-cursada',st==='cursada');
+    });
+  }
+  function refresh(){ renderDash(); decorate(); renderWeeks(); injectModalProgress(true); }
+
+  let decoBusy=false;
+  const gridObs=new MutationObserver(()=>{
+    if(decoBusy) return;
+    decoBusy=true; gridObs.disconnect();
+    try{ decorate(); } finally {
+      decoBusy=false;
+      ['gridOblig','gridEsp'].forEach(id=>{ const n=document.getElementById(id); if(n) gridObs.observe(n,{childList:true,subtree:true}); });
+    }
+  });
+  ['gridOblig','gridEsp'].forEach(id=>{ const n=document.getElementById(id); if(n) gridObs.observe(n,{childList:true,subtree:true}); });
+
+  // ───────── control de progreso en el modal ─────────
+  let progBusy=false, modalObs=null;
+  function injectModalProgress(onlyUpdate){
+    if(progBusy) return;
+    const titleEl=document.getElementById('mTitle');
+    const docEl=document.getElementById('mDoc');
+    if(!titleEl||!docEl) return;
+    const t=titleEl.textContent.trim();
+    if(!t) return;
+    progBusy=true;
+    if(modalObs) modalObs.disconnect();
+    try{
+    let box=document.getElementById('mProg');
+    if(!box){
+      if(onlyUpdate) return;
+      box=document.createElement('div'); box.id='mProg'; box.className='mprog';
+      docEl.insertAdjacentElement('afterend',box);
+    }
+    box.dataset.t=t;
+    box.innerHTML='<div class="m-label">Mi progreso</div><div class="mprog-row" role="group" aria-label="Estado de la materia">'+
+      Object.keys(ESTADOS).map(k=>'<button type="button" class="mprog-btn'+(estado(t)===k?' on':'')+'" data-st="'+k+'">'+ESTADOS[k]+'</button>').join('')+
+      '</div><p class="mprog-note">Se guarda en este dispositivo. Podés exportarlo o restablecerlo desde el panel inicial.</p>';
+    box.querySelectorAll('.mprog-btn').forEach(btn=>btn.addEventListener('click',()=>{
+      setEstado(box.dataset.t,btn.dataset.st);
+      injectModalProgress();
+    }));
+    } finally {
+      progBusy=false;
+      if(modalObs && modalNode) modalObs.observe(modalNode,{childList:true,subtree:true});
+    }
+  }
+  const modalNode=document.getElementById('modal');
+  if(modalNode){
+    modalObs=new MutationObserver(()=>injectModalProgress());
+    modalObs.observe(modalNode,{childList:true,subtree:true});
+  }
+
+  // ───────── vista semanal ─────────
+  function weekKey(d){ const x=new Date(d); const dow=(x.getDay()+6)%7; x.setDate(x.getDate()-dow); return x; }
+  const weekHost=document.getElementById('calWeekly');
+  function renderWeeks(){
+    if(!weekHost) return;
+    const map=new Map();
+    EV.forEach(e=>{
+      const wk=weekKey(e.d), k=wk.toISOString().slice(0,10);
+      if(!map.has(k)) map.set(k,{start:wk,items:[]});
+      const w=map.get(k);
+      const label = e.kind==='paq' ? 'Paquete '+e.paq.id : e.t;
+      let it=w.items.find(i=>i.label===label);
+      if(!it){ it={label,kind:e.kind,color:e.color,days:[],ev:e}; w.items.push(it); }
+      it.days.push(e.d);
+    });
+    const weeks=[...map.values()].sort((a,b)=>a.start-b.start);
+    const nextIdx=weeks.findIndex(w=>{ const end=new Date(w.start); end.setDate(end.getDate()+6); return end>=TODAY; });
+    weekHost.innerHTML = weeks.map((w,i)=>{
+      const end=new Date(w.start); end.setDate(end.getDate()+6);
+      const past = end < TODAY;
+      const isNext = i===nextIdx;
+      return '<div class="wk'+(past?' past':'')+(isNext?' next':'')+'">'+
+        '<div class="wk-hd"><span class="wk-n">Sem. '+(i+1)+'</span>'+
+          '<span class="wk-range">'+fmt(w.start)+' – '+fmt(end)+'</span>'+
+          (isNext?'<span class="wk-tag">Próxima</span>':past?'<span class="wk-tag done">Dictada</span>':'')+
+        '</div>'+
+        '<div class="wk-items">'+ w.items.map(it=>{
+          const dias=it.days.map(d=>d.getDate()+' '+MESAB[d.getMonth()]).join(' · ');
+          if(it.kind==='paq'){
+            const subs=it.ev.subs||[];
+            return '<div class="wk-item" style="--wc:'+it.color+'">'+
+              '<div class="wk-item-hd"><b>'+esc(it.label)+'</b><span class="wk-days">'+dias+'</span></div>'+
+              '<div class="wk-subs">'+subs.map(s=>'<button type="button" class="wk-chip" data-subj="'+esc(s.title)+'">'+esc(s.title)+'</button>').join('')+'</div>'+
+              '<span class="wk-pick">Elegí UNA</span></div>';
+          }
+          return '<div class="wk-item solo" style="--wc:'+it.color+'">'+
+            '<div class="wk-item-hd"><button type="button" class="wk-name" data-subj="'+esc(it.label)+'">'+esc(it.label)+'</button>'+
+            '<span class="wk-days">'+dias+'</span></div></div>';
+        }).join('')+'</div></div>';
+    }).join('');
+    weekHost.querySelectorAll('[data-subj]').forEach(b=>b.addEventListener('click',()=>{
+      const api=window.MCF_APP; if(!api) return;
+      api.openByTitle(b.dataset.subj);
+    }));
+  }
+
+  // tabs de calendario
+  const cvTabs=document.getElementById('calviews');
+  if(cvTabs){
+    cvTabs.querySelectorAll('.vtab').forEach(t=>t.addEventListener('click',()=>{
+      cvTabs.querySelectorAll('.vtab').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-selected','false');});
+      t.classList.add('on'); t.setAttribute('aria-selected','true');
+      const week = t.dataset.cv==='week';
+      document.getElementById('calTimeline').hidden = week;
+      document.getElementById('callegend').hidden = week;
+      weekHost.hidden = !week;
+      if(week) renderWeeks();
+    }));
+  }
+
+  // ───────── modo compacto ─────────
+  const CKEY='mcf.compact.v1';
+  const cBtn=document.getElementById('compactBtn');
+  function applyCompact(on){
+    document.body.classList.toggle('compact',on);
+    if(cBtn){ cBtn.setAttribute('aria-pressed',on?'true':'false'); cBtn.textContent = on?'Modo compacto: ON':'Modo compacto'; }
+  }
+  let compact=false;
+  try{ compact = localStorage.getItem(CKEY)==='1'; }catch(e){}
+  applyCompact(compact);
+  if(cBtn) cBtn.addEventListener('click',()=>{
+    compact=!compact;
+    try{ localStorage.setItem(CKEY,compact?'1':'0'); }catch(e){}
+    applyCompact(compact);
+  });
+
+  // ───────── exportar / restablecer ─────────
+  const expBtn=document.getElementById('exportBtn');
+  if(expBtn) expBtn.addEventListener('click',()=>{
+    const data={ generado:new Date().toISOString(), plan:'Maestría Interdisciplinaria en Ciencias Forenses · UBA',
+      avance:{aprobadas:done(),total:TOTAL}, materias:prog };
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='progreso-mcf-'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+  });
+  const resetBtn=document.getElementById('resetBtn');
+  if(resetBtn) resetBtn.addEventListener('click',()=>{
+    if(!confirm('¿Restablecer tu progreso? Se borrarán los estados guardados en este dispositivo.')) return;
+    prog={}; save(prog); refresh(); injectModalProgress(true);
+  });
+
+  refresh();
+})();
+
+</script>
+<script>/* route.js */
+// Ruta del Investigador — mapa de avance por fechas (MCF UBA) · estética videojuego realista
+(function(){
+  const M = window.MCF || {};
+  const { OBLIGATORIAS = [], TESIS = {}, ESPECIFICAS = [], PAQUETES = [] } = M;
+  const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const P = iso => { const a=iso.split('-').map(Number); return new Date(a[0],a[1]-1,a[2]); };
+  const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+  const mapaEl = document.getElementById('rutaMapa');
+  const listaEl = document.getElementById('rutaLista');
+  const toggleBtn = document.getElementById('rutaToggle');
+  if(!mapaEl || !listaEl) return;
+
+  // estilos de animación del mapa
+  if(!document.getElementById('ruta-game-css')){
+    const st = document.createElement('style'); st.id = 'ruta-game-css';
+    st.textContent =
+      '.ruta-mapa{background:#05080d!important;border-color:rgba(35,240,255,.22)!important}'+
+      '.rr-pulse{transform-box:fill-box;transform-origin:center;animation:rrPulse 2.6s ease-out infinite}'+
+      '.rr-pulse.d2{animation-delay:1.3s}'+
+      '@keyframes rrPulse{0%{transform:scale(.7);opacity:.95}100%{transform:scale(2.3);opacity:0}}'+
+      '.rr-spin{transform-box:fill-box;transform-origin:center;animation:rrSpin 14s linear infinite}'+
+      '@keyframes rrSpin{to{transform:rotate(360deg)}}'+
+      '.rr-flow{animation:rrFlow 1.1s linear infinite}'+
+      '@keyframes rrFlow{to{stroke-dashoffset:-24}}'+
+      '.rr-water{animation:rrWater 6s linear infinite}'+
+      '@keyframes rrWater{to{stroke-dashoffset:-120}}'+
+      '.rr-cloud{animation:rrDrift 70s ease-in-out infinite alternate}'+
+      '@keyframes rrDrift{from{transform:translateX(-90px)}to{transform:translateX(90px)}}'+
+      '.rr-fly{animation:rrFly 3.4s ease-in-out infinite}'+
+      '@keyframes rrFly{0%,100%{opacity:.05}50%{opacity:.95}}'+
+      '.rr-way{transform-box:fill-box;transform-origin:center;animation:rrWay 2.2s ease-in-out infinite}'+
+      '@keyframes rrWay{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}'+
+      '.rr-cone{animation:rrCone 4s ease-in-out infinite}'+
+      '@keyframes rrCone{0%,100%{opacity:.85}50%{opacity:.6}}'+
+      '.rr-lamp{animation:rrLamp 5s ease-in-out infinite}'+
+      '@keyframes rrLamp{0%,100%{opacity:1}47%{opacity:1}50%{opacity:.55}53%{opacity:1}}'+
+      '.ruta-node .rr-lights circle{fill:currentColor}'+
+      '.ruta-node.next .rr-lights circle{fill:#3a4558}'+
+      '@media(prefers-reduced-motion:reduce){.rr-pulse,.rr-spin,.rr-flow,.rr-water,.rr-cloud,.rr-fly,.rr-way,.rr-cone,.rr-lamp{animation:none!important}}';
+    document.head.appendChild(st);
+  }
+
+  // ── construir estaciones (obligatorias + paquetes requeridos + tesis), orden cronológico ──
+  const req = PAQUETES.filter(p=>!p.segunda);
+  const stations = [];
+  OBLIGATORIAS.forEach(s=>stations.push({ label:'N°'+String(s.n).padStart(2,'0')+' · '+s.title, short:s.title, min:P(s.dates[0]), kind:'foot' }));
+  req.forEach(b=>{ const subs=ESPECIFICAS.filter(s=>s.paq===b.id); stations.push({ label:'Paquete '+b.id, short:'Paquete '+b.id+' ('+subs.map(s=>s.title).join(' / ')+')', min:P(b.dates[0]), kind:'print' }); });
+  if(TESIS.dates && TESIS.dates.length) stations.push({ label:TESIS.title, short:TESIS.title, min:P(TESIS.dates[0]), kind:'foot' });
+  stations.sort((a,b)=>a.min-b.min);
+
+  // la lupa avanza a una estación desde el día anterior a su primera clase (víspera)
+  const EVE = new Date(TODAY); EVE.setDate(EVE.getDate()+1);
+  let curIdx = -1;
+  stations.forEach((s,i)=>{ if(s.min<=EVE) curIdx=i; });
+  stations.forEach((s,i)=>{ s.status = i<curIdx ? 'done' : (i===curIdx ? 'now' : 'next'); });
+
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const nDone = Math.max(curIdx,0), N = stations.length;
+  const nextSt = stations[curIdx+1];
+  const daysTo = nextSt ? Math.max(0, Math.round((nextSt.min-TODAY)/864e5)) : 0;
+  function renderHud(){
+    let hud = document.getElementById('rutaHud');
+    if(!hud){ hud=document.createElement('div'); hud.id='rutaHud'; hud.className='ruta-hud'; mapaEl.parentNode.insertBefore(hud, mapaEl); }
+    const pct = Math.round(nDone/N*100);
+    hud.innerHTML =
+      '<div class="hud-box"><span class="hud-k">Nivel</span><b class="hud-v">'+(curIdx+1)+'<small>/'+N+'</small></b></div>'+
+      '<div class="hud-box hud-xp"><span class="hud-k">Progreso del caso</span><div class="hud-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct+'" aria-label="Progreso del recorrido"><i style="width:'+pct+'%"></i></div><span class="hud-s">'+nDone+' de '+N+' estaciones superadas · '+pct+'%</span></div>'+
+      '<div class="hud-box hud-next"><span class="hud-k">Próximo checkpoint</span><b class="hud-n">'+(nextSt?esc(nextSt.short):'Meta alcanzada')+'</b>'+(nextSt?'<span class="hud-s">en '+daysTo+' día'+(daysTo===1?'':'s')+'</span>':'')+'</div>';
+  }
+  function renderLista(){
+    listaEl.innerHTML = stations.map((s,i)=>{
+      const tag = s.status==='done' ? '✓ Superada' : s.status==='now' ? '● En curso' : '○ Bloqueada';
+      return '<div class="rl-item '+s.status+'"><span class="rl-lv">'+String(i+1).padStart(2,'0')+'</span><span class="rl-status">'+tag+'</span><span class="rl-name">'+esc(s.short)+'</span></div>';
+    }).join('');
+  }
+
+  // ── símbolos y materiales compartidos ──
+  const DEFS = '<defs>'+
+    '<radialGradient id="rgBeacon" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="rgba(35,240,255,.5)"/><stop offset="1" stop-color="rgba(35,240,255,0)"/></radialGradient>'+
+    '<pattern id="rgChk" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#fff"/><rect width="3" height="3" fill="#111"/><rect x="3" y="3" width="3" height="3" fill="#111"/></pattern>'+
+    // suela de calzado con dibujo de tracción (obligatorias)
+    '<clipPath id="rnSoleClip"><path d="M10 1C15.2 1 17.6 5.2 17.6 10.2C17.6 15 15.6 17.8 14.6 20H5.4C4.4 17.8 2.4 15 2.4 10.2C2.4 5.2 4.8 1 10 1Z"/><path d="M5 23.2C5 21.9 6.3 21.6 10 21.6S15 21.9 15 23.2V27C15 29.8 13 31 10 31S5 29.8 5 27Z"/></clipPath>'+
+    '<pattern id="rnTread" width="4" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)"><rect width="4" height="1.3" fill="rgba(0,0,0,.42)"/></pattern>'+
+    '<symbol id="rn-foot" viewBox="0 0 20 32"><g transform="rotate(-10 10 16)">'+
+      '<g clip-path="url(#rnSoleClip)"><rect width="20" height="32" fill="currentColor"/><rect width="20" height="32" fill="url(#rnTread)"/>'+
+      '<ellipse cx="7" cy="8" rx="4" ry="6" fill="rgba(255,255,255,.22)"/><ellipse cx="8" cy="25" rx="3" ry="3.4" fill="rgba(255,255,255,.18)"/></g>'+
+    '</g></symbol>'+
+    // huella dactilar tipo verticilo (específicas)
+    '<symbol id="rn-print" viewBox="-12 -14 24 28"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.15">'+
+      [1.6,3.2,4.8,6.4,8,9.6,11].map((rx,i)=>'<ellipse rx="'+rx+'" ry="'+(rx*1.24).toFixed(2)+'" stroke-dasharray="'+(i%2? (6+i*2.2)+' 1.6' : (9+i*3)+' 2.2')+'" transform="rotate('+(i*23)+')"/>').join('')+
+      '<path d="M-11 6 Q-6 12 0 12.6" stroke-width="1"/><circle r=".9" fill="currentColor" stroke="none"/>'+
+    '</g></symbol>'+
+    // lupa 3D: aro de latón, vidrio con refracción y mango de madera torneada
+    '<linearGradient id="lpRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff4c9"/><stop offset=".22" stop-color="#e6c166"/><stop offset=".5" stop-color="#9c7424"/><stop offset=".78" stop-color="#d9b04f"/><stop offset="1" stop-color="#5e4212"/></linearGradient>'+
+    '<linearGradient id="lpRimIn" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff0b8"/><stop offset=".5" stop-color="#8a6420"/><stop offset="1" stop-color="#3f2c0b"/></linearGradient>'+
+    '<radialGradient id="lpLens" cx=".38" cy=".32" r=".78"><stop offset="0" stop-color="rgba(236,252,255,.72)"/><stop offset=".35" stop-color="rgba(150,220,245,.34)"/><stop offset=".78" stop-color="rgba(40,110,160,.30)"/><stop offset="1" stop-color="rgba(10,30,60,.55)"/></radialGradient>'+
+    '<linearGradient id="lpWood" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a1509"/><stop offset=".3" stop-color="#7a4323"/><stop offset=".48" stop-color="#b06a3a"/><stop offset=".7" stop-color="#6b3a1d"/><stop offset="1" stop-color="#231107"/></linearGradient>'+
+    '<linearGradient id="lpFerr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5e4212"/><stop offset=".45" stop-color="#f3d78a"/><stop offset="1" stop-color="#6d4c14"/></linearGradient>'+
+    '<filter id="lpBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>'+
+    '<symbol id="rn-lupa" viewBox="-30 -30 60 76">'+
+      '<ellipse cx="4" cy="41" rx="17" ry="3.6" fill="#000" opacity=".55" filter="url(#lpBlur)"/>'+
+      '<g transform="rotate(-28)">'+
+        '<rect x="-4.6" y="21" width="9.2" height="23" rx="4.4" fill="url(#lpWood)"/>'+
+        '<rect x="-4.6" y="27" width="9.2" height="1.4" fill="rgba(0,0,0,.35)"/><rect x="-4.6" y="36" width="9.2" height="1.4" fill="rgba(0,0,0,.35)"/>'+
+        '<rect x="-2.6" y="22.5" width="1.6" height="20" rx=".8" fill="rgba(255,220,180,.28)"/>'+
+        '<rect x="-5.4" y="16.4" width="10.8" height="6" rx="1.6" fill="url(#lpFerr)"/>'+
+        '<rect x="-5.4" y="18.6" width="10.8" height="1" fill="rgba(0,0,0,.3)"/>'+
+        '<rect x="-2.2" y="12.6" width="4.4" height="5" fill="url(#lpFerr)"/>'+
+        '<circle r="15.8" fill="url(#lpRim)"/><circle r="13" fill="url(#lpRimIn)"/>'+
+        '<circle r="12" fill="url(#lpLens)"/><circle r="12" fill="none" stroke="rgba(255,255,255,.35)" stroke-width=".6"/>'+
+        '<g fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1" stroke-linecap="round"><path d="M-6 5 Q-7 -4 0 -6 Q7 -4 6 5"/><path d="M-3.4 5 Q-4 -1.6 0 -3 Q4 -1.6 3.4 5"/><path d="M-1 4.6 Q-1 1 0 .2 Q1 1 1 4.6"/></g>'+
+        '<path d="M-8.6 -3.6 Q-7.6 -9.2 -2.4 -10.2" stroke="rgba(255,255,255,.92)" stroke-width="2.2" fill="none" stroke-linecap="round"/>'+
+        '<circle cx="-4.6" cy="-8.6" r="1.1" fill="#fff"/>'+
+        '<path d="M6.4 7.6 Q8.6 5 9.2 1.6" stroke="rgba(255,255,255,.35)" stroke-width="1.2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M-13.6 -6 Q-11 -13 -4 -14.8" stroke="rgba(255,250,220,.85)" stroke-width="1.1" fill="none" stroke-linecap="round"/>'+
+      '</g>'+
+    '</symbol>'+
+  '</defs>';
+
+  function renderMapa(){
+    const n = stations.length;
+    const w = 1200, h = 450, stepX = w/(n+1), midY = 228, amp = 48;
+    const pts = stations.map((s,i)=>({ x: stepX*(i+1), y: midY + amp*Math.sin(i*0.9) }));
+    const samples = [];
+    function build(upTo){
+      if(upTo<1) return '';
+      let d = 'M '+(pts[0].x-stepX*.6)+' '+pts[0].y+' L '+pts[0].x+' '+pts[0].y;
+      for(let i=0;i<upTo-1 && i<pts.length-1;i++){
+        const p0=pts[i], p1=pts[i+1], mx=(p0.x+p1.x)/2;
+        d += ' C '+mx+' '+p0.y+', '+mx+' '+p1.y+', '+p1.x+' '+p1.y;
+        for(let t=0;t<=1;t+=.1){ const u=1-t; samples.push({ x:u*u*u*p0.x+3*u*u*t*mx+3*u*t*t*mx+t*t*t*p1.x, y:u*u*u*p0.y+3*u*u*t*p0.y+3*u*t*t*p1.y+t*t*t*p1.y }); }
+      }
+      return d;
+    }
+    const last = pts[pts.length-1];
+    const pathAll = build(pts.length) + ' L '+(last.x+stepX*.6)+' '+last.y;
+    samples.push({x:0,y:pts[0].y},{x:w,y:last.y});
+    const pathDone = curIdx>0 ? build(curIdx+1) : '';
+    const charPt = pts[Math.max(curIdx,0)] || pts[0];
+    const nextPt = pts[curIdx+1];
+    const roadY = x => { let b=samples[0]; samples.forEach(s=>{ if(Math.abs(s.x-x)<Math.abs(b.x-x)) b=s; }); return b.y; };
+
+    let seed = 7; const rnd = ()=>{ seed=(seed*16807)%2147483647; return (seed-1)/2147483646; };
+
+    // ── río serpenteante que cruza la ruta (con puente) ──
+    const ri = Math.max(0, Math.min(n-2, Math.floor(n*.42)));
+    const rx0 = n>1 ? (pts[ri].x+pts[ri+1].x)/2 : w*.45;
+    const river = [];
+    for(let y=-20; y<=h+20; y+=6) river.push({ x: rx0 + 46*Math.sin(y/62) + 18*Math.sin(y/21+1.3), y });
+    const riverD = 'M '+river.map(p=>p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' L ');
+    let cross = river[0], cbest = 1e9;
+    river.forEach(p=>{ const d=Math.abs(p.y-roadY(p.x)); if(d<cbest){ cbest=d; cross=p; } });
+    const distRiver = (x,y)=>{ let m=1e9; for(const p of river){ const d=Math.hypot(p.x-x,p.y-y); if(d<m) m=d; } return m; };
+
+    // ── materiales: terreno con relieve iluminado, asfalto, agua, vegetación ──
+    let asph = ''; for(let k=0;k<90;k++) asph += '<circle cx="'+(rnd()*60).toFixed(1)+'" cy="'+(rnd()*60).toFixed(1)+'" r="'+(.25+rnd()*.7).toFixed(2)+'" fill="'+(rnd()>.55?'rgba(255,255,255,.06)':'rgba(0,0,0,.32)')+'"/>';
+    let grav = ''; for(let k=0;k<60;k++) grav += '<circle cx="'+(rnd()*30).toFixed(1)+'" cy="'+(rnd()*30).toFixed(1)+'" r="'+(.4+rnd()*.9).toFixed(2)+'" fill="'+(rnd()>.5?'rgba(210,190,150,.18)':'rgba(0,0,0,.3)')+'"/>';
+    const TEX = '<defs>'+
+      '<filter id="rrTerrain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">'+
+        '<feTurbulence type="fractalNoise" baseFrequency="0.0042" numOctaves="5" seed="11" result="hgt"/>'+
+        '<feDiffuseLighting in="hgt" surfaceScale="11" diffuseConstant="1.15" lighting-color="#e8f0ff" result="shade"><feDistantLight azimuth="225" elevation="40"/></feDiffuseLighting>'+
+        '<feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="var"/>'+
+        '<feColorMatrix in="var" type="matrix" values="0.16 0 0 0 0.08  0.14 0 0 0 0.16  0.06 0 0 0 0.10  0 0 0 0 1" result="col"/>'+
+        '<feBlend in="shade" in2="col" mode="multiply" result="lit"/>'+
+        '<feComposite in="lit" in2="SourceGraphic" operator="in"/>'+
+      '</filter>'+
+      '<filter id="rrGrain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="2"/><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .05 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>'+
+      '<pattern id="rrAsph" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#23272f"/>'+asph+'</pattern>'+
+      '<pattern id="rrGravel" width="30" height="30" patternUnits="userSpaceOnUse"><rect width="30" height="30" fill="#3b362c"/>'+grav+'</pattern>'+
+      '<pattern id="rrFieldA" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(28)"><rect width="7" height="7" fill="#26321f"/><rect width="7" height="2.6" fill="#2f3d25"/></pattern>'+
+      '<pattern id="rrFieldB" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><rect width="6" height="6" fill="#3a3322"/><rect width="6" height="2.2" fill="#443b27"/></pattern>'+
+      '<linearGradient id="rrWaterG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b2232"/><stop offset=".5" stop-color="#14435c"/><stop offset="1" stop-color="#0b2232"/></linearGradient>'+
+      '<radialGradient id="rrTreeA" cx=".34" cy=".3" r=".8"><stop offset="0" stop-color="#4d8a55"/><stop offset=".55" stop-color="#22502f"/><stop offset="1" stop-color="#0d2414"/></radialGradient>'+
+      '<radialGradient id="rrTreeB" cx=".34" cy=".3" r=".8"><stop offset="0" stop-color="#5f8a3e"/><stop offset=".55" stop-color="#335226"/><stop offset="1" stop-color="#14240e"/></radialGradient>'+
+      '<radialGradient id="rrTreeC" cx=".34" cy=".3" r=".8"><stop offset="0" stop-color="#37705a"/><stop offset=".6" stop-color="#173e30"/><stop offset="1" stop-color="#081a13"/></radialGradient>'+
+      '<radialGradient id="rrRock" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#8a93a3"/><stop offset="1" stop-color="#2b313b"/></radialGradient>'+
+      '<radialGradient id="rrConcrete" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#6c7480"/><stop offset=".7" stop-color="#3a4049"/><stop offset="1" stop-color="#1c2027"/></radialGradient>'+
+      '<radialGradient id="rrPadG" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#34405a"/><stop offset=".7" stop-color="#121826"/><stop offset="1" stop-color="#080b12"/></radialGradient>'+
+      '<radialGradient id="rrPool" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="rgba(255,214,140,.30)"/><stop offset=".6" stop-color="rgba(255,200,120,.08)"/><stop offset="1" stop-color="rgba(255,200,120,0)"/></radialGradient>'+
+      '<radialGradient id="rrPlayerPool" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="rgba(255,240,200,.42)"/><stop offset="1" stop-color="rgba(255,240,200,0)"/></radialGradient>'+
+      '<linearGradient id="rrCone" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="rgba(255,244,210,.55)"/><stop offset=".55" stop-color="rgba(255,240,200,.16)"/><stop offset="1" stop-color="rgba(255,240,200,0)"/></linearGradient>'+
+      '<radialGradient id="rrMoon" cx=".12" cy=".05" r=".9"><stop offset="0" stop-color="rgba(150,190,255,.16)"/><stop offset=".5" stop-color="rgba(90,130,200,.04)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/></radialGradient>'+
+      '<radialGradient id="rrVig" cx=".5" cy=".5" r=".72"><stop offset=".55" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,0,0,.72)"/></radialGradient>'+
+      '<filter id="rrBlur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>'+
+      '<filter id="rrSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>'+
+      '<filter id="rrCloudF" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="16"/></filter>'+
+      '<filter id="rrConeF" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>'+
+      '<filter id="rrGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'+
+      '<clipPath id="rrBridgeClip"><rect x="'+(cross.x-30).toFixed(1)+'" y="0" width="60" height="'+h+'"/></clipPath>'+
+    '</defs>';
+
+    // ── zonas a evitar al poblar el mapa ──
+    const signBox = curIdx>=0 ? { x:Math.min(Math.max(pts[curIdx].x-150,4),w-304), y:midY+amp+58, w:300, h:70 } : null;
+    const free = (x,y,pad)=>{
+      if(x<10||x>w-10||y<10||y>h-10) return false;
+      if(Math.abs(y-roadY(x))<44+pad) return false;
+      if(distRiver(x,y)<24+pad) return false;
+      if(signBox && x>signBox.x-16 && x<signBox.x+signBox.w+16 && y>signBox.y-20 && y<signBox.y+signBox.h+16) return false;
+      if(x>w-96 && y<96) return false;           // brújula
+      if(x<230 && y<46) return false;            // rótulo de sector
+      if(pts.some(p=>Math.abs(p.x-x)<26 && Math.abs(p.y-y)<100)) return false; // carteles de estación
+      return true;
+    };
+
+    // parcelas de cultivo
+    let fields = '';
+    for(let k=0, made=0; k<60 && made<6; k++){
+      const x = 40+rnd()*(w-80), y = 30+rnd()*(h-60), fw = 50+rnd()*60, fh = 30+rnd()*36;
+      if(!free(x,y,10) || !free(x+fw/2,y,4) || !free(x-fw/2,y,4) || !free(x,y+fh/2,4) || !free(x,y-fh/2,4)) continue;
+      fields += '<g transform="translate('+x.toFixed(1)+','+y.toFixed(1)+') rotate('+(rnd()*30-15).toFixed(1)+')"><rect x="'+(-fw/2).toFixed(1)+'" y="'+(-fh/2).toFixed(1)+'" width="'+fw.toFixed(1)+'" height="'+fh.toFixed(1)+'" rx="3" fill="url(#'+(rnd()>.5?'rrFieldA':'rrFieldB')+')" opacity=".75" stroke="rgba(10,25,12,.7)" stroke-width="2"/></g>';
+      made++;
+    }
+
+    // bosques en grupos, con sombra proyectada (luz desde el noroeste)
+    const trees = [];
+    for(let c=0;c<12;c++){
+      const cx = 20+rnd()*(w-40), cy = 20+rnd()*(h-40), cnt = 6+Math.floor(rnd()*10);
+      for(let k=0;k<cnt*3 && cnt>0;k++){
+        const a = rnd()*Math.PI*2, r = rnd()*46;
+        const x = cx+Math.cos(a)*r, y = cy+Math.sin(a)*r*.8, s = 5+rnd()*6;
+        if(!free(x,y,s)) continue;
+        if(trees.some(t=>Math.hypot(t.x-x,t.y-y)<(t.s+s)*.8)) continue;
+        trees.push({x,y,s,v:Math.floor(rnd()*3)});
+      }
+    }
+    // árboles sueltos y rocas
+    for(let k=0;k<70;k++){
+      const x = 14+rnd()*(w-28), y = 14+rnd()*(h-28), s = 4+rnd()*5;
+      if(!free(x,y,s) || trees.some(t=>Math.hypot(t.x-x,t.y-y)<(t.s+s))) continue;
+      trees.push({x,y,s,v:rnd()<.22?9:Math.floor(rnd()*3)});
+    }
+    trees.sort((a,b)=>a.y-b.y);
+    let shadows = '', canopy = '';
+    const grads = ['rrTreeA','rrTreeB','rrTreeC'];
+    trees.forEach(t=>{
+      const X=t.x.toFixed(1), Y=t.y.toFixed(1);
+      if(t.v===9){
+        shadows += '<ellipse cx="'+(t.x+3).toFixed(1)+'" cy="'+(t.y+3).toFixed(1)+'" rx="'+(t.s*1.1).toFixed(1)+'" ry="'+(t.s*.6).toFixed(1)+'" fill="rgba(0,0,0,.5)"/>';
+        canopy += '<path transform="translate('+X+','+Y+') scale('+(t.s/7).toFixed(2)+')" d="M-7 2 Q-6 -5 0 -6 Q7 -5 7 2 Q0 5 -7 2Z" fill="url(#rrRock)"/>';
+        return;
+      }
+      shadows += '<circle cx="'+(t.x+t.s*.55).toFixed(1)+'" cy="'+(t.y+t.s*.7).toFixed(1)+'" r="'+(t.s*1.05).toFixed(1)+'" fill="rgba(0,0,0,.55)"/>';
+      const g = grads[t.v];
+      canopy += '<g transform="translate('+X+','+Y+')"><circle r="'+t.s.toFixed(1)+'" fill="url(#'+g+')"/>'+
+        '<circle cx="'+(-t.s*.35).toFixed(1)+'" cy="'+(t.s*.25).toFixed(1)+'" r="'+(t.s*.62).toFixed(1)+'" fill="url(#'+g+')"/>'+
+        '<circle cx="'+(t.s*.4).toFixed(1)+'" cy="'+(t.s*.2).toFixed(1)+'" r="'+(t.s*.55).toFixed(1)+'" fill="url(#'+g+')"/>'+
+        '<circle cx="'+(-t.s*.3).toFixed(1)+'" cy="'+(-t.s*.38).toFixed(1)+'" r="'+(t.s*.28).toFixed(1)+'" fill="rgba(190,255,200,.10)"/></g>';
+    });
+
+    // luciérnagas cerca de los bosques
+    let flies = '';
+    for(let k=0;k<22 && trees.length;k++){
+      const t = trees[Math.floor(rnd()*trees.length)];
+      flies += '<circle class="rr-fly" cx="'+(t.x+rnd()*24-12).toFixed(1)+'" cy="'+(t.y+rnd()*24-12).toFixed(1)+'" r="1.3" fill="#eaff9e" filter="url(#rrSoft)" style="animation-delay:'+(rnd()*3.4).toFixed(2)+'s;animation-duration:'+(2.6+rnd()*2.4).toFixed(2)+'s"/>';
+    }
+
+    // faroles con charco de luz a ambos lados
+    let lamps = '';
+    let side = 1;
+    for(let x=stepX*.7; x<w-30; x+=stepX*1.35){
+      if(Math.abs(x-cross.x)<40){ continue; }
+      const y = roadY(x)+side*31; side=-side;
+      lamps += '<g class="rr-lamp" style="animation-delay:'+(rnd()*5).toFixed(2)+'s"><ellipse cx="'+x.toFixed(1)+'" cy="'+(y-side*8).toFixed(1)+'" rx="44" ry="30" fill="url(#rrPool)"/><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3" fill="#1b2029" stroke="#5b6577" stroke-width="1"/><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="1.6" fill="#ffe7a3"/></g>';
+    }
+
+    // nubes y sus sombras sobre el terreno
+    let cloudShadows = '', clouds = '';
+    for(let k=0;k<5;k++){
+      const x = rnd()*w, y = rnd()*h, rx = 90+rnd()*90, ry = 40+rnd()*35, dur = (55+rnd()*40).toFixed(0), del = (-rnd()*60).toFixed(1);
+      const st = 'style="animation-duration:'+dur+'s;animation-delay:'+del+'s"';
+      cloudShadows += '<g class="rr-cloud" '+st+'><ellipse cx="'+(x+50).toFixed(1)+'" cy="'+(y+60).toFixed(1)+'" rx="'+rx.toFixed(1)+'" ry="'+ry.toFixed(1)+'" fill="rgba(0,0,0,.28)" filter="url(#rrCloudF)"/></g>';
+      clouds += '<g class="rr-cloud" '+st+'><ellipse cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" rx="'+rx.toFixed(1)+'" ry="'+ry.toFixed(1)+'" fill="rgba(210,225,245,.075)" filter="url(#rrCloudF)"/><ellipse cx="'+(x-rx*.3).toFixed(1)+'" cy="'+(y-ry*.2).toFixed(1)+'" rx="'+(rx*.55).toFixed(1)+'" ry="'+(ry*.6).toFixed(1)+'" fill="rgba(220,235,255,.06)" filter="url(#rrCloudF)"/></g>';
+    }
+
+    // ── composición ──
+    let svg = '<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Mapa de la ruta del investigador: nivel '+(curIdx+1)+' de '+n+'">';
+    svg += DEFS + TEX;
+    svg += '<rect width="'+w+'" height="'+h+'" fill="#000" filter="url(#rrTerrain)"/>';
+    svg += fields;
+    // río
+    svg += '<g fill="none" stroke-linecap="round" stroke-linejoin="round">'+
+      '<path d="'+riverD+'" stroke="#1d2a1c" stroke-width="34"/>'+
+      '<path d="'+riverD+'" stroke="#3b3a2c" stroke-width="28" opacity=".8"/>'+
+      '<path d="'+riverD+'" stroke="url(#rrWaterG)" stroke-width="22"/>'+
+      '<path d="'+riverD+'" stroke="rgba(120,190,230,.22)" stroke-width="2" stroke-dasharray="10 30" class="rr-water" transform="translate(-4,0)"/>'+
+      '<path d="'+riverD+'" stroke="rgba(170,215,255,.18)" stroke-width="1.4" stroke-dasharray="6 40" class="rr-water" transform="translate(5,0)" style="animation-duration:8s"/>'+
+    '</g>';
+    svg += cloudShadows;
+    svg += '<g>'+shadows+'</g>';
+    // calzada por capas: sombra, banquina de ripio, puente, líneas de borde, asfalto, desgaste, eje
+    svg += '<g fill="none" stroke-linecap="butt" stroke-linejoin="round">'+
+      '<path d="'+pathAll+'" stroke="rgba(0,0,0,.7)" stroke-width="62" transform="translate(4,9)" filter="url(#rrBlur)"/>'+
+      '<path d="'+pathAll+'" stroke="url(#rrGravel)" stroke-width="54"/>'+
+      '<g clip-path="url(#rrBridgeClip)"><path d="'+pathAll+'" stroke="rgba(0,0,0,.6)" stroke-width="58" transform="translate(6,10)" filter="url(#rrSoft)"/><path d="'+pathAll+'" stroke="#9ba2ad" stroke-width="56"/><path d="'+pathAll+'" stroke="#4b525d" stroke-width="50"/></g>'+
+      '<path d="'+pathAll+'" stroke="rgba(236,240,246,.85)" stroke-width="40"/>'+
+      '<path d="'+pathAll+'" stroke="url(#rrAsph)" stroke-width="36"/>'+
+      '<path d="'+pathAll+'" stroke="rgba(0,0,0,.2)" stroke-width="5" transform="translate(0,-9)"/>'+
+      '<path d="'+pathAll+'" stroke="rgba(0,0,0,.2)" stroke-width="5" transform="translate(0,9)"/>'+
+      '<path d="'+pathAll+'" stroke="rgba(150,190,255,.05)" stroke-width="12" transform="translate(0,-5)"/>'+
+      '<path d="'+pathAll+'" stroke="#e8c23a" stroke-width="2.2" stroke-dasharray="16 14"/>'+
+      // GPS: tramo superado y tramo actual → próximo checkpoint
+      (pathDone?'<path d="'+pathDone+'" stroke="#a6ff5c" stroke-width="3.2" stroke-linecap="round" opacity=".85" filter="url(#rrGlow)"/>':'')+
+      (curIdx>=0 && nextPt ? (()=>{ const p0=pts[curIdx], p1=nextPt, mx=(p0.x+p1.x)/2; return '<path d="M '+p0.x+' '+p0.y+' C '+mx+' '+p0.y+', '+mx+' '+p1.y+', '+p1.x+' '+p1.y+'" stroke="#23f0ff" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="2 10" class="rr-flow" filter="url(#rrGlow)"/>'; })() : '')+
+    '</g>';
+    svg += lamps;
+    svg += '<g>'+canopy+'</g>';
+    svg += flies;
+
+    // salida y meta: franja a cuadros sobre la calzada + rótulo
+    const s0 = {x:pts[0].x-stepX*.6+12, y:pts[0].y}, s1 = {x:last.x+stepX*.6-12, y:last.y};
+    const gate = (x,y,label)=>'<g class="ruta-flag"><rect x="'+(x-4)+'" y="'+(y-19)+'" width="8" height="38" fill="url(#rgChk)" opacity=".92"/><rect x="'+(x-30)+'" y="'+(y-52)+'" width="60" height="17" rx="3" fill="#0f1724" stroke="rgba(255,255,255,.3)"/><text x="'+x+'" y="'+(y-39.5)+'" class="ruta-ft" style="text-anchor:middle">'+label+'</text></g>';
+    svg += gate(s0.x,s0.y,'INICIO') + gate(s1.x,s1.y,'META');
+
+    // linterna del investigador apuntando al próximo checkpoint
+    if(curIdx>=0 && nextPt){
+      const ang = Math.atan2(nextPt.y-charPt.y, nextPt.x-charPt.x)*180/Math.PI;
+      svg += '<g class="rr-cone" pointer-events="none" transform="translate('+charPt.x+','+charPt.y+') rotate('+ang.toFixed(1)+')"><path d="M6 -6 L150 -52 Q166 0 150 52 L6 6 Z" fill="url(#rrCone)" filter="url(#rrConeF)"/></g>';
+    }
+    svg += '<ellipse cx="'+charPt.x+'" cy="'+(charPt.y+2)+'" rx="46" ry="30" fill="url(#rrPlayerPool)" pointer-events="none"/>';
+
+    // estaciones: plataformas de hormigón con balizas
+    pts.forEach((p,i)=>{
+      const s = stations[i];
+      const foot = s.kind==='foot';
+      const iw = foot?14:17, ih = foot?22:20;
+      const up = i%2===0, sy = up ? p.y-68 : p.y+46;
+      let lights = '';
+      for(let k=0;k<10;k++){ const a=k/10*Math.PI*2; lights += '<circle cx="'+(Math.cos(a)*20).toFixed(2)+'" cy="'+(Math.sin(a)*20).toFixed(2)+'" r="1.25"/>'; }
+      svg += '<g class="ruta-node '+s.status+'" data-tip="'+esc((i+1)+'. '+s.short)+'" transform="translate('+p.x+','+p.y+')">'+
+        (s.status==='now'?'<circle r="40" fill="url(#rgBeacon)"/><circle class="rr-pulse" r="22" fill="none" stroke="#23f0ff" stroke-width="2"/><circle class="rr-pulse d2" r="22" fill="none" stroke="#23f0ff" stroke-width="2"/>':'')+
+        '<ellipse cx="5" cy="8" rx="25" ry="20" fill="rgba(0,0,0,.6)" filter="url(#rrSoft)"/>'+
+        '<circle r="23.5" fill="#15181e"/><circle r="22.5" fill="url(#rrConcrete)"/>'+
+        '<circle r="22.5" fill="#fff" filter="url(#rrGrain)" opacity=".9"/>'+
+        '<g class="rr-lights"'+(s.status!=='next'?' filter="url(#rrGlow)"':'')+'>'+lights+'</g>'+
+        (s.status==='now'?'<circle class="rr-spin" r="29" fill="none" stroke="rgba(35,240,255,.65)" stroke-width="1.2" stroke-dasharray="7 6"/>':'')+
+        '<circle r="15.5" fill="url(#rrPadG)"/>'+
+        '<circle class="rn-rim" r="15.5"/><circle r="12" fill="none" stroke="currentColor" stroke-width=".6" opacity=".35"/>'+
+        '<path d="M-10 -9 A14 14 0 0 1 9 -11" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1.6" stroke-linecap="round"/>'+
+        '<use href="#'+(foot?'rn-foot':'rn-print')+'" class="rn-icon" x="'+(-iw/2)+'" y="'+(-ih/2)+'" width="'+iw+'" height="'+ih+'"/>'+
+        (s.status==='done'?'<g class="rn-ok" transform="translate(16,-16)"><circle r="6.4"/><path d="M-2.6 0 L-.6 2.2 L2.8 -2"/></g>':'')+
+        (s.status==='next'?'<g class="rn-lock" transform="translate(16,-16)"><circle r="6"/><rect x="-2.4" y="-.6" width="4.8" height="3.6" rx=".6"/><path d="M-1.4 -.6 V-2 a1.4 1.4 0 0 1 2.8 0 V-.6"/></g>':'')+
+        '<line class="rn-post" x1="0" y1="'+(up?-24:24)+'" x2="0" y2="'+(up?sy-p.y+16:sy-p.y)+'"/>'+
+        '<g class="rn-plate" transform="translate(0,'+(sy-p.y)+')"><rect x="-13" y="0" width="26" height="16" rx="3"/><rect x="-11" y="2" width="22" height="12" rx="2" class="rn-plate-in"/><text y="11.5">'+(i+1)+'</text></g>'+
+        '</g>';
+    });
+
+    // marcador de objetivo sobre el próximo checkpoint
+    if(curIdx>=0 && nextPt){
+      const up = (curIdx+1)%2===0;
+      const wy = up ? nextPt.y+40 : nextPt.y-44;
+      svg += '<g pointer-events="none"><g class="rr-way"><path transform="translate('+nextPt.x+','+wy+')" d="M0 -11 L8 0 L0 11 L-8 0Z" fill="rgba(35,240,255,.18)" stroke="#23f0ff" stroke-width="1.6" filter="url(#rrGlow)"/>'+
+        '<text x="'+(nextPt.x+13)+'" y="'+(wy+4)+'" font-family="Space Mono, monospace" font-size="10" font-weight="700" fill="#23f0ff" letter-spacing="1">'+daysTo+'D</text></g></g>';
+    }
+
+    // el investigador (lupa)
+    svg += '<g class="ruta-char" aria-hidden="true"><use href="#rn-lupa" x="'+(charPt.x-34)+'" y="'+(charPt.y-98)+'" width="68" height="86"/></g>';
+
+    // nubes por encima de todo el terreno
+    svg += '<g pointer-events="none">'+clouds+'</g>';
+
+    // cartel de nivel actual
+    if(curIdx>=0){
+      const cs = stations[curIdx], cp = pts[curIdx];
+      const txt = cs.short.length>64 ? cs.short.slice(0,62)+'…' : cs.short;
+      svg += '<g class="ruta-signg"><line x1="'+cp.x+'" y1="'+(cp.y+24)+'" x2="'+cp.x+'" y2="'+signBox.y+'" class="ruta-post"/>'+
+        '<foreignObject x="'+signBox.x+'" y="'+signBox.y+'" width="'+signBox.w+'" height="'+signBox.h+'" class="ruta-sign"><div><small>NIVEL '+(curIdx+1)+' · '+(cs.min>TODAY?'COMIENZA MAÑANA':'EN CURSO')+'</small><span class="rs-t">'+esc(txt)+'</span></div></foreignObject></g>';
+    }
+
+    // iluminación lunar, viñeta y HUD del mapa
+    svg += '<rect width="'+w+'" height="'+h+'" fill="url(#rrMoon)" pointer-events="none"/>';
+    svg += '<rect width="'+w+'" height="'+h+'" fill="url(#rrVig)" pointer-events="none"/>';
+    // rótulo de sector
+    svg += '<g pointer-events="none" font-family="Space Mono, monospace"><rect x="16" y="14" width="206" height="26" rx="4" fill="rgba(5,9,15,.72)" stroke="rgba(35,240,255,.35)"/>'+
+      '<circle cx="30" cy="27" r="3.2" fill="#ff4d5e"><animate attributeName="opacity" values="1;.2;1" dur="1.6s" repeatCount="indefinite"/></circle>'+
+      '<text x="40" y="31" font-size="10" font-weight="700" letter-spacing="1.6" fill="#e9eef6">SECTOR MCF · UBA</text>'+
+      '<text x="16" y="56" font-size="8.5" letter-spacing="1.4" fill="rgba(201,211,227,.6)">34°35′S · 58°24′O</text></g>';
+    // brújula
+    const cxp = w-50, cyp = 50;
+    svg += '<g pointer-events="none" transform="translate('+cxp+','+cyp+')"><circle r="27" fill="rgba(5,9,15,.72)" stroke="rgba(35,240,255,.35)"/><circle r="21" fill="none" stroke="rgba(255,255,255,.14)" stroke-dasharray="1 3.2"/>'+
+      '<path d="M0 -18 L4.5 0 L0 2 L-4.5 0Z" fill="#ff4d5e"/><path d="M0 18 L4.5 0 L0 -2 L-4.5 0Z" fill="#c9d3e3"/><circle r="1.8" fill="#0b0f17"/>'+
+      '<text y="-30" font-family="Space Mono, monospace" font-size="9" font-weight="700" fill="#e9eef6" text-anchor="middle" dy="-1">N</text></g>';
+    // escala
+    svg += '<g pointer-events="none" font-family="Space Mono, monospace" transform="translate(18,'+(h-22)+')"><rect width="'+stepX.toFixed(1)+'" height="4" fill="#e9eef6"/><rect width="'+(stepX/2).toFixed(1)+'" height="4" fill="#0b0f17" stroke="#e9eef6" stroke-width=".8"/>'+
+      '<text y="-5" font-size="8.5" letter-spacing="1.3" fill="rgba(233,238,246,.75)">1 ESTACIÓN = 1 MATERIA</text></g>';
+    svg += '</svg>';
+    mapaEl.innerHTML = '<div class="ruta-scroll" tabindex="0" aria-label="Mapa de la ruta; deslizá horizontalmente en pantallas chicas">'+svg+'</div><div class="ruta-tip" id="rutaTip"></div>';
+
+    if(reduced){ const ch=mapaEl.querySelector('.ruta-char'); if(ch) ch.style.animation='none'; }
+    // en pantallas chicas, centrar el scroll en la estación actual
+    const sc = mapaEl.querySelector('.ruta-scroll');
+    requestAnimationFrame(()=>{ if(sc && sc.scrollWidth>sc.clientWidth){ sc.scrollLeft = Math.max(0, charPt.x/w*sc.scrollWidth - sc.clientWidth/2); } });
+
+    const tip = document.getElementById('rutaTip');
+    const show = node=>{
+      const box = mapaEl.getBoundingClientRect(), nb = node.getBoundingClientRect();
+      tip.textContent = node.dataset.tip;
+      tip.style.left = Math.min(Math.max(nb.left - box.left + nb.width/2, 110), box.width-110)+'px';
+      tip.style.top = (nb.top - box.top - 10)+'px';
+      tip.classList.add('show');
+    };
+    const hide = ()=>tip.classList.remove('show');
+    mapaEl.querySelectorAll('.ruta-node').forEach(node=>{
+      node.setAttribute('tabindex','0');
+      node.setAttribute('role','img');
+      node.setAttribute('aria-label', node.dataset.tip);
+      node.addEventListener('pointerenter', ()=>show(node));
+      node.addEventListener('pointerleave', hide);
+      node.addEventListener('focus', ()=>show(node));
+      node.addEventListener('blur', hide);
+      node.addEventListener('click', ()=>show(node));
+    });
+    mapaEl.addEventListener('pointerleave', hide);
+    if(sc) sc.addEventListener('scroll', hide, {passive:true});
+  }
+
+  renderHud();
+  renderMapa();
+  renderLista();
+
+  const KEY='mcf.ruta.lista.v1';
+  let showLista = reduced;
+  try{ if(localStorage.getItem(KEY)==='1') showLista = true; }catch(e){}
+  function apply(){
+    mapaEl.hidden = showLista;
+    listaEl.hidden = !showLista;
+    if(toggleBtn){ toggleBtn.setAttribute('aria-pressed', showLista?'true':'false'); toggleBtn.textContent = showLista?'Ver mapa':'Ver como lista'; }
+  }
+  apply();
+  if(toggleBtn) toggleBtn.addEventListener('click', ()=>{
+    showLista = !showLista;
+    try{ localStorage.setItem(KEY, showLista?'1':'0'); }catch(e){}
+    apply();
+    if(!showLista) renderMapa();
+  });
+})();
+
+</script>
 <script>
 (function(){
   const CAP = window.MCF_CAPACITACIONES || [];
